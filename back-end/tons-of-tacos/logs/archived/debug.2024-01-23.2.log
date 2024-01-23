@@ -1,0 +1,84 @@
+2024-01-23 00:14:41 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting UpdateCustomerEmailTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 117494 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:14:41 [main] DEBUG c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:14:41 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:14:41 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting UpdateCustomerEmailTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 117494 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:14:41 [main] DEBUG c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:14:41 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:14:42 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting UpdateCustomerEmailTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 117494 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:14:42 [main] DEBUG c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:14:42 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:15:51 [main] INFO  c.a.t.t.s.u.GetMenuCategoriesTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting GetMenuCategoriesTests.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 117922 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:15:51 [main] DEBUG c.a.t.t.s.u.GetMenuCategoriesTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:15:51 [main] INFO  c.a.t.t.s.u.GetMenuCategoriesTests$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:15:55 [main] INFO  c.a.t.t.s.u.GetMenuCategoriesTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting GetMenuCategoriesTests.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 117922 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:15:55 [main] DEBUG c.a.t.t.s.u.GetMenuCategoriesTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:15:55 [main] INFO  c.a.t.t.s.u.GetMenuCategoriesTests$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:15:56 [main] INFO  c.a.t.t.s.o.o.DeleteCustomerByUidTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting DeleteCustomerByUidTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 117922 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:15:56 [main] DEBUG c.a.t.t.s.o.o.DeleteCustomerByUidTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:15:56 [main] INFO  c.a.t.t.s.o.o.DeleteCustomerByUidTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:15:57 [main] INFO  c.a.t.t.s.o.o.DeleteCustomerByUidTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting DeleteCustomerByUidTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 117922 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:15:57 [main] DEBUG c.a.t.t.s.o.o.DeleteCustomerByUidTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:15:57 [main] INFO  c.a.t.t.s.o.o.DeleteCustomerByUidTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:15:58 [main] INFO  c.a.t.t.m.DbTests.NonEmptyTests -
+                Starting NonEmptyTests using Java 17.0.6 with PID 117922 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:15:58 [main] DEBUG c.a.t.t.m.DbTests.NonEmptyTests -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:15:58 [main] INFO  c.a.t.t.m.DbTests.NonEmptyTests -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:15:59 [main] INFO  c.a.t.t.m.DbTests.NonEmptyTests -
+                Starting NonEmptyTests using Java 17.0.6 with PID 117922 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:15:59 [main] DEBUG c.a.t.t.m.DbTests.NonEmptyTests -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:15:59 [main] INFO  c.a.t.t.m.DbTests.NonEmptyTests -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:16:00 [main] INFO  c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting GetMenuItemsByCategoryTests.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 117922 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:16:00 [main] DEBUG c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:16:00 [main] INFO  c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:16:00 [main] INFO  c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting GetMenuItemsByCategoryTests.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 117922 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:16:00 [main] DEBUG c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:16:00 [main] INFO  c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:16:01 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerPhoneTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting UpdateCustomerPhoneTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 117922 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:16:01 [main] DEBUG c.a.t.t.s.o.o.UpdateCustomerPhoneTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:16:01 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerPhoneTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:16:02 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerPhoneTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting UpdateCustomerPhoneTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 117922 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:16:02 [main] DEBUG c.a.t.t.s.o.o.UpdateCustomerPhoneTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:16:02 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerPhoneTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:16:02 [main] INFO  c.a.t.t.mockTests.DbTests.EmptyTests -
+                Starting EmptyTests using Java 17.0.6 with PID 117922 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:16:02 [main] DEBUG c.a.t.t.mockTests.DbTests.EmptyTests -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:16:02 [main] INFO  c.a.t.t.mockTests.DbTests.EmptyTests -
+                No active profile set, falling back to 1 default profile: "default"

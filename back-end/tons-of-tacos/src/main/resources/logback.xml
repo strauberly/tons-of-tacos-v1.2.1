@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="DEV_HOME" value="logs" />
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %n %boldBlue(%d{yyyy-MM-dd HH:mm:ss}) [%thread] %-5level %logger{36} -
+                %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="Debug"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${DEV_HOME}/debug.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -
+                %msg%n
+            </Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${DEV_HOME}/archived/debug.%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10KB</maxFileSize>
+                <maxHistory>30</maxHistory>
+                <totalSizeCap>50KB</totalSizeCap>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+<!--system error-->
+
+    <appender name="Error"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${DEV_HOME}/error.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -
+                %msg%n
+            </Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${DEV_HOME}/archived/error.%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10KB</maxFileSize>
+                <maxHistory>30</maxHistory>
+                <totalSizeCap>50KB</totalSizeCap>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <!-- Send logs to both console and logger -->
+    <logger name="com.adamstraub.tonsoftacos" level="trace" additivity="false" >
+        <appender-ref ref="Debug" />
+        <appender-ref ref="Error" />
+    </logger>
+
+    <root level="error">
+        <appender-ref ref="Error" />
+    </root>
+
+</configuration>

@@ -1,0 +1,92 @@
+2023-10-15 15:53:37 [main] INFO  c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting CreateOrderTests.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 160407 (started by brian in /media/brian/Expansion/disk 2/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2023-10-15 15:53:37 [main] DEBUG c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2023-10-15 15:53:37 [main] INFO  c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2023-10-15 15:53:40 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
+2023-10-15 15:53:41 [main] INFO  c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Started CreateOrderTests.testThatDoesNotPolluteTheApplicationContextUris in 4.304 seconds (process running for 5.085)
+2023-10-15 15:59:36 [main] INFO  c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting CreateOrderTests.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 160736 (started by brian in /media/brian/Expansion/disk 2/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2023-10-15 15:59:36 [main] DEBUG c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2023-10-15 15:59:36 [main] INFO  c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2023-10-15 15:59:39 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
+2023-10-15 15:59:40 [main] INFO  c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Started CreateOrderTests.testThatDoesNotPolluteTheApplicationContextUris in 4.238 seconds (process running for 5.005)
+2023-10-15 16:25:06 [main] INFO  c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting CreateOrderTests.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 161663 (started by brian in /media/brian/Expansion/disk 2/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2023-10-15 16:25:06 [main] DEBUG c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2023-10-15 16:25:06 [main] INFO  c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2023-10-15 16:25:09 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
+2023-10-15 16:25:10 [main] INFO  c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Started CreateOrderTests.testThatDoesNotPolluteTheApplicationContextUris in 4.324 seconds (process running for 5.077)
+2023-10-15 16:29:00 [main] INFO  c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting CreateOrderTests.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 161897 (started by brian in /media/brian/Expansion/disk 2/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2023-10-15 16:29:00 [main] DEBUG c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2023-10-15 16:29:00 [main] INFO  c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2023-10-15 16:29:04 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
+2023-10-15 16:29:04 [main] INFO  c.a.t.t.s.o.CreateOrderTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Started CreateOrderTests.testThatDoesNotPolluteTheApplicationContextUris in 4.268 seconds (process running for 5.041)
+2023-10-15 16:41:52 [main] INFO  c.a.t.t.s.o.a.LoginTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting LoginTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 162445 (started by brian in /media/brian/Expansion/disk 2/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2023-10-15 16:41:52 [main] DEBUG c.a.t.t.s.o.a.LoginTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2023-10-15 16:41:52 [main] INFO  c.a.t.t.s.o.a.LoginTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2023-10-15 16:41:56 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
+2023-10-15 16:41:56 [main] INFO  c.a.t.t.s.o.a.LoginTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Started LoginTest.testThatDoesNotPolluteTheApplicationContextUris in 4.328 seconds (process running for 5.09)
+2023-10-15 16:43:47 [main] INFO  c.a.t.t.s.o.a.LoginTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting LoginTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 162629 (started by brian in /media/brian/Expansion/disk 2/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2023-10-15 16:43:47 [main] DEBUG c.a.t.t.s.o.a.LoginTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2023-10-15 16:43:47 [main] INFO  c.a.t.t.s.o.a.LoginTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2023-10-15 16:43:50 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
+2023-10-15 16:43:51 [main] INFO  c.a.t.t.s.o.a.LoginTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Started LoginTest.testThatDoesNotPolluteTheApplicationContextUris in 4.305 seconds (process running for 5.087)
+2023-10-15 17:02:03 [main] INFO  c.a.t.t.s.o.a.LoginTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting LoginTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 163406 (started by brian in /media/brian/Expansion/disk 2/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2023-10-15 17:02:03 [main] DEBUG c.a.t.t.s.o.a.LoginTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2023-10-15 17:02:03 [main] INFO  c.a.t.t.s.o.a.LoginTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2023-10-15 17:02:06 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
+2023-10-15 17:02:07 [main] INFO  c.a.t.t.s.o.a.LoginTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Started LoginTest.testThatDoesNotPolluteTheApplicationContextUris in 4.223 seconds (process running for 5.02)
+2023-10-15 17:04:29 [main] INFO  c.a.t.t.s.o.o.DeleteCustomerByUidTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting DeleteCustomerByUidTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 163611 (started by brian in /media/brian/Expansion/disk 2/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2023-10-15 17:04:29 [main] DEBUG c.a.t.t.s.o.o.DeleteCustomerByUidTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2023-10-15 17:04:29 [main] INFO  c.a.t.t.s.o.o.DeleteCustomerByUidTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2023-10-15 17:04:32 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
+2023-10-15 17:04:33 [main] INFO  c.a.t.t.s.o.o.DeleteCustomerByUidTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Started DeleteCustomerByUidTest.testThatDoesNotPolluteTheApplicationContextUris in 4.142 seconds (process running for 5.069)
+2023-10-15 17:04:33 [http-nio-auto-1-exec-3] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=No customer found with that UID. Please verify and try  again., uri=/api/owners-tools/customers/get-customer-uid/customerUid, timestamp=Sun, 15 Oct 2023 17:04:33 -0700}
+2023-10-15 17:04:33 [http-nio-auto-1-exec-5] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=No customer with that uid found. Please check formatting and verify customer exists., uri=/api/owners-tools/customers/delete-customer/85, timestamp=Sun, 15 Oct 2023 17:04:33 -0700}
+2023-10-15 17:04:33 [main] INFO  c.a.t.t.m.DbTests.NonEmptyTests -
+                Starting NonEmptyTests using Java 17.0.6 with PID 163611 (started by brian in /media/brian/Expansion/disk 2/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2023-10-15 17:04:33 [main] DEBUG c.a.t.t.m.DbTests.NonEmptyTests -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2023-10-15 17:04:33 [main] INFO  c.a.t.t.m.DbTests.NonEmptyTests -
+                No active profile set, falling back to 1 default profile: "default"
+2023-10-15 17:04:34 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use

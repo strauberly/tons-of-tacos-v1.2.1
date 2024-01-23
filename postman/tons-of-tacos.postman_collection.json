@@ -1,0 +1,620 @@
+{
+	"info": {
+		"_postman_id": "e862bcc1-e1f6-4bd9-a7e1-f57457333853",
+		"name": "tons-of-tacos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "menu-item-tests",
+			"item": [
+				{
+					"name": "get menu item by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/menu/id?id=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"menu",
+								"id"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get menu item by category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/menu/category?category=taco",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"menu",
+								"category"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "taco"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "orders-test",
+			"item": [
+				{
+					"name": "create new order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customer\": {\n        \"name\": \"steve steveson\",\n        \"email\": \"stebie@weebie.com\",\n        \"phoneNumber\": \"555.555.5959\"\n    },\n    \"order\": {\n        \"orderUid\": \"222-4384-444\",\n        \"orderItems\": [\n            {\n                \"itemId\": {\n                    \"id\": 2\n                },\n                \"quantity\": 2\n            },\n            {\n                \"itemId\": {\n                    \"id\": 16\n                },\n                \"quantity\": 2\n            },\n            {\n                \"itemId\": {\n                    \"id\": 4\n                },\n                \"quantity\": 4\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/order/checkout",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"order",
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "owners-tools-test",
+			"item": [
+				{
+					"name": "orders",
+					"item": [
+						{
+							"name": "get all orders",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/owners-tools/orders/get-orders",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"orders",
+										"get-orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "order by uid query",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/owners-tools/orders/get-order/orderUid?orderUid=654654-465465-555",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"orders",
+										"get-order",
+										"orderUid"
+									],
+									"query": [
+										{
+											"key": "orderUid",
+											"value": "654654-465465-555"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "order by customer query",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/owners-tools/orders/get-order/customer?customer=Tim Timson",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"orders",
+										"get-order",
+										"customer"
+									],
+									"query": [
+										{
+											"key": "customer",
+											"value": "Tim Timson"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "order by id query",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/owners-tools/orders/get-order/orderId?orderId=1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"orders",
+										"get-order",
+										"orderId"
+									],
+									"query": [
+										{
+											"key": "orderId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit order item quantity",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/owners-tools/orders/update-order-item/1/2/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"orders",
+										"update-order-item",
+										"1",
+										"2",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add to order",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/owners-tools/orders/add-to-order/1/3/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"orders",
+										"add-to-order",
+										"1",
+										"3",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete order",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/owners-tools/orders/delete-order/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"orders",
+										"delete-order",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "order ready",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/owners-tools/orders/order-ready/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"orders",
+										"order-ready",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "close order",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/owners-tools/orders/close-order/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"orders",
+										"close-order",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "todays sales",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/owners-tools/orders/sales",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"orders",
+										"sales"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "customers",
+					"item": [
+						{
+							"name": "get all customers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/owners-tools/get-customers",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"get-customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customer by name query",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/owners-tools/get-customer/name?name=Tim Timson",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"get-customer",
+										"name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Tim Timson"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customer by id query",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/owners-tools/get-customer/customerId?customerId=2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"get-customer",
+										"customerId"
+									],
+									"query": [
+										{
+											"key": "customerId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update customer name",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/owners-tools/edit-customer-name/2/Bobert Bobson",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"edit-customer-name",
+										"2",
+										"Bobert Bobson"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update customer email",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/owners-tools/edit-customer-email/2/bobby@bobert.com",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"edit-customer-email",
+										"2",
+										"bobby@bobert.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update customer phone",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/owners-tools/edit-customer-phone/2/555.555.5558",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"edit-customer-phone",
+										"2",
+										"555.555.5558"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete customer",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/owners-tools/delete-order/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools",
+										"delete-order",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\":\"jcast44\",\n    \"psswrd\":\"tacoocatdfgddgf\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/owners-tools-login/",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"owners-tools-login",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "test access restriction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"test\" : \"data\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/menu-item",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"menu-item"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

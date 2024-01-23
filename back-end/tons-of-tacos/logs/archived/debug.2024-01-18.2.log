@@ -1,0 +1,86 @@
+2024-01-18 15:46:49 [main] INFO  c.a.t.t.s.o.o.GetOrdersByCustomerTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Started GetOrdersByCustomerTests.testThatDoesNotPolluteTheApplicationContextUris in 0.871 seconds (process running for 13.46)
+2024-01-18 15:46:49 [http-nio-auto-4-exec-4] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=No orders for customer found., uri=/api/owners-tools/orders/get-order-customer/customer, timestamp=Thu, 18 Jan 2024 15:46:49 -0700}
+2024-01-18 15:46:49 [http-nio-auto-4-exec-5] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=403 FORBIDDEN, message=Session expired., uri=/api/owners-tools/customers/delete-customer/1, timestamp=Thu, 18 Jan 2024 15:46:49 -0700}
+2024-01-18 15:46:49 [http-nio-auto-4-exec-6] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=401 UNAUTHORIZED, message=User unauthorized., uri=/api/owners-tools/customers/delete-customer/1, timestamp=Thu, 18 Jan 2024 15:46:49 -0700}
+2024-01-18 15:46:49 [http-nio-auto-1-exec-2] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=400 BAD_REQUEST, message=Customer name incorrectly formatted. Please consult the documentation., uri=/api/owners-tools/customers/edit-customer-name/gd34-igjr/dsfk%20jh!@, timestamp=Thu, 18 Jan 2024 15:46:49 -0700}
+2024-01-18 15:46:49 [http-nio-auto-1-exec-4] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=No customer with that id found., uri=/api/owners-tools/customers/edit-customer-name/54/Gary%20Garrison, timestamp=Thu, 18 Jan 2024 15:46:49 -0700}
+2024-01-18 15:46:50 [http-nio-auto-1-exec-6] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=400 BAD_REQUEST, message=Order can not be closed if order is not ready., uri=/api/owners-tools/orders/close-order/654654-465465-555, timestamp=Thu, 18 Jan 2024 15:46:50 -0700}
+2024-01-18 15:46:50 [http-nio-auto-1-exec-4] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=Order cannot be found and as such can not be closed. Please verify order id., uri=/api/owners-tools/orders/close-order/66, timestamp=Thu, 18 Jan 2024 15:46:50 -0700}
+2024-01-18 15:46:50 [http-nio-auto-1-exec-6] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=No customer found with that UID. Please verify and try  again., uri=/api/owners-tools/customers/get-customer-uid/customerUid, timestamp=Thu, 18 Jan 2024 15:46:50 -0700}
+2024-01-18 15:46:50 [http-nio-auto-1-exec-6] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=Order does not exist. Please verify order id and try again., uri=/api/owners-tools/orders/order-ready/88, timestamp=Thu, 18 Jan 2024 15:46:50 -0700}
+2024-01-18 15:46:51 [http-nio-auto-4-exec-1] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=400 BAD_REQUEST, message=Customer name incorrectly formatted. Please consult the documentation., uri=/api/order/checkout, timestamp=Thu, 18 Jan 2024 15:46:51 -0700}
+2024-01-18 15:46:51 [main] INFO  c.a.t.t.TonsOfTacosApplicationTests -
+                Starting TonsOfTacosApplicationTests using Java 17.0.6 with PID 226603 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-18 15:46:51 [main] DEBUG c.a.t.t.TonsOfTacosApplicationTests -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-18 15:46:51 [main] INFO  c.a.t.t.TonsOfTacosApplicationTests -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-18 15:46:52 [main] INFO  c.a.t.t.TonsOfTacosApplicationTests -
+                Started TonsOfTacosApplicationTests in 0.811 seconds (process running for 16.384)
+2024-01-18 15:46:52 [http-nio-auto-1-exec-1] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=No customer with that id found., uri=/api/owners-tools/customers/edit-customer-email/13/larry@larbo.com, timestamp=Thu, 18 Jan 2024 15:46:52 -0700}
+2024-01-18 15:46:52 [http-nio-auto-1-exec-7] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=400 BAD_REQUEST, message=Email does not match formatting requirements, please consult the docs., uri=/api/owners-tools/customers/edit-customer-email/gd34-igjr/larrylarbo.com, timestamp=Thu, 18 Jan 2024 15:46:52 -0700}
+2024-01-18 15:51:32 [main] INFO  c.a.t.TonsOfTacosApplication -
+                Starting TonsOfTacosApplication using Java 17.0.6 with PID 227021 (/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/target/classes started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-18 15:51:32 [main] DEBUG c.a.t.TonsOfTacosApplication -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-18 15:51:32 [main] INFO  c.a.t.TonsOfTacosApplication -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-18 15:51:35 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
+2024-01-18 15:51:36 [main] INFO  c.a.t.TonsOfTacosApplication -
+                Started TonsOfTacosApplication in 4.555 seconds (process running for 4.944)
+2024-01-18 15:52:11 [http-nio-8080-exec-3] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=You have chosen a category that does not exist. Please check your spelling and formatting., uri=/api/menu/category, timestamp=Thu, 18 Jan 2024 15:52:11 -0700}
+2024-01-18 15:52:11 [http-nio-8080-exec-4] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=You have chosen a category that does not exist. Please check your spelling and formatting., uri=/api/menu/category, timestamp=Thu, 18 Jan 2024 15:52:11 -0700}
+2024-01-18 16:00:51 [http-nio-8080-exec-8] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=You have chosen a category that does not exist. Please check your spelling and formatting., uri=/api/menu/category, timestamp=Thu, 18 Jan 2024 16:00:51 -0700}
+2024-01-18 17:20:11 [main] INFO  c.a.t.t.s.o.o.DeleteCustomerByUidTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting DeleteCustomerByUidTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 11797 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-18 17:20:11 [main] DEBUG c.a.t.t.s.o.o.DeleteCustomerByUidTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-18 17:20:11 [main] INFO  c.a.t.t.s.o.o.DeleteCustomerByUidTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-18 17:20:16 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
+2024-01-18 17:20:17 [main] INFO  c.a.t.t.s.o.o.DeleteCustomerByUidTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Started DeleteCustomerByUidTest.testThatDoesNotPolluteTheApplicationContextUris in 6.211 seconds (process running for 8.446)
+2024-01-18 17:20:17 [http-nio-auto-1-exec-3] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=No customer found with that UID. Please verify and try  again., uri=/api/owners-tools/customers/get-customer-uid/customerUid, timestamp=Thu, 18 Jan 2024 17:20:17 -0700}
+2024-01-18 17:20:18 [http-nio-auto-1-exec-5] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=No customer with that uid found. Please check formatting and verify customer exists., uri=/api/owners-tools/customers/delete-customer/85, timestamp=Thu, 18 Jan 2024 17:20:18 -0700}
+2024-01-18 17:20:18 [main] INFO  c.a.t.t.m.DbTests.NonEmptyTests -
+                Starting NonEmptyTests using Java 17.0.6 with PID 11797 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-18 17:20:18 [main] DEBUG c.a.t.t.m.DbTests.NonEmptyTests -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-18 17:20:18 [main] INFO  c.a.t.t.m.DbTests.NonEmptyTests -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-18 17:20:19 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
+2024-01-18 17:20:19 [main] INFO  c.a.t.t.m.DbTests.NonEmptyTests -
+                Started NonEmptyTests in 1.229 seconds (process running for 10.709)
+2024-01-18 17:20:19 [http-nio-auto-1-exec-7] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=You have chosen a category that does not exist. Please check your spelling and formatting., uri=/api/menu/category, timestamp=Thu, 18 Jan 2024 17:20:19 -0700}
+2024-01-18 17:20:19 [http-nio-auto-1-exec-3] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=No customer with that uid found. Please check formatting and verify customer exists., uri=/api/owners-tools/customers/edit-customer-phone/14/555.555.5156, timestamp=Thu, 18 Jan 2024 17:20:19 -0700}
+2024-01-18 17:20:19 [main] INFO  c.a.t.t.mockTests.DbTests.EmptyTests -
+                Starting EmptyTests using Java 17.0.6 with PID 11797 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-18 17:20:19 [main] DEBUG c.a.t.t.mockTests.DbTests.EmptyTests -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-18 17:20:19 [main] INFO  c.a.t.t.mockTests.DbTests.EmptyTests -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-18 17:20:21 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use

@@ -1,0 +1,86 @@
+2024-01-23 00:16:30 [main] INFO  c.a.t.t.TonsOfTacosApplicationTests -
+                Started TonsOfTacosApplicationTests in 0.857 seconds (process running for 40.096)
+2024-01-23 00:16:30 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting UpdateCustomerEmailTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 117922 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:16:30 [main] DEBUG c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:16:30 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:16:30 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting UpdateCustomerEmailTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 117922 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:16:30 [main] DEBUG c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:16:30 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:16:31 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting UpdateCustomerEmailTest.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 117922 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:16:31 [main] DEBUG c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:16:31 [main] INFO  c.a.t.t.s.o.o.UpdateCustomerEmailTest$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:18:51 [main] INFO  c.a.t.t.s.u.GetMenuCategoriesTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting GetMenuCategoriesTests.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 118381 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:18:51 [main] DEBUG c.a.t.t.s.u.GetMenuCategoriesTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:18:51 [main] INFO  c.a.t.t.s.u.GetMenuCategoriesTests$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:26:12 [main] INFO  c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting GetMenuItemsByCategoryTests.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 118712 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:26:12 [main] DEBUG c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:26:12 [main] INFO  c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:26:16 [main] INFO  c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting GetMenuItemsByCategoryTests.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 118712 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:26:16 [main] DEBUG c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:26:16 [main] INFO  c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:29:28 [main] INFO  c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting GetMenuItemsByCategoryTests.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 118906 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:29:28 [main] DEBUG c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:29:28 [main] INFO  c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:29:33 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
+2024-01-23 00:29:34 [main] INFO  c.a.t.t.s.m.GetMenuItemsByCategoryTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Started GetMenuItemsByCategoryTests.testThatDoesNotPolluteTheApplicationContextUris in 5.864 seconds (process running for 6.976)
+2024-01-23 00:29:34 [http-nio-auto-1-exec-2] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=You have chosen a category that does not exist. Please check your spelling and formatting., uri=/api/menu/category, timestamp=Tue, 23 Jan 2024 00:29:34 -0700}
+2024-01-23 00:29:44 [main] INFO  c.a.t.t.s.u.GetMenuCategoriesTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Starting GetMenuCategoriesTests.testThatDoesNotPolluteTheApplicationContextUris using Java 17.0.6 with PID 119060 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:29:44 [main] DEBUG c.a.t.t.s.u.GetMenuCategoriesTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:29:44 [main] INFO  c.a.t.t.s.u.GetMenuCategoriesTests$testThatDoesNotPolluteTheApplicationContextUris -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:29:49 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
+2024-01-23 00:29:50 [main] INFO  c.a.t.t.s.u.GetMenuCategoriesTests$testThatDoesNotPolluteTheApplicationContextUris -
+                Started GetMenuCategoriesTests.testThatDoesNotPolluteTheApplicationContextUris in 5.742 seconds (process running for 7.085)
+2024-01-23 00:29:51 [http-nio-auto-1-exec-4] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=No customer found with that UID. Please verify and try  again., uri=/api/owners-tools/customers/get-customer-uid/customerUid, timestamp=Tue, 23 Jan 2024 00:29:51 -0700}
+2024-01-23 00:29:51 [http-nio-auto-1-exec-6] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=No customer with that uid found. Please check formatting and verify customer exists., uri=/api/owners-tools/customers/delete-customer/85, timestamp=Tue, 23 Jan 2024 00:29:51 -0700}
+2024-01-23 00:29:51 [main] INFO  c.a.t.t.m.DbTests.NonEmptyTests -
+                Starting NonEmptyTests using Java 17.0.6 with PID 119060 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:29:51 [main] DEBUG c.a.t.t.m.DbTests.NonEmptyTests -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:29:51 [main] INFO  c.a.t.t.m.DbTests.NonEmptyTests -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:29:52 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
+2024-01-23 00:29:52 [main] INFO  c.a.t.t.m.DbTests.NonEmptyTests -
+                Started NonEmptyTests in 1.111 seconds (process running for 9.412)
+2024-01-23 00:29:52 [http-nio-auto-1-exec-8] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=You have chosen a category that does not exist. Please check your spelling and formatting., uri=/api/menu/category, timestamp=Tue, 23 Jan 2024 00:29:52 -0700}
+2024-01-23 00:29:52 [http-nio-auto-1-exec-4] DEBUG c.a.t.e.GlobalExceptionHandler -
+                {status code=404 NOT_FOUND, message=No customer with that uid found. Please check formatting and verify customer exists., uri=/api/owners-tools/customers/edit-customer-phone/14/555.555.5156, timestamp=Tue, 23 Jan 2024 00:29:52 -0700}
+2024-01-23 00:29:53 [main] INFO  c.a.t.t.mockTests.DbTests.EmptyTests -
+                Starting EmptyTests using Java 17.0.6 with PID 119060 (started by brian in /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos)
+2024-01-23 00:29:53 [main] DEBUG c.a.t.t.mockTests.DbTests.EmptyTests -
+                Running with Spring Boot v3.0.1, Spring v6.0.3
+2024-01-23 00:29:53 [main] INFO  c.a.t.t.mockTests.DbTests.EmptyTests -
+                No active profile set, falling back to 1 default profile: "default"
+2024-01-23 00:29:54 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
+                Filter 'jwtAuthFilter' configured for use
