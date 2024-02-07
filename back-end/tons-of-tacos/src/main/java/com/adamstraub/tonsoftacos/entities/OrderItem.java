@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Builder
-@Table(name = "order_items")
+@Table(name = "order_item")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,6 +33,9 @@ public class OrderItem implements Serializable {
     @Column(name = "total")
     private BigDecimal total;
 
+    @Column(name = "order_item_size")
+    private Character size;
+
     @ManyToOne()
     @JoinColumn(name = "order_fk")
     private Orders order;
@@ -49,6 +52,7 @@ public class OrderItem implements Serializable {
                 ", id=" + item +
                 ", order='" + order + '\'' +
                 ", quantity=" + quantity +
+                ", size=" + size +
                 ", total=" + total +
                 '}';
     }

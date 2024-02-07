@@ -36,7 +36,6 @@ public class MenuItem {
     @Column (name = "item_size")
     private String itemSize;
 
-
     @Column(name = "unit_price")
     private BigDecimal unitPrice;
 

@@ -29,36 +29,38 @@ public interface OrdersControllerInterface {
                   
                   Sample food order object:
                   
-                  
-                   {
-                                       "customer": {
-                                           "name": "bill billson",
-                                           "email": "billy@bolly.com",
-                                           "phoneNumber": "555.555.5959"
-                                       },
-                                       "order": {
-                                           "orderItems": [
-                                               {
-                                                   "item": {
-                                                       "id": 2
-                                                   },
-                                                   "quantity": 2
-                                               },
-                                               {
-                                                   "item": {
-                                                       "id": 12
-                                                   },
-                                                   "quantity": 1
-                                               },
-                                               {
-                                                   "item": {
-                                                       "id": 3
-                                                   },
-                                                   "quantity": 3
-                                               }
-                                           ]
-                                       }
-                                   }
+                    {
+                    "customer": {
+                        "name": "billy billson",
+                        "email": "billy@bolly.com",
+                        "phoneNumber": "555.555.5959"
+                    },
+                    "order": {
+                        "orderItems": [
+                            {
+                                "item": {
+                                    "id": 7
+                                },
+                                "quantity": 2,
+                                "size": "l"
+                            },
+                            {
+                                "item": {
+                                    "id": 12
+                                },
+                                "quantity": 1,
+                                "size": " "
+                            },
+                            {
+                                "item": {
+                                    "id": 3
+                                },
+                                "quantity": 3,
+                                "size": " "
+                            }
+                        ]
+                    }
+                }
                                    
                     This will return a response containing a order confirmation for the customer.
                     
@@ -69,15 +71,17 @@ public interface OrdersControllerInterface {
                       "orderUid": "NP0DQ",
                       "orderItems": [
                         {
-                          "itemName": "golden pound",
-                          "unitPrice": 5.3,
+                          "itemName": "horchata",
+                          "unitPrice": 1.5,
                           "quantity": 2,
-                          "total": 10.6
+                          "size":"l"
+                          "total": 3.00
                         },
                         {
                           "itemName": "iced tea",
                           "unitPrice": 2,
                           "quantity": 1,
+                            "size":" "
                           "total": 2
                         },
                         {
