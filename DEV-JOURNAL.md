@@ -2,6 +2,19 @@
 
 ---
 
+--- 6 Feb 2023 ---
+
+- Adjusted database to better reflect standardized naming conventions.
+- Adjusted order item table in order to make use of pricing adjustments determined for item sizing.
+- Adjusted entities to reflect updated db.
+- Ran test suite, located errors and cleaned those up.
+- Updated DTOs where appropriate.
+- Implemented pricing adjustment logic in orders service.
+- Ran test suite and results are currently as desired.
+- Updated controller documentation for creating orders to reflect new object required to create an order.
+
+---
+
 --- 22 Jan 2023 ---
 
 - Updated sql scripts and database for menu categories.

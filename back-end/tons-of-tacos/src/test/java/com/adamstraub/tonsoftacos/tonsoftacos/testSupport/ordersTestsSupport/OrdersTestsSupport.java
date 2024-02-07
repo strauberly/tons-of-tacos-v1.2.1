@@ -19,7 +19,7 @@ public class OrdersTestsSupport extends TestUris {
                         "orderItems": [
                             {
                                 "item": {
-                                    "id": 2
+                                    "id": 7
                                 },
                                 "quantity": 2
                             },
@@ -56,21 +56,24 @@ public class OrdersTestsSupport extends TestUris {
                         "orderItems": [
                             {
                                 "item": {
-                                    "id": 2
+                                    "id": 7
                                 },
-                                "quantity": 2
+                                "quantity": 2,
+                                "size": "l"
                             },
                             {
                                 "item": {
                                     "id": 12
                                 },
-                                "quantity": 1
+                                "quantity": 1,
+                                "size": " "
                             },
                             {
                                 "item": {
                                     "id": 3
                                 },
-                                "quantity": 3
+                                "quantity": 3,
+                                "size": " "
                             }
                         ]
                     }

@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Table(name = "menu_categories")
+@Table(name = "menu_category")
 @Getter
 @Setter
 @NoArgsConstructor

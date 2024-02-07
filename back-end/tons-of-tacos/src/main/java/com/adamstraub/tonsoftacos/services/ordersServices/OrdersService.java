@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,11 +43,17 @@ public class OrdersService implements OrdersServiceInterface {
     public OrderReturnedToCustomer createOrder(@RequestBody @NotNull NewOrder order) {
         System.out.println("service");
 
+        System.out.println("order submitted " + order);
+
         BigDecimal orderTotal = BigDecimal.valueOf(0.00);
         OrderReturnedToCustomer customerCopyDto = new OrderReturnedToCustomer();
+
         Orders newOrder = order.getOrder();
+
         Orders orderConfirmation;
-        List<OrderItem> orderItems = newOrder.getOrderItems();
+
+        List<OrderItem> receivedOrderItems = newOrder.getOrderItems();
+
         List<OrderItemReturnedToCustomer> orderItemDtos = new ArrayList<>();
 
 //  validation
@@ -85,12 +92,31 @@ public class OrdersService implements OrdersServiceInterface {
                 newCustomer = customerRepository.findByName(newCustomer.getName());
             }
 
-//  set order items
-                newOrder.setOrderItems(orderItems);
-//  calculate order total
-                for (OrderItem orderItem : orderItems) {
-                    orderItem.setTotal(BigDecimal.valueOf(orderItem.getQuantity()).multiply(
-                            menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice()));
+//            instantiate orderitems so they can be worked with
+                newOrder.setOrderItems(receivedOrderItems);
+
+//            set total for each order item before creating the dto and update the grand total
+//        will most likely need to outsource to another method or class and create library (something like if category drink m=.25 l=.50, if category side m=.75 and l=1.00)
+                for (OrderItem orderItem: receivedOrderItems) {
+                    char itemSize = orderItem.getSize();
+
+                    BigDecimal adjustedUnitPrice = switch (itemSize) {
+                        case 'm' -> menuItemRepository
+                                .getReferenceById(orderItem
+                                        .getItem()
+                                        .getId())
+                                .getUnitPrice()
+                                .add(BigDecimal.valueOf(0.25));
+                        case 'l' -> menuItemRepository
+                                .getReferenceById(orderItem
+                                        .getItem()
+                                        .getId())
+                                .getUnitPrice()
+                                .add(BigDecimal.valueOf(0.50));
+                        default -> menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice();
+                    };
+
+                    orderItem.setTotal(adjustedUnitPrice.multiply(BigDecimal.valueOf(orderItem.getQuantity())));
                     orderTotal = orderTotal.add(orderItem.getTotal());
                 }
 //  set order total, customer uid and customer id for new customer
@@ -100,12 +126,9 @@ public class OrdersService implements OrdersServiceInterface {
 
 //  set order uid
                     newOrder.setOrderUid(genOrderUid());
-
-                    System.out.println("new order before save: " + newOrder);
-
                     ordersRepository.save(newOrder);
 
-//        reset valid flags
+//        reset validation flags
                 customerNameValid = false;
                 customerPhoneNumberValid = false;
                 customerEmailValid = false;
@@ -116,8 +139,8 @@ public class OrdersService implements OrdersServiceInterface {
                 customerCopyDto.setOrderUid(newOrder.getOrderUid());
                 customerCopyDto.setOrderTotal(newOrder.getOrderTotal());
 
-                orderItems = orderConfirmation.getOrderItems();
-                for (OrderItem orderItem : orderItems) {
+                receivedOrderItems = orderConfirmation.getOrderItems();
+                for (OrderItem orderItem : receivedOrderItems) {
                     orderItemDtos.add(orderItemDtoConvertor(orderItem));
                 }
                 customerCopyDto.setOrderItems(orderItemDtos);
@@ -132,9 +155,10 @@ public class OrdersService implements OrdersServiceInterface {
 
         orderItemDto.setItemName(menuItemRepository.getReferenceById(orderItem.getItem().getId()).getItemName());
         orderItemDto.setQuantity(orderItem.getQuantity());
+        orderItemDto.setUnitPrice(orderItem.getTotal().divide(BigDecimal.valueOf(orderItem.getQuantity()), 2, RoundingMode.UP));
         orderItemDto.setTotal(orderItem.getTotal());
-        orderItemDto.setUnitPrice(menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice());
-
+        orderItemDto.setSize(orderItem.getSize());
+        System.out.println(orderItemDto);
         return orderItemDto;
     }
 

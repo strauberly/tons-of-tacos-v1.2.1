@@ -32,18 +32,19 @@ PRIMARY KEY (order_pk),
 FOREIGN KEY (customer_fk) REFERENCES customer(customer_pk)ON DELETE SET NULL
 );
 
-CREATE TABLE order_items(
+CREATE TABLE order_item(
 order_item_pk INT unsigned NOT NULL AUTO_INCREMENT,
 item_fk INT unsigned NOT NULL,
 quantity INT(2) NOT NULL,
 total DECIMAL(5, 2) DEFAULT 0.00 NOT NULL,
+order_item_size VARCHAR(3) DEFAULT NULL,
 order_fk INT unsigned NOT NULL,
 PRIMARY KEY (order_item_pk),
 FOREIGN KEY (item_fk) REFERENCES menu_item(item_pk),
 FOREIGN KEY (order_fk) REFERENCES orders(order_pk)
 );
 
-CREATE TABLE owners(
+CREATE TABLE owner(
 owners_pk INT unsigned NOT NULL AUTO_INCREMENT,
 name VARCHAR(20) NOT NULL,
 username VARCHAR(20) NOT NULL,
@@ -53,10 +54,11 @@ role VARCHAR(12) NOT NULL,
 PRIMARY KEY (owners_pk)
 );
 
-CREATE TABLE menu_categories(
+CREATE TABLE menu_category(
 menu_category_pk INT unsigned NOT NULL AUTO_INCREMENT,
 name VARCHAR (20) NOT NULL,
 description VARCHAR (255) NOT NULL,
 available CHAR (1) NOT NULL,
 PRIMARY KEY (menu_category_pk)
 )
+

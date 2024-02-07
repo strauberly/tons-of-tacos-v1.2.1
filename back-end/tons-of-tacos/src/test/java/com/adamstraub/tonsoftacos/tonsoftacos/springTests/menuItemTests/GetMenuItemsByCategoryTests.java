@@ -43,7 +43,7 @@ class GetMenuItemsByCategoryTests {
         void menuItemsAreReturnedByCategoryWith200() {
             System.out.println(getBaseUriForMenuItemByCategoryQuery());
 //        Given: a valid menu id category
-            String categoryName = "tacos";
+            String categoryName = "toppings";
             String parameter = "category";
             String uri =
                     String.format("%s?%s=%s", getBaseUriForMenuItemByCategoryQuery(), parameter, categoryName);
@@ -57,6 +57,9 @@ class GetMenuItemsByCategoryTests {
 //            Then: a 200 ok code is returned
             System.out.println(("Response code is " + response.getStatusCode() + "."));
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+            System.out.println("Menu items returned: " + response.getBody());
+
 //
 //           And: returned items category = category entered for query
             LinkedList<MenuItem> returnedCategoryItems = new LinkedList<>(Objects.requireNonNull(response.getBody()));
