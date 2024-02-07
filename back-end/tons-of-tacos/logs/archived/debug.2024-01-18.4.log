@@ -1,4 +1,0 @@
-2024-01-18 17:29:58 [main] DEBUG c.a.t.config.security.JwtAuthFilter -
-                Filter 'jwtAuthFilter' configured for use
-2024-01-18 17:29:59 [main] INFO  c.a.t.TonsOfTacosApplication -
-                Started TonsOfTacosApplication in 4.395 seconds (process running for 4.833)
