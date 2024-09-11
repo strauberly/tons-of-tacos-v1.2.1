@@ -9,6 +9,7 @@ import com.adamstraub.tonsoftacos.dao.CustomerRepository;
 import com.adamstraub.tonsoftacos.dao.OrdersRepository;
 import com.adamstraub.tonsoftacos.entities.Customer;
 import com.adamstraub.tonsoftacos.entities.Orders;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,12 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 
+@Slf4j
 @Service
 public class OrdersService implements OrdersServiceInterface {
     @Autowired
@@ -43,45 +46,49 @@ public class OrdersService implements OrdersServiceInterface {
     public OrderReturnedToCustomer createOrder(@RequestBody @NotNull NewOrder order) {
         System.out.println("service");
 
-        System.out.println("order submitted " + order);
+//        System.out.println("order submitted " + order);
 
         BigDecimal orderTotal = BigDecimal.valueOf(0.00);
         OrderReturnedToCustomer customerCopyDto = new OrderReturnedToCustomer();
 
-        Orders newOrder = order.getOrder();
+        try {
 
-        Orders orderConfirmation;
+            Orders newOrder = order.getOrder();
 
-        List<OrderItem> receivedOrderItems = newOrder.getOrderItems();
+            System.out.println(newOrder.toString());
 
-        List<OrderItemReturnedToCustomer> orderItemDtos = new ArrayList<>();
+            Orders orderConfirmation;
+
+            List<OrderItem> receivedOrderItems = newOrder.getOrderItems();
+
+            List<OrderItemReturnedToCustomer> orderItemDtos = new ArrayList<>();
 
 //  validation
-        validateCustomerName(order.getCustomer().getName());
-        validateCustomerPhone(order.getCustomer().getPhoneNumber());
-        validateCustomerEmail(order.getCustomer().getEmail());
+            validateCustomerName(order.getCustomer().getName());
+            validateCustomerPhone(order.getCustomer().getPhoneNumber());
+            validateCustomerEmail(order.getCustomer().getEmail());
 
 
             if (!customerNameValid) {
                 throw new IllegalArgumentException("Customer name incorrectly formatted. Please consult the documentation.");
             }
-            if(!customerPhoneNumberValid) {
+            if (!customerPhoneNumberValid) {
                 throw new IllegalArgumentException("Customer phone number incorrectly formatted. Please consult the documentation.");
             }
-            if (!customerEmailValid){
+            if (!customerEmailValid) {
                 throw new IllegalArgumentException("Customer e-mail incorrectly formatted. Please consult the documentation.");
             }
             if (order.getOrder().getOrderItems().isEmpty()) {
-            throw new IllegalArgumentException("An order must contain at least 1 menu item and must not be null. Please consult the documentation.");
+                throw new IllegalArgumentException("An order must contain at least 1 menu item and must not be null. Please consult the documentation.");
             }
 
 //  if customer already exists, use existing customer id else create new customer
-        Customer newCustomer = order.getCustomer();
+            Customer newCustomer = order.getCustomer();
             if (customerRepository.findByName(newCustomer.getName()) != null &&
                     Objects.equals
                             (customerRepository.findByName(newCustomer.getName()).getEmail(),
                                     order.getCustomer().getEmail())
-            && Objects.equals(customerRepository.findByName(newCustomer.getName()).getPhoneNumber(),
+                    && Objects.equals(customerRepository.findByName(newCustomer.getName()).getPhoneNumber(),
                     order.getCustomer().getPhoneNumber())
             ) {
                 newOrder.setCustomerId(customerRepository.findByName(newCustomer.getName()).getCustomerId());
@@ -93,58 +100,61 @@ public class OrdersService implements OrdersServiceInterface {
             }
 
 //            instantiate orderitems so they can be worked with
-                newOrder.setOrderItems(receivedOrderItems);
+            newOrder.setOrderItems(receivedOrderItems);
 
 //            set total for each order item before creating the dto and update the grand total
 //        will most likely need to outsource to another method or class and create library (something like if category drink m=.25 l=.50, if category side m=.75 and l=1.00)
-                for (OrderItem orderItem: receivedOrderItems) {
-                    char itemSize = orderItem.getSize();
+            for (OrderItem orderItem : receivedOrderItems) {
+                char itemSize = orderItem.getSize();
 
-                    BigDecimal adjustedUnitPrice = switch (itemSize) {
-                        case 'm' -> menuItemRepository
-                                .getReferenceById(orderItem
-                                        .getItem()
-                                        .getId())
-                                .getUnitPrice()
-                                .add(BigDecimal.valueOf(0.25));
-                        case 'l' -> menuItemRepository
-                                .getReferenceById(orderItem
-                                        .getItem()
-                                        .getId())
-                                .getUnitPrice()
-                                .add(BigDecimal.valueOf(0.50));
-                        default -> menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice();
-                    };
+                BigDecimal adjustedUnitPrice = switch (itemSize) {
+                    case 'm' -> menuItemRepository
+                            .getReferenceById(orderItem
+                                    .getItem()
+                                    .getId())
+                            .getUnitPrice()
+                            .add(BigDecimal.valueOf(0.25));
+                    case 'l' -> menuItemRepository
+                            .getReferenceById(orderItem
+                                    .getItem()
+                                    .getId())
+                            .getUnitPrice()
+                            .add(BigDecimal.valueOf(0.50));
+                    default -> menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice();
+                };
 
-                    orderItem.setTotal(adjustedUnitPrice.multiply(BigDecimal.valueOf(orderItem.getQuantity())));
-                    orderTotal = orderTotal.add(orderItem.getTotal());
-                }
+                orderItem.setTotal(adjustedUnitPrice.multiply(BigDecimal.valueOf(orderItem.getQuantity())));
+                orderTotal = orderTotal.add(orderItem.getTotal());
+            }
 //  set order total, customer uid and customer id for new customer
-                    newOrder.setOrderTotal(orderTotal);
-                    newOrder.setCustomerUid(newCustomer.getCustomerUid());
-                    newOrder.setCustomerId(newCustomer.getCustomerId());
+            newOrder.setOrderTotal(orderTotal);
+            newOrder.setCustomerUid(newCustomer.getCustomerUid());
+            newOrder.setCustomerId(newCustomer.getCustomerId());
 
 //  set order uid
-                    newOrder.setOrderUid(genOrderUid());
-                    ordersRepository.save(newOrder);
+            newOrder.setOrderUid(genOrderUid());
+            ordersRepository.save(newOrder);
 
 //        reset validation flags
-                customerNameValid = false;
-                customerPhoneNumberValid = false;
-                customerEmailValid = false;
+            customerNameValid = false;
+            customerPhoneNumberValid = false;
+            customerEmailValid = false;
 
 //create an order confirmation
-                orderConfirmation = ordersRepository.findByOrderUid(newOrder.getOrderUid());
-                customerCopyDto.setCustomerName(newCustomer.getName());
-                customerCopyDto.setOrderUid(newOrder.getOrderUid());
-                customerCopyDto.setOrderTotal(newOrder.getOrderTotal());
+            orderConfirmation = ordersRepository.findByOrderUid(newOrder.getOrderUid());
+            customerCopyDto.setCustomerName(newCustomer.getName());
+            customerCopyDto.setOrderUid(newOrder.getOrderUid());
+            customerCopyDto.setOrderTotal(newOrder.getOrderTotal());
 
-                receivedOrderItems = orderConfirmation.getOrderItems();
-                for (OrderItem orderItem : receivedOrderItems) {
-                    orderItemDtos.add(orderItemDtoConvertor(orderItem));
-                }
-                customerCopyDto.setOrderItems(orderItemDtos);
-
+            receivedOrderItems = orderConfirmation.getOrderItems();
+            for (OrderItem orderItem : receivedOrderItems) {
+                orderItemDtos.add(orderItemDtoConvertor(orderItem));
+            }
+            customerCopyDto.setOrderItems(orderItemDtos);
+        } catch (Exception e) {
+            log.error("e: ", e);
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        }
         return customerCopyDto;
     }
 
