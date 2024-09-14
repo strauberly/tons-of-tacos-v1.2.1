@@ -1,6 +1,7 @@
 package com.adamstraub.tonsoftacos.controllers.ordersControllers;
 import com.adamstraub.tonsoftacos.dto.businessDto.NewOrder;
 import com.adamstraub.tonsoftacos.dto.customerDto.ordersDto.OrderReturnedToCustomer;
+import com.adamstraub.tonsoftacos.dto.customerDto.ordersDto.SubmittedOrder;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
@@ -107,7 +108,11 @@ public interface OrdersControllerInterface {
             }
     )
 
+//    @ResponseStatus(code = HttpStatus.CREATED)
+//    @PostMapping("/checkout")
+//    OrderReturnedToCustomer createOrder(@RequestBody NewOrder order) throws Exception;
+
     @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping("/checkout")
-    OrderReturnedToCustomer createOrder(@RequestBody NewOrder order) throws Exception;
+    OrderReturnedToCustomer createOrder(@RequestBody SubmittedOrder order) throws Exception;
 }

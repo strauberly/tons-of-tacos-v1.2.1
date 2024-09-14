@@ -42,46 +42,92 @@ public class OrdersTestsSupport extends TestUris {
                 """;
     }
 
+//
+//    protected String genUidBody() {
+//
+//        return """
+//                {
+//                    "customer": {
+//                        "name": "billy billson",
+//                        "email": "billy@bolly.com",
+//                        "phoneNumber": "555.555.5959"
+//                    },
+//                    "order": {
+//                        "orderItems": [
+//                            {
+//                                "item": {
+//                                    "id": 7
+//                                },
+//                                "quantity": 2,
+//                                "size": "l"
+//                            },
+//                            {
+//                                "item": {
+//                                    "id": 12
+//                                },
+//                                "quantity": 1,
+//                                "size": " "
+//                            },
+//                            {
+//                                "item": {
+//                                    "id": 3
+//                                },
+//                                "quantity": 3,
+//                                "size": " "
+//                            }
+//                        ]
+//                    }
+//                }
+//                """;
+//
+//    }
+
+//    protected String genUidBody() {
+//
+//        return"""
+//                {
+//                    "customer": {
+//                          "name": "bob bob",
+//                          "email": "b@b.com",
+//                           "phoneNumber": "555.555.5555"
+//                    },
+//                    "order": {
+//                        "orderItems": [
+//                           {
+//                              "item": {
+//                              "id": 8
+//                                },
+//                              "quantity": 2,
+//                              "size": "m"
+//                           },
+//                           {
+//                               "item": {
+//                              "id": 11
+//                                },
+//                              "quantity":1,
+//                              "size":" "
+//                           },
+//                           {
+//                              "item": {
+//                              "id": 10
+//                           },
+//                              "quantity": 1,
+//                              "size": " "
+//                           }
+//                        ]
+//                   }
+//                }
+//                """;
+//
+//    }
 
     protected String genUidBody() {
 
         return """
-                {
-                    "customer": {
-                        "name": "billy billson",
-                        "email": "billy@bolly.com",
-                        "phoneNumber": "555.555.5959"
-                    },
-                    "order": {
-                        "orderItems": [
-                            {
-                                "item": {
-                                    "id": 7
-                                },
-                                "quantity": 2,
-                                "size": "l"
-                            },
-                            {
-                                "item": {
-                                    "id": 12
-                                },
-                                "quantity": 1,
-                                "size": " "
-                            },
-                            {
-                                "item": {
-                                    "id": 3
-                                },
-                                "quantity": 3,
-                                "size": " "
-                            }
-                        ]
-                    }
-                }
+                {"customer":{"name":"to yo","phoneNumber":"555.555.5555","email":"ti@ti.com"},"order":[{"menuId":"8","quantity":2,"size":"m"},{"menuId":"16","quantity":2,"size":" "},{"menuId":"14","quantity":1,"size":" "}]}
                 """;
 
     }
-
 
     protected String noOrderBody() {
         return """
