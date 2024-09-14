@@ -48,9 +48,9 @@ public class Orders implements Serializable {
     private String customerUid;
 
 
-@OneToMany(cascade = CascadeType.ALL, mappedBy = "order", fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private List<OrderItem> orderItems = new ArrayList<>();
+@OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+//    @JsonManagedReference
+    private List<OrderItem> orderItems;
 
 
     @Override

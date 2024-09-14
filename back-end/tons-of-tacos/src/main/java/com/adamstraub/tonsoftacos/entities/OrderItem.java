@@ -40,10 +40,14 @@ public class OrderItem implements Serializable {
     @JoinColumn(name = "order_fk")
     private Orders order;
 
-    @JsonBackReference
-    public Orders getOrder() {
-        return order;
-    }
+//    @JsonBackReference
+//    public Orders getOrder() {
+//        return order;
+//    }
+
+
+
+
 
     @Override
     public String toString() {
