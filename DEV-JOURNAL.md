@@ -2,22 +2,30 @@
 
 ---
 
+--- 17 Sep 2024 ---
+
+- Discovered bug in validation of customer already existing or being new and 
+determining if an order is to be created. Also a bug where order total was not 
+being reset. Both issues have been resolved.
+
+- Will also be working on error handling and responses.
+
+---
+
 --- 14 Sep 2024 ---
 
 - Create an order function in backend now accepts simplified front end object 
 as a dto and uses a converter method to build object sent to db.
-- Improved upon response object for front end teams use.
-- Putting in more work with catching errors, followed by test re-write. Will 
-then work on response and refactor;
-- Order creation test now functions correctly. Submitting work for review to be 
-followed with a refactor.
+
+- Putting in more work with catching errors, followed by test re-write followed 
+by working on response.
 
 ---
 
 --- 9 Sep 2024 ---
 
 - Began refactor of order creation. Past structure would have required front 
-end team to use an over complicated object to achieve desired results.
+end to use an over complicated object to achieve desired results.
 - Customer name is received from order and could use try catch blocks as well 
 as errors.
 
