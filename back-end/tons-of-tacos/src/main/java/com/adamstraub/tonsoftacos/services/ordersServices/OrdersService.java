@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+//import java.util.Map;
 import java.util.Objects;
 
 
@@ -39,6 +40,7 @@ public class OrdersService implements OrdersServiceInterface {
     private boolean customerPhoneNumberValid = false;
     private boolean customerEmailValid = false;
 
+//    private Map<String, String>
 
     BigDecimal orderTotal = BigDecimal.valueOf(0.00);
 
@@ -47,6 +49,7 @@ public class OrdersService implements OrdersServiceInterface {
 
     @Override
     @Transactional
+//    public OrderReturnedToCustomer createOrder(@RequestBody @NotNull SubmittedOrder order)
     public OrderReturnedToCustomer createOrder(@RequestBody @NotNull SubmittedOrder order)
     {
         System.out.println("service");
@@ -74,21 +77,16 @@ public class OrdersService implements OrdersServiceInterface {
 
 //  if customer already exists, use existing customer id else create new customer.
         Customer newCustomer = order.getCustomer();
-
-        if (customerRepository.findByName(order.getCustomer().getName()) != null &&
-                Objects.equals
-                        (customerRepository.findByName(order.getCustomer().getName()).getEmail(),
-                                order.getCustomer().getEmail())
-                && Objects.equals(customerRepository.findByName(order.getCustomer().getName()).getPhoneNumber(),
-                order.getCustomer().getPhoneNumber())
-        ) {
-            newOrder.setCustomerId(customerRepository.findByName(newCustomer.getName()).getCustomerId());
-            newOrder.setCustomerUid(customerRepository.findByName(newCustomer.getName()).getCustomerUid());
+        Customer checkedCustomer = customerRepository.findByName(order.getCustomer().getName());
+        if ((Objects.equals(checkedCustomer.getName(), newCustomer.getName())) && (Objects.equals(checkedCustomer.getPhoneNumber(), newCustomer.getPhoneNumber()) &&
+                (Objects.equals(checkedCustomer.getEmail(), newCustomer.getEmail())))){
+            newCustomer.setCustomerUid(checkedCustomer.getCustomerUid());
         } else {
             newCustomer.setCustomerUid(genCustomerUid());
             customerRepository.save(newCustomer);
         }
 
+        newOrder.setCustomerUid(newCustomer.getCustomerUid());
         System.out.println("customer: " + customerRepository.findByName(newCustomer.getName()).toString());
 
         try{
@@ -137,11 +135,6 @@ public class OrdersService implements OrdersServiceInterface {
 
         System.out.println("new order: " + newOrder);
 
-//reset validation flags
-        customerNameValid = false;
-        customerPhoneNumberValid = false;
-        customerEmailValid = false;
-
 //create an order confirmation
         orderConfirmation = ordersRepository.findByOrderUid(newOrder.getOrderUid());
         customerCopyDto.setCustomerName(customerRepository.findByCustomerUid(orderConfirmation.getCustomerUid()).getName());
@@ -152,6 +145,11 @@ public class OrdersService implements OrdersServiceInterface {
         List<OrderItemReturnedToCustomer> customerItems = getOrderItemReturnedToCustomers(orderConfirmation);
         customerCopyDto.setOrderItems(customerItems);
 
+        customerNameValid = false;
+        customerPhoneNumberValid = false;
+        customerEmailValid = false;
+        orderTotal = BigDecimal.valueOf(0.00);
+        System.out.println(customerCopyDto);
         return customerCopyDto;
     }
 
