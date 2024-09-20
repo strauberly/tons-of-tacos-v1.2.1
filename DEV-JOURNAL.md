@@ -2,6 +2,14 @@
 
 ---
 
+--- 20 Sep 2024 ---
+
+- Discovered customer check was still misbehaving and realized the order 
+customer uid was being set in two places using different data which was 
+negating our efforts. This line has been removed.
+
+---
+
 --- 17 Sep 2024 ---
 
 - Discovered bug in validation of customer already existing or being new and 

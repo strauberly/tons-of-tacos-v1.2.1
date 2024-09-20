@@ -78,15 +78,14 @@ public class OrdersService implements OrdersServiceInterface {
 //  if customer already exists, use existing customer id else create new customer.
         Customer newCustomer = order.getCustomer();
         Customer checkedCustomer = customerRepository.findByName(order.getCustomer().getName());
-        if ((Objects.equals(checkedCustomer.getName(), newCustomer.getName())) && (Objects.equals(checkedCustomer.getPhoneNumber(), newCustomer.getPhoneNumber()) &&
+        if (checkedCustomer !=null && (Objects.equals(checkedCustomer.getName(), newCustomer.getName())) && (Objects.equals(checkedCustomer.getPhoneNumber(), newCustomer.getPhoneNumber()) &&
                 (Objects.equals(checkedCustomer.getEmail(), newCustomer.getEmail())))){
             newCustomer.setCustomerUid(checkedCustomer.getCustomerUid());
         } else {
             newCustomer.setCustomerUid(genCustomerUid());
             customerRepository.save(newCustomer);
         }
-
-        newOrder.setCustomerUid(newCustomer.getCustomerUid());
+        
         System.out.println("customer: " + customerRepository.findByName(newCustomer.getName()).toString());
 
         try{
