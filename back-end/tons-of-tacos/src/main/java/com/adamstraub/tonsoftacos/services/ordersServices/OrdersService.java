@@ -39,6 +39,7 @@ public class OrdersService implements OrdersServiceInterface {
     private boolean customerNameValid = false;
     private boolean customerPhoneNumberValid = false;
     private boolean customerEmailValid = false;
+    Customer checkedCustomer = new Customer();
 
 //    private Map<String, String>
 
@@ -53,10 +54,15 @@ public class OrdersService implements OrdersServiceInterface {
     public OrderReturnedToCustomer createOrder(@RequestBody @NotNull SubmittedOrder order)
     {
         System.out.println("service");
-
+        System.out.println(order);
         OrderReturnedToCustomer customerCopyDto = new OrderReturnedToCustomer();
         Orders orderConfirmation;
-
+//        Customer checkedCustomer = new Customer();
+//        try{
+//            checkedCustomer = customerRepository.findByName(order.getCustomer().getName());
+//        }catch (Exception e){
+//            log.error("e: ",e);
+//        }
 //validation
         validateCustomerName(order.getCustomer().getName());
         validateCustomerPhone(order.getCustomer().getPhoneNumber());
@@ -66,7 +72,7 @@ public class OrdersService implements OrdersServiceInterface {
             throw new IllegalArgumentException("Customer name incorrectly formatted. Please consult the documentation.");
         }
         if(!customerPhoneNumberValid) {
-            throw new IllegalArgumentException("Customer phone number incorrectly formatted. Please consult the documentation.");
+             throw new IllegalArgumentException("Customer phone number incorrectly formatted. Please consult the documentation.");
         }
         if (!customerEmailValid){
             throw new IllegalArgumentException("Customer e-mail incorrectly formatted. Please consult the documentation.");
@@ -75,18 +81,58 @@ public class OrdersService implements OrdersServiceInterface {
             throw new IllegalArgumentException("An order must contain at least 1 menu item and must not be null. Please consult the documentation.");
         }
 
-//  if customer already exists, use existing customer id else create new customer.
         Customer newCustomer = order.getCustomer();
-        Customer checkedCustomer = customerRepository.findByName(order.getCustomer().getName());
-        if (checkedCustomer !=null && (Objects.equals(checkedCustomer.getName(), newCustomer.getName())) && (Objects.equals(checkedCustomer.getPhoneNumber(), newCustomer.getPhoneNumber()) &&
-                (Objects.equals(checkedCustomer.getEmail(), newCustomer.getEmail())))){
-            newCustomer.setCustomerUid(checkedCustomer.getCustomerUid());
+        try{
+
+
+        if (customerRepository.findByName(order.getCustomer().getName()) != null &&
+                Objects.equals
+                        (customerRepository.findByName(order.getCustomer().getName()).getEmail(),
+                                order.getCustomer().getEmail())
+                && Objects.equals(customerRepository.findByName(order.getCustomer().getName()).getPhoneNumber(),
+                order.getCustomer().getPhoneNumber())
+        ) {
+            newOrder.setCustomerId(customerRepository.findByName(newCustomer.getName()).getCustomerId());
+            newOrder.setCustomerUid(customerRepository.findByName(newCustomer.getName()).getCustomerUid());
         } else {
             newCustomer.setCustomerUid(genCustomerUid());
             customerRepository.save(newCustomer);
+            newOrder.setCustomerUid(customerRepository.findByName(newCustomer.getName()).getCustomerUid());
+            newOrder.setCustomerId(customerRepository.findByCustomerUid(newOrder.getCustomerUid()).getCustomerId());
+//            newCustomer = customerRepository.findByName(newCustomer.getName());
+//            System.out.println(newCustomer.toString());
         }
-        
-        System.out.println("customer: " + customerRepository.findByName(newCustomer.getName()).toString());
+        }catch (Exception e){
+            log.error("e: ", e);
+        }
+
+//  if customer already exists, use existing customer id else create new customer.
+//        Customer newCustomer = order.getCustomer();
+//        System.out.println(newCustomer.toString());
+////        try{
+////          checkedCustomer = customerRepository.findByName(order.getCustomer().getName());
+////        }catch (Exception e){
+////            log.error("e: ",e);
+////        }
+//        System.out.println("checkedCustomer: " + checkedCustomer.toString());
+//
+//        try{
+////        checkedCustomer = customerRepository.findByName(order.getCustomer().getName());
+////            System.out.println("checkedCustomer: " + checkedCustomer.toString());
+//        if ((Objects.equals(checkedCustomer.getName(), newCustomer.getName())) && (Objects.equals(checkedCustomer.getPhoneNumber(), newCustomer.getPhoneNumber()) &&
+//                (Objects.equals(checkedCustomer.getEmail(), newCustomer.getEmail())))){
+//            newCustomer.setCustomerUid(checkedCustomer.getCustomerUid());
+//        } else {
+//            newCustomer.setCustomerUid(genCustomerUid());
+//            customerRepository.save(newCustomer);
+//        }
+//        }catch (Exception e){
+//            log.error("e: ", e);
+//        }
+//
+//        System.out.println("customer uid:" + newCustomer.getCustomerUid());
+
+//        System.out.println("customer: " + customerRepository.findByName(newCustomer.getName()));
 
         try{
             newOrder.setOrderItems(submittedOrderItemsConvertor(order.getOrder()));
@@ -119,11 +165,11 @@ public class OrdersService implements OrdersServiceInterface {
         System.out.println("total: " + newOrder.getOrderTotal().toString());
 
 //set order uid
-        try{
-            newOrder.setCustomerUid(newCustomer.getCustomerUid());
-        } catch (Exception e) {
-            log.error("e: ", e);
-        }
+//        try{
+//            newOrder.setCustomerUid(newCustomer.getCustomerUid());
+//        } catch (Exception e) {
+//            log.error("e: ", e);
+//        }
         newOrder.setOrderUid(genOrderUid());
 
         try{

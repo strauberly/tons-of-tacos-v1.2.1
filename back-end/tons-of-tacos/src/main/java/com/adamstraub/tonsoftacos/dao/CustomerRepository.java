@@ -14,4 +14,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     Customer findByCustomerUid(@RequestParam("customer_uid") String customerUid);
 
+    Customer findFirstByOrderByCustomerIdDesc();
+
 }

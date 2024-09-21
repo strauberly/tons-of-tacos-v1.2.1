@@ -2,6 +2,18 @@
 
 ---
 
+--- 21 Sep 2024 ---
+
+- Discovered more logic errors in setting the customer and order information. 
+Reverted some of the earlier logic which was less complicated, and added 
+additional lines that faciliatated the original intent of that functions logic.
+The main issue revolved around a customer fk and uid not being set on the order 
+creation before being written to database. Future plans in place for enacting 
+more try catch statements and exception throwing and loggin in order to catch 
+such problems easier.
+
+---
+
 --- 20 Sep 2024 ---
 
 - Discovered customer check was still misbehaving and realized the order 
