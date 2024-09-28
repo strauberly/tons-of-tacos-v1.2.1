@@ -100,7 +100,7 @@ public class OrdersService implements OrdersServiceInterface {
             newOrder.setCustomerUid(customerRepository.findByName(newCustomer.getName()).getCustomerUid());
             newOrder.setCustomerId(customerRepository.findByCustomerUid(newOrder.getCustomerUid()).getCustomerId());
 //            newCustomer = customerRepository.findByName(newCustomer.getName());
-//            System.out.println(newCustomer.toString());
+
         }
         }catch (Exception e){
             log.error("e: ", e);
