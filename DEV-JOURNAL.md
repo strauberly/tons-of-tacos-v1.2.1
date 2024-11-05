@@ -2,6 +2,12 @@
 
 ---
 
+--- 5 Nov 2024 ---
+
+- Removed unused code and comments from orders service. 
+
+---
+
 --- 21 Sep 2024 ---
 
 - Discovered more logic errors in setting the customer and order information. 
