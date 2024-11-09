@@ -39,6 +39,11 @@ public class OrdersService implements OrdersServiceInterface {
     private boolean customerNameValid = false;
     private boolean customerPhoneNumberValid = false;
     private boolean customerEmailValid = false;
+//    List<Customer> queriedCustomers;
+    Customer existingCustomer;
+    private boolean newCustomerFlag;
+//    0 == true
+//    private int newCustomerFlag = 0;
     Customer checkedCustomer = new Customer();
 
 //    private Map<String, String>
@@ -56,7 +61,8 @@ public class OrdersService implements OrdersServiceInterface {
         System.out.println("service");
         System.out.println(order);
         OrderReturnedToCustomer customerCopyDto = new OrderReturnedToCustomer();
-        Orders orderConfirmation;
+        Orders orderConfirmation = new Orders();
+//        List<Customer> queriedCustomers = new ArrayList<>();
 
         validateCustomerName(order.getCustomer().getName());
         validateCustomerPhone(order.getCustomer().getPhoneNumber());
@@ -76,85 +82,157 @@ public class OrdersService implements OrdersServiceInterface {
         }
 
         Customer newCustomer = order.getCustomer();
-        try{
+
+//        checkIfCustomerExists(order.getCustomer());
+
+//        System.out.println("existing customer: " + existingCustomer);
 
 
-        if (customerRepository.findByName(order.getCustomer().getName()) != null &&
-                Objects.equals
-                        (customerRepository.findByName(order.getCustomer().getName()).getEmail(),
-                                order.getCustomer().getEmail())
-                && Objects.equals(customerRepository.findByName(order.getCustomer().getName()).getPhoneNumber(),
-                order.getCustomer().getPhoneNumber())
-        ) {
-            newOrder.setCustomerId(customerRepository.findByName(newCustomer.getName()).getCustomerId());
-            newOrder.setCustomerUid(customerRepository.findByName(newCustomer.getName()).getCustomerUid());
-        } else {
-            newCustomer.setCustomerUid(genCustomerUid());
-            customerRepository.save(newCustomer);
-            newOrder.setCustomerUid(customerRepository.findByName(newCustomer.getName()).getCustomerUid());
-            newOrder.setCustomerId(customerRepository.findByCustomerUid(newOrder.getCustomerUid()).getCustomerId());
-
-        }
-        }catch (Exception e){
-            log.error("e: ", e);
-        }
+//        Customer thisCustomer = new Customer();
+//try without the break and you still need a save if it doesnt mee that other criteria
 
         try{
-            newOrder.setOrderItems(submittedOrderItemsConvertor(order.getOrder()));
-        } catch (Exception e) {
-            log.error("e: ", e);
-        }
-
-
-//set total for each order item before creating the dto and update the grand total
-        for (OrderItem orderItem : newOrder.getOrderItems()) {
-            char itemSize = orderItem.getSize();
-
-            BigDecimal adjustedUnitPrice = switch (itemSize) {
-                case 'm' -> menuItemRepository
-                        .getReferenceById(orderItem.getItem().getId()).getUnitPrice().add(BigDecimal.valueOf(0.25));
-                case 'l' -> menuItemRepository
-                        .getReferenceById(orderItem
-                                .getItem().getId())
-                        .getUnitPrice()
-                        .add(BigDecimal.valueOf(0.50));
-                default -> menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice();
-            };
-            orderItem.setTotal(adjustedUnitPrice.multiply(BigDecimal.valueOf(orderItem.getQuantity())));
-            System.out.println("item total: " + orderItem.getTotal().toString());
-            orderTotal = orderTotal.add(orderItem.getTotal());
-        }
-
-//  set order total, customer uid and customer id for new customer
-        newOrder.setOrderTotal(orderTotal);
-        System.out.println("total: " + newOrder.getOrderTotal().toString());
-
-//set order uid
-        newOrder.setOrderUid(genOrderUid());
-
-        try{
-            ordersRepository.save(newOrder);
-        } catch (Exception e) {
-            log.error("e: ", e);
-        }
-
-        System.out.println("new order: " + newOrder);
-
-//create an order confirmation
-        orderConfirmation = ordersRepository.findByOrderUid(newOrder.getOrderUid());
-        customerCopyDto.setCustomerName(customerRepository.findByCustomerUid(orderConfirmation.getCustomerUid()).getName());
-        customerCopyDto.setCustomerEmail(customerRepository.findByCustomerUid(orderConfirmation.getCustomerUid()).getEmail());
-        customerCopyDto.setCustomerPhone(customerRepository.findByCustomerUid(orderConfirmation.getCustomerUid()).getPhoneNumber());
-        customerCopyDto.setOrderUid(newOrder.getOrderUid());
-        customerCopyDto.setOrderTotal(newOrder.getOrderTotal());
-        List<OrderItemReturnedToCustomer> customerItems = getOrderItemReturnedToCustomers(orderConfirmation);
-        customerCopyDto.setOrderItems(customerItems);
-
-        customerNameValid = false;
+//            queriedCustomers = customerRepository.findByNameContaining(newCustomer.getName());
+//            System.out.println(queriedCustomers);
+            checkIfCustomerExists(order.getCustomer());
+            if (newCustomerFlag){
+                newCustomer.setCustomerUid(genCustomerUid());
+                System.out.println(newCustomer);
+                customerRepository.save(newCustomer);
+                newOrder.setCustomerUid(newCustomer.getCustomerUid());
+                newOrder.setCustomerId(customerRepository.findByCustomerUid(newCustomer.getCustomerUid()).getCustomerId());
+//        System.out.println("existing customer: " + existingCustomer);
+//                newOrder.setCustomerId(existingCustomer.getCustomerId());
+//                newOrder.setOrderUid(existingCustomer.getCustomerUid());
+//                System.out.println(newOrder);
+            }else {
+//                newCustomer.setCustomerUid(genCustomerUid());
+//                System.out.println(newCustomer);
+//                customerRepository.save(newCustomer);
+//                newOrder.setCustomerUid(newCustomer.getCustomerUid());
+//                newOrder.setCustomerId(customerRepository.findByCustomerUid(newCustomer.getCustomerUid()).getCustomerId());
+                System.out.println("existing customer: " + existingCustomer);
+                newOrder.setCustomerId(existingCustomer.getCustomerId());
+                newOrder.setCustomerUid(existingCustomer.getCustomerUid());
+                System.out.println(newOrder);
+            }
+            newCustomerFlag = false;
+            customerNameValid = false;
         customerPhoneNumberValid = false;
         customerEmailValid = false;
         orderTotal = BigDecimal.valueOf(0.00);
-        System.out.println(customerCopyDto);
+            System.out.println("new order: " + newOrder);
+            existingCustomer = new Customer();
+        } catch (Exception e) {
+            log.error("error: ", e);
+        }
+
+
+//        try{
+//            queriedCustomers = customerRepository.findByNameContaining(order.getCustomer().getName());
+//            if(queriedCustomers.isEmpty()){
+//                newCustomer.setCustomerUid(genCustomerUid());
+//                customerRepository.save(newCustomer);
+//                System.out.println("new customer: " + customerRepository.findByName(newCustomer.getName()));
+//                thisCustomer = customerRepository.findByName(newCustomer.getName());
+////                set new order with this customers data
+//            } else {
+//                for (Customer customer : queriedCustomers) {
+//                    if ((newCustomer.getName().equals(customer.getName())
+//                            && newCustomer.getEmail().equals(customer.getEmail()))
+//                            || (newCustomer.getName().equals(customer.getName())
+//                            && newCustomer.getPhoneNumber().equals(customer.getPhoneNumber()))){
+//                        System.out.println("submitted customer: " + newCustomer);
+//                        System.out.println("found customer: " + customer);
+//                    }
+//                    thisCustomer = customer;
+//                    break;
+//                }
+//                System.out.println("this customer = " + thisCustomer);
+//            }
+//        } catch(Exception e){
+//                log.error("error: ", e);
+//        }
+
+//=============================================================
+//        try{
+//        if (customerRepository.findByName(order.getCustomer().getName()) != null &&
+//                Objects.equals
+//                        (customerRepository.findByName(order.getCustomer().getName()).getEmail(),
+//                                order.getCustomer().getEmail())
+//                && Objects.equals(customerRepository.findByName(order.getCustomer().getName()).getPhoneNumber(),
+//                order.getCustomer().getPhoneNumber())
+//        ) {
+//            newOrder.setCustomerId(customerRepository.findByName(newCustomer.getName()).getCustomerId());
+//            newOrder.setCustomerUid(customerRepository.findByName(newCustomer.getName()).getCustomerUid());
+//        } else {
+//            newCustomer.setCustomerUid(genCustomerUid());
+//            customerRepository.save(newCustomer);
+//            newOrder.setCustomerUid(customerRepository.findByName(newCustomer.getName()).getCustomerUid());
+//            newOrder.setCustomerId(customerRepository.findByCustomerUid(newOrder.getCustomerUid()).getCustomerId());
+//
+//        }
+//        }catch (Exception e){
+//            log.error("e: ", e);
+//        }
+//
+//        try{
+//            newOrder.setOrderItems(submittedOrderItemsConvertor(order.getOrder()));
+//        } catch (Exception e) {
+//            log.error("e: ", e);
+//        }
+//
+//
+////set total for each order item before creating the dto and update the grand total
+//        for (OrderItem orderItem : newOrder.getOrderItems()) {
+//            char itemSize = orderItem.getSize();
+//
+//            BigDecimal adjustedUnitPrice = switch (itemSize) {
+//                case 'm' -> menuItemRepository
+//                        .getReferenceById(orderItem.getItem().getId()).getUnitPrice().add(BigDecimal.valueOf(0.25));
+//                case 'l' -> menuItemRepository
+//                        .getReferenceById(orderItem
+//                                .getItem().getId())
+//                        .getUnitPrice()
+//                        .add(BigDecimal.valueOf(0.50));
+//                default -> menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice();
+//            };
+//            orderItem.setTotal(adjustedUnitPrice.multiply(BigDecimal.valueOf(orderItem.getQuantity())));
+//            System.out.println("item total: " + orderItem.getTotal().toString());
+//            orderTotal = orderTotal.add(orderItem.getTotal());
+//        }
+//
+////  set order total, customer uid and customer id for new customer
+//        newOrder.setOrderTotal(orderTotal);
+//        System.out.println("total: " + newOrder.getOrderTotal().toString());
+//
+////set order uid
+//        newOrder.setOrderUid(genOrderUid());
+//
+//        try{
+//            ordersRepository.save(newOrder);
+//        } catch (Exception e) {
+//            log.error("e: ", e);
+//        }
+//
+//        System.out.println("new order: " + newOrder);
+//
+//        try catch and cleanup
+////create an order confirmation
+//        orderConfirmation = ordersRepository.findByOrderUid(newOrder.getOrderUid());
+//        customerCopyDto.setCustomerName(customerRepository.findByCustomerUid(orderConfirmation.getCustomerUid()).getName());
+//        customerCopyDto.setCustomerEmail(customerRepository.findByCustomerUid(orderConfirmation.getCustomerUid()).getEmail());
+//        customerCopyDto.setCustomerPhone(customerRepository.findByCustomerUid(orderConfirmation.getCustomerUid()).getPhoneNumber());
+//        customerCopyDto.setOrderUid(newOrder.getOrderUid());
+//        customerCopyDto.setOrderTotal(newOrder.getOrderTotal());
+//        List<OrderItemReturnedToCustomer> customerItems = getOrderItemReturnedToCustomers(orderConfirmation);
+//        customerCopyDto.setOrderItems(customerItems);
+//
+//        customerNameValid = false;
+//        customerPhoneNumberValid = false;
+//        customerEmailValid = false;
+//        orderTotal = BigDecimal.valueOf(0.00);
+//        System.out.println(customerCopyDto);
         return customerCopyDto;
     }
 
@@ -226,6 +304,33 @@ public class OrdersService implements OrdersServiceInterface {
             genOrderUid();
         }
         return orderUid;
+    }
+
+    private void checkIfCustomerExists(Customer submittedCustomer){
+        List<Customer> queriedCustomers = customerRepository.findByNameContaining(submittedCustomer.getName());
+        List<Customer> allCustomers = customerRepository.findAll();
+        System.out.println("customer: " + submittedCustomer);
+        try{
+            for (Customer customer : allCustomers)
+                if (Objects.equals(submittedCustomer.getName(), customer.getName())) {
+                    for (Customer queriedCustomer : queriedCustomers) {
+                        if (submittedCustomer.getEmail().equals(queriedCustomer.getEmail()) ||
+                                submittedCustomer.getPhoneNumber().equals(queriedCustomer.getPhoneNumber())) {
+                            existingCustomer = queriedCustomer;
+                            newCustomerFlag = false;
+                            break;
+                        }else{
+                            newCustomerFlag = true;
+                        }
+                    }
+                } else {
+                    newCustomerFlag = true;
+                }
+            System.out.println("new customer: " + newCustomerFlag);
+        }catch (Exception e){
+                log.error("error: ", e);
+            }
+//        return newCustomerFlag;
     }
 
     private String genCustomerUid() {

@@ -2,6 +2,31 @@
 
 ---
 
+-- 8 Nov 2024 --
+
+- Created method for checking if a customer is new in orders service.
+    - Checks customer name against data base. If not found sets a new 
+customer flag as true and the customers submitted data is used and a new uid is 
+generated for them. New customer is written to the data base. 
+    - If the name is found, the phone number and email is checked. If either 
+match the customer is considered existing and the already stored data is used 
+for the order. If not we mark the new customer flag as new and create a new 
+customer.
+    - In effect this allows us to have multiple john smiths with out 
+mistakenly using one for the other. 
+
+---
+
+-- 7 Nov 2024 --
+
+- Added dynamic insert to orders entity. Allows for new order entry instead of 
+updating a customers previous order.
+
+- Added try catch block with cleanup function around customer copy dto. Allows 
+for error catching and the cleanup allows for creation of new dto.
+
+---
+
 --- 5 Nov 2024 ---
 
 - Removed unused code and comments from orders service. 
