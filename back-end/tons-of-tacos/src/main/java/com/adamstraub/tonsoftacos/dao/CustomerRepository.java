@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Customer findByName(@RequestParam("name") String customer);
@@ -15,5 +17,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Customer findByCustomerUid(@RequestParam("customer_uid") String customerUid);
 
     Customer findFirstByOrderByCustomerIdDesc();
+
+    List<Customer> findByNameContaining(String name);
 
 }
