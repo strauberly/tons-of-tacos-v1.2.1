@@ -20,7 +20,6 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.Map;
 import java.util.Objects;
 
 
@@ -39,19 +38,11 @@ public class OrdersService implements OrdersServiceInterface {
     private boolean customerNameValid = false;
     private boolean customerPhoneNumberValid = false;
     private boolean customerEmailValid = false;
-//    List<Customer> queriedCustomers;
-    Customer existingCustomer;
-    private boolean newCustomerFlag;
-//    0 == true
-//    private int newCustomerFlag = 0;
-    Customer checkedCustomer = new Customer();
-
-//    private Map<String, String>
-
-    BigDecimal orderTotal = BigDecimal.valueOf(0.00);
-
-
-    Orders newOrder = new Orders();
+    private boolean newCustomerFlag = false;
+    private BigDecimal orderTotal = BigDecimal.valueOf(0.00);
+    private final Orders newOrder = new Orders();
+    private final OrderReturnedToCustomer customerCopyDto = new OrderReturnedToCustomer();
+    private Customer existingCustomer = new Customer();
 
     @Override
     @Transactional
@@ -60,257 +51,126 @@ public class OrdersService implements OrdersServiceInterface {
     {
         System.out.println("service");
         System.out.println(order);
-        OrderReturnedToCustomer customerCopyDto = new OrderReturnedToCustomer();
-        Orders orderConfirmation = new Orders();
-//        List<Customer> queriedCustomers = new ArrayList<>();
+        Customer newCustomer = order.getCustomer();
 
-        validateCustomerName(order.getCustomer().getName());
-        validateCustomerPhone(order.getCustomer().getPhoneNumber());
-        validateCustomerEmail(order.getCustomer().getEmail());
+        try{
 
-        if (!customerNameValid) {
-            throw new IllegalArgumentException("Customer name incorrectly formatted. Please consult the documentation.");
-        }
-        if(!customerPhoneNumberValid) {
-             throw new IllegalArgumentException("Customer phone number incorrectly formatted. Please consult the documentation.");
-        }
-        if (!customerEmailValid){
-            throw new IllegalArgumentException("Customer e-mail incorrectly formatted. Please consult the documentation.");
-        }
+
+        validateCustomerInfo(order);
         if (order.getOrder().isEmpty()) {
             throw new IllegalArgumentException("An order must contain at least 1 menu item and must not be null. Please consult the documentation.");
         }
 
-        Customer newCustomer = order.getCustomer();
-
-//        checkIfCustomerExists(order.getCustomer());
-
-//        System.out.println("existing customer: " + existingCustomer);
-
-
-//        Customer thisCustomer = new Customer();
-//try without the break and you still need a save if it doesnt mee that other criteria
-
-        try{
-//            queriedCustomers = customerRepository.findByNameContaining(newCustomer.getName());
-//            System.out.println(queriedCustomers);
             checkIfCustomerExists(order.getCustomer());
-            if (newCustomerFlag){
-                newCustomer.setCustomerUid(genCustomerUid());
-                System.out.println(newCustomer);
-                customerRepository.save(newCustomer);
-                newOrder.setCustomerUid(newCustomer.getCustomerUid());
-                newOrder.setCustomerId(customerRepository.findByCustomerUid(newCustomer.getCustomerUid()).getCustomerId());
-//        System.out.println("existing customer: " + existingCustomer);
-//                newOrder.setCustomerId(existingCustomer.getCustomerId());
-//                newOrder.setOrderUid(existingCustomer.getCustomerUid());
-//                System.out.println(newOrder);
-            }else {
-//                newCustomer.setCustomerUid(genCustomerUid());
-//                System.out.println(newCustomer);
-//                customerRepository.save(newCustomer);
-//                newOrder.setCustomerUid(newCustomer.getCustomerUid());
-//                newOrder.setCustomerId(customerRepository.findByCustomerUid(newCustomer.getCustomerUid()).getCustomerId());
-                System.out.println("existing customer: " + existingCustomer);
-                newOrder.setCustomerId(existingCustomer.getCustomerId());
-                newOrder.setCustomerUid(existingCustomer.getCustomerUid());
-                System.out.println(newOrder);
-            }
-            newCustomerFlag = false;
-            customerNameValid = false;
-        customerPhoneNumberValid = false;
-        customerEmailValid = false;
-        orderTotal = BigDecimal.valueOf(0.00);
+            prepareCustomerInfo(newCustomer);
+
+////prepare order items
+    newOrder.setOrderItems(submittedOrderItemsConvertor(order.getOrder()));
+    totalOrder();
+    newOrder.setOrderUid(genOrderUid());
             System.out.println("new order: " + newOrder);
-            existingCustomer = new Customer();
-        } catch (Exception e) {
+
+    ordersRepository.save(newOrder);
+        System.out.println("order saved");
+
+    setOrderConfirmation(newCustomer);
+            System.out.println("customer copy: " + customerCopyDto);
+
+
+} catch (Exception e) {
             log.error("error: ", e);
-        }
-
-
-//        try{
-//            queriedCustomers = customerRepository.findByNameContaining(order.getCustomer().getName());
-//            if(queriedCustomers.isEmpty()){
-//                newCustomer.setCustomerUid(genCustomerUid());
-//                customerRepository.save(newCustomer);
-//                System.out.println("new customer: " + customerRepository.findByName(newCustomer.getName()));
-//                thisCustomer = customerRepository.findByName(newCustomer.getName());
-////                set new order with this customers data
-//            } else {
-//                for (Customer customer : queriedCustomers) {
-//                    if ((newCustomer.getName().equals(customer.getName())
-//                            && newCustomer.getEmail().equals(customer.getEmail()))
-//                            || (newCustomer.getName().equals(customer.getName())
-//                            && newCustomer.getPhoneNumber().equals(customer.getPhoneNumber()))){
-//                        System.out.println("submitted customer: " + newCustomer);
-//                        System.out.println("found customer: " + customer);
-//                    }
-//                    thisCustomer = customer;
-//                    break;
-//                }
-//                System.out.println("this customer = " + thisCustomer);
-//            }
-//        } catch(Exception e){
-//                log.error("error: ", e);
-//        }
-
-//=============================================================
-//        try{
-//        if (customerRepository.findByName(order.getCustomer().getName()) != null &&
-//                Objects.equals
-//                        (customerRepository.findByName(order.getCustomer().getName()).getEmail(),
-//                                order.getCustomer().getEmail())
-//                && Objects.equals(customerRepository.findByName(order.getCustomer().getName()).getPhoneNumber(),
-//                order.getCustomer().getPhoneNumber())
-//        ) {
-//            newOrder.setCustomerId(customerRepository.findByName(newCustomer.getName()).getCustomerId());
-//            newOrder.setCustomerUid(customerRepository.findByName(newCustomer.getName()).getCustomerUid());
-//        } else {
-//            newCustomer.setCustomerUid(genCustomerUid());
-//            customerRepository.save(newCustomer);
-//            newOrder.setCustomerUid(customerRepository.findByName(newCustomer.getName()).getCustomerUid());
-//            newOrder.setCustomerId(customerRepository.findByCustomerUid(newOrder.getCustomerUid()).getCustomerId());
-//
-//        }
-//        }catch (Exception e){
-//            log.error("e: ", e);
-//        }
-//
-//        try{
-//            newOrder.setOrderItems(submittedOrderItemsConvertor(order.getOrder()));
-//        } catch (Exception e) {
-//            log.error("e: ", e);
-//        }
-//
-//
-////set total for each order item before creating the dto and update the grand total
-//        for (OrderItem orderItem : newOrder.getOrderItems()) {
-//            char itemSize = orderItem.getSize();
-//
-//            BigDecimal adjustedUnitPrice = switch (itemSize) {
-//                case 'm' -> menuItemRepository
-//                        .getReferenceById(orderItem.getItem().getId()).getUnitPrice().add(BigDecimal.valueOf(0.25));
-//                case 'l' -> menuItemRepository
-//                        .getReferenceById(orderItem
-//                                .getItem().getId())
-//                        .getUnitPrice()
-//                        .add(BigDecimal.valueOf(0.50));
-//                default -> menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice();
-//            };
-//            orderItem.setTotal(adjustedUnitPrice.multiply(BigDecimal.valueOf(orderItem.getQuantity())));
-//            System.out.println("item total: " + orderItem.getTotal().toString());
-//            orderTotal = orderTotal.add(orderItem.getTotal());
-//        }
-//
-////  set order total, customer uid and customer id for new customer
-//        newOrder.setOrderTotal(orderTotal);
-//        System.out.println("total: " + newOrder.getOrderTotal().toString());
-//
-////set order uid
-//        newOrder.setOrderUid(genOrderUid());
-//
-//        try{
-//            ordersRepository.save(newOrder);
-//        } catch (Exception e) {
-//            log.error("e: ", e);
-//        }
-//
-//        System.out.println("new order: " + newOrder);
-//
-//        try catch and cleanup
-////create an order confirmation
-//        orderConfirmation = ordersRepository.findByOrderUid(newOrder.getOrderUid());
-//        customerCopyDto.setCustomerName(customerRepository.findByCustomerUid(orderConfirmation.getCustomerUid()).getName());
-//        customerCopyDto.setCustomerEmail(customerRepository.findByCustomerUid(orderConfirmation.getCustomerUid()).getEmail());
-//        customerCopyDto.setCustomerPhone(customerRepository.findByCustomerUid(orderConfirmation.getCustomerUid()).getPhoneNumber());
-//        customerCopyDto.setOrderUid(newOrder.getOrderUid());
-//        customerCopyDto.setOrderTotal(newOrder.getOrderTotal());
-//        List<OrderItemReturnedToCustomer> customerItems = getOrderItemReturnedToCustomers(orderConfirmation);
-//        customerCopyDto.setOrderItems(customerItems);
-//
-//        customerNameValid = false;
-//        customerPhoneNumberValid = false;
-//        customerEmailValid = false;
-//        orderTotal = BigDecimal.valueOf(0.00);
-//        System.out.println(customerCopyDto);
+}
         return customerCopyDto;
     }
 
-
-    private static @NotNull List<OrderItemReturnedToCustomer> getOrderItemReturnedToCustomers(Orders orderConfirmation) {
-        List<OrderItemReturnedToCustomer> customerItems = new ArrayList<>();
-        for (OrderItem orderItem : orderConfirmation.getOrderItems()) {
-            OrderItemReturnedToCustomer orderItemReturnedToCustomer = new OrderItemReturnedToCustomer();
-            orderItemReturnedToCustomer.setItemName(orderItem.getItem().getItemName());
-            orderItemReturnedToCustomer.setUnitPrice(orderItem.getItem().getUnitPrice());
-            orderItemReturnedToCustomer.setQuantity(orderItem.getQuantity());
-            orderItemReturnedToCustomer.setSize(orderItem.getSize());
-            orderItemReturnedToCustomer.setTotal(orderItem.getTotal());
-            customerItems.add(orderItemReturnedToCustomer);
+    private void setOrderConfirmation(Customer newCustomer){
+        try{
+            Orders orderConfirmation = ordersRepository.findByOrderUid(newOrder.getOrderUid());
+        customerCopyDto.setCustomerName(newCustomer.getName());
+        customerCopyDto.setCustomerEmail(newCustomer.getEmail());
+        customerCopyDto.setCustomerPhone(newCustomer.getPhoneNumber());
+        customerCopyDto.setOrderUid(newOrder.getOrderUid());
+        customerCopyDto.setOrderTotal(newOrder.getOrderTotal());
+        List<OrderItemReturnedToCustomer> customerItems = getOrderItemReturnedToCustomers(orderConfirmation);
+        customerCopyDto.setOrderItems(customerItems);
+        } catch (Exception e) {
+            log.error("error: ", e);
         }
-        return customerItems;
+    }
+// customer validation and preparation
+    private void validateCustomerInfo(SubmittedOrder submittedOrder){
+        try{
+
+        validateCustomerName(submittedOrder.getCustomer().getName());
+        validateCustomerPhone(submittedOrder.getCustomer().getPhoneNumber());
+        validateCustomerEmail(submittedOrder.getCustomer().getEmail());
+
+        if(customerNameValid && customerEmailValid && customerPhoneNumberValid){
+            System.out.println("Customer info valid.");
+        }
+        } catch (Exception e) {
+            log.error("error: " , e);
+        }
     }
 
-
-    private List<OrderItem> submittedOrderItemsConvertor(List<OrderItemDTO> orderItems){
-        List<OrderItem> items = new ArrayList<>();
-
-        for(OrderItemDTO orderItemDTO : orderItems){
-            OrderItem orderItem = new OrderItem();
-            char itemSize = orderItemDTO.getSize();
-
-            try{
-                orderItem.setItem(menuItemRepository.getReferenceById(Integer.valueOf(orderItemDTO.getMenuId())));
-                orderItem.setSize(orderItemDTO.getSize());
-                orderItem.setQuantity(orderItemDTO.getQuantity());
-                orderItem.setOrder(newOrder);
-            } catch (Exception e) {
-                log.error("e: " , e);
+    private void validateCustomerName(String customerName) {
+        try{
+        byte[] nameChars = customerName.getBytes(StandardCharsets.UTF_8);
+        int spaces = 0;
+        for (Byte nameChar : nameChars) {
+            if (Objects.equals(nameChar, (byte) 32)) {
+                spaces += 1;
             }
-
-// adjust item price and total if a size is available and selected
-            BigDecimal adjustedUnitPrice = switch (itemSize) {
-                case 'm' -> menuItemRepository
-                        .getReferenceById(Integer.valueOf(orderItemDTO
-                                .getMenuId()))
-                        .getUnitPrice()
-                        .add(BigDecimal.valueOf(0.25));
-                case 'l' -> menuItemRepository
-                        .getReferenceById(Integer.valueOf(orderItemDTO
-                                .getMenuId()))
-                        .getUnitPrice()
-                        .add(BigDecimal.valueOf(0.50));
-                default -> menuItemRepository.getReferenceById(Integer.valueOf(orderItemDTO.getMenuId())).getUnitPrice();
-            };
-            orderItem.setTotal(adjustedUnitPrice.multiply(BigDecimal.valueOf(orderItemDTO.getQuantity())));
-            items.add(orderItem);
         }
-        System.out.println("items: " + items);
-        return items;
+//        possibly alter for just ^[a-zA-Z]$+ [a-zA-Z]+. currently accepting letters from any language.
+        if (customerName.matches("^\\p{L}+[\\p{L}\\p{Pd}\\p{Zs}']*\\p{L}+$|^\\p{L}+$") &&
+                spaces == 1) {
+            customerNameValid = true;
+        }
+        if (!customerNameValid) {
+            throw new IllegalArgumentException("Customer name incorrectly formatted. Please consult the documentation.");
+        }
+        } catch (Exception e) {
+            log.error("error: " , e);
+        }
     }
 
-    private String genOrderUid() {
-        // desired result example: 11A32
-        String orderUid = null;
-        StringBuilder orderUidBuilder = new StringBuilder(5);
+    private void validateCustomerPhone(String customerPhone){
+        try{
 
-        for (int i = 0; i < 5; i++) {
-            orderUid = String.valueOf(orderUidBuilder.append(randomUidChar()));
 
+        if (customerPhone.matches("[0-9.]*")
+                && customerPhone.charAt(3) == (char) 46
+                && customerPhone.charAt(7) == (char) 46
+                && customerPhone.length()==12){
+            customerPhoneNumberValid = true;
         }
-//        ensure uid is unique
-//        compare uid against others by doing a find by uid and if null then return if not re-run
-        if (ordersRepository.findByOrderUid(orderUid) != null) {
-            genOrderUid();
+        if(!customerPhoneNumberValid) {
+            throw new IllegalArgumentException("Customer phone number incorrectly formatted. Please consult the documentation.");
         }
-        return orderUid;
+        } catch (Exception e) {
+            log.error("error: " , e);
+        }
+    }
+
+    private void validateCustomerEmail(String customerEmail){
+        try{
+
+
+        if (customerEmail.matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,}")) customerEmailValid = true;
+        if (!customerEmailValid){
+            throw new IllegalArgumentException("Customer e-mail incorrectly formatted. Please consult the documentation.");
+        }
+        } catch (Exception e) {
+            log.error("error: " , e);
+        }
     }
 
     private void checkIfCustomerExists(Customer submittedCustomer){
-        List<Customer> queriedCustomers = customerRepository.findByNameContaining(submittedCustomer.getName());
-        List<Customer> allCustomers = customerRepository.findAll();
-        System.out.println("customer: " + submittedCustomer);
         try{
+            List<Customer> queriedCustomers = customerRepository.findByNameContaining(submittedCustomer.getName());
+            List<Customer> allCustomers = customerRepository.findAll();
+            System.out.println("customer: " + submittedCustomer);
             for (Customer customer : allCustomers)
                 if (Objects.equals(submittedCustomer.getName(), customer.getName())) {
                     for (Customer queriedCustomer : queriedCustomers) {
@@ -328,70 +188,180 @@ public class OrdersService implements OrdersServiceInterface {
                 }
             System.out.println("new customer: " + newCustomerFlag);
         }catch (Exception e){
-                log.error("error: ", e);
+            log.error("error: ", e);
+        }
+    }
+
+    private void prepareCustomerInfo(Customer customer){
+        try{
+        if (newCustomerFlag){
+            customer.setCustomerUid(genCustomerUid());
+            System.out.println(customer);
+            customerRepository.save(customer);
+            System.out.println("saved customer");
+            newOrder.setCustomerUid(customer.getCustomerUid());
+            newOrder.setCustomerId(customerRepository.findByCustomerUid(customer.getCustomerUid()).getCustomerId());
+            System.out.println("customer set to order");
+        }else {
+            System.out.println("existing customer: " + existingCustomer);
+            newOrder.setCustomerId(existingCustomer.getCustomerId());
+            newOrder.setCustomerUid(existingCustomer.getCustomerUid());
+            System.out.println("customer set to order");
+            System.out.println("new order: " + newOrder);
+        }
+        } catch (Exception e) {
+            log.error("error: " , e);
+        }
+    }
+
+//    operations
+    private void totalOrder(){
+        try{
+
+        for (OrderItem orderItem : newOrder.getOrderItems()) {
+            char itemSize = orderItem.getSize();
+
+            BigDecimal adjustedUnitPrice = switch (itemSize) {
+                case 'm' -> menuItemRepository
+                        .getReferenceById(orderItem.getItem().getId()).getUnitPrice().add(BigDecimal.valueOf(0.25));
+                case 'l' -> menuItemRepository
+                        .getReferenceById(orderItem
+                                .getItem().getId())
+                        .getUnitPrice()
+                        .add(BigDecimal.valueOf(0.50));
+                default -> menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice();
+            };
+            orderItem.setTotal(adjustedUnitPrice.multiply(BigDecimal.valueOf(orderItem.getQuantity())));
+            System.out.println("item total: " + orderItem.getTotal().toString());
+            orderTotal = orderTotal.add(orderItem.getTotal());
+        }
+        newOrder.setOrderTotal(orderTotal);
+        System.out.println("total: " + newOrder.getOrderTotal().toString());
+    } catch (Exception e) {
+        log.error("error: " , e);
+    }
+
+    }
+
+    private static @NotNull List<OrderItemReturnedToCustomer> getOrderItemReturnedToCustomers(Orders orderConfirmation) {
+        List<OrderItemReturnedToCustomer> customerItems = new ArrayList<>();
+        try{
+        for (OrderItem orderItem : orderConfirmation.getOrderItems()) {
+            OrderItemReturnedToCustomer orderItemReturnedToCustomer = new OrderItemReturnedToCustomer();
+            orderItemReturnedToCustomer.setItemName(orderItem.getItem().getItemName());
+            orderItemReturnedToCustomer.setUnitPrice(orderItem.getItem().getUnitPrice());
+            orderItemReturnedToCustomer.setQuantity(orderItem.getQuantity());
+            orderItemReturnedToCustomer.setSize(orderItem.getSize());
+            orderItemReturnedToCustomer.setTotal(orderItem.getTotal());
+            customerItems.add(orderItemReturnedToCustomer);
+        }
+        } catch (Exception e) {
+            log.error("error: " , e);
+        }
+        return customerItems;
+    }
+
+    private List<OrderItem> submittedOrderItemsConvertor(List<OrderItemDTO> orderItems) {
+        List<OrderItem> items = new ArrayList<>();
+        try {
+            for (OrderItemDTO orderItemDTO : orderItems) {
+                OrderItem orderItem = new OrderItem();
+                char itemSize = orderItemDTO.getSize();
+
+
+                    orderItem.setItem(menuItemRepository.getReferenceById(Integer.valueOf(orderItemDTO.getMenuId())));
+                    orderItem.setSize(orderItemDTO.getSize());
+                    orderItem.setQuantity(orderItemDTO.getQuantity());
+                    orderItem.setOrder(newOrder);
+
+
+// adjust item price and total if a size is available and selected
+                    BigDecimal adjustedUnitPrice = switch (itemSize) {
+                        case 'm' -> menuItemRepository
+                                .getReferenceById(Integer.valueOf(orderItemDTO
+                                        .getMenuId()))
+                                .getUnitPrice()
+                                .add(BigDecimal.valueOf(0.25));
+                        case 'l' -> menuItemRepository
+                                .getReferenceById(Integer.valueOf(orderItemDTO
+                                        .getMenuId()))
+                                .getUnitPrice()
+                                .add(BigDecimal.valueOf(0.50));
+                        default ->
+                                menuItemRepository.getReferenceById(Integer.valueOf(orderItemDTO.getMenuId())).getUnitPrice();
+                    };
+                    orderItem.setTotal(adjustedUnitPrice.multiply(BigDecimal.valueOf(orderItemDTO.getQuantity())));
+                    items.add(orderItem);
+
             }
-//        return newCustomerFlag;
+        } catch (Exception e) {
+            log.error("error: ", e);
+        }
+                System.out.println("items: " + items);
+                return items;
+    }
+
+//    uid gen
+    private String genOrderUid() {
+        // desired result example: 11A32
+        String orderUid = null;
+        StringBuilder orderUidBuilder = new StringBuilder(5);
+        try{
+            for (int i = 0; i < 5; i++) {
+                orderUid = String.valueOf(orderUidBuilder.append(randomUidChar()));
+
+            }
+//        ensure uid is unique
+//        compare uid against others by doing a find by uid and if null then return if not re-run
+            if (ordersRepository.findByOrderUid(orderUid) != null) {
+                genOrderUid();
+            }
+        } catch (Exception e) {
+            log.error("error: " , e);
+        }
+        return orderUid;
     }
 
     private String genCustomerUid() {
-        // desired result example: 11A3-ewr3
         String customerUid = null;
         String customerUidFront;
         String customerUidBack;
         String formattedCustomerUid;
         StringBuilder orderUidBuilder = new StringBuilder(8);
+
+        // desired result example: 11A3-ewr3
+
         for (int i = 0; i < 8; i++) {
             customerUid = String.valueOf(orderUidBuilder.append(randomUidChar()));
         }
             customerUidFront = customerUid.substring(0,4);
             customerUidBack = customerUid.substring(4);
             formattedCustomerUid = customerUidFront + "-" + customerUidBack;
-
+        try{
 //        compare uid against others by doing a find by uid and if null then return if not re-run
         if (customerRepository.findByCustomerUid(customerUid) != null) {
             genCustomerUid();
+        }
+        } catch (Exception e) {
+            log.error("error: " , e);
         }
         return formattedCustomerUid;
     }
 
     private char randomUidChar() {
-        int min = 48, max = 90;
-        int random = (int) (Math.random() * ((max - min)) + min);
-        char randomChar;
-        int[] excluded = {58, 59, 60, 61, 62, 63, 64};
-        if (ArrayUtils.contains(excluded, random)) {
-            randomChar = randomUidChar();
-            return randomChar;
+
+            int min = 48, max = 90;
+            int random = (int) (Math.random() * ((max - min)) + min);
+            char randomChar;
+            int[] excluded = {58, 59, 60, 61, 62, 63, 64};
+        try{
+            if (ArrayUtils.contains(excluded, random)) {
+                randomChar = randomUidChar();
+                return randomChar;
+            }
+        } catch (Exception e) {
+            log.error("error: " , e);
         }
         return (char) random;
     }
-
-    private void validateCustomerName(String customerName) {
-        byte[] nameChars = customerName.getBytes(StandardCharsets.UTF_8);
-        int spaces = 0;
-        for (Byte nameChar : nameChars) {
-            if (Objects.equals(nameChar, (byte) 32)) {
-                spaces += 1;
-            }
-        }
-//        possibly alter for just ^[a-zA-Z]$+ [a-zA-Z]+. currently accepting letters from any language.
-        if (customerName.matches("^\\p{L}+[\\p{L}\\p{Pd}\\p{Zs}']*\\p{L}+$|^\\p{L}+$") &&
-                    spaces == 1) {
-                customerNameValid = true;
-        }
-    }
-
-    private void validateCustomerPhone(String customerPhone){
-        if (customerPhone.matches("[0-9.]*")
-                && customerPhone.charAt(3) == (char) 46
-                && customerPhone.charAt(7) == (char) 46
-                && customerPhone.length()==12){
-            customerPhoneNumberValid = true;
-        }
-    }
-
-    private void validateCustomerEmail(String customerEmail){
-        if (customerEmail.matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,}")) customerEmailValid = true;
-    }
-
 }

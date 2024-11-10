@@ -2,6 +2,24 @@
 
 ---
 
+-- 10 Nov 2024 --
+
+- Try catch blocks added to methods in orders service.
+- setOrder confirmation outsourced to method in orders service in order to aid 
+with readability.
+- Try catch for create order in place.
+- Issue with backend returning data from previous order addressed.
+
+---
+
+-- 9 Nov 2024 --
+
+-Customer confirmation was incorrectly returning past customer data instead of 
+what the customer entered. This was corrected and logic of create order was 
+broken up and split into smaller methods to try and help with readability.
+
+---
+
 -- 8 Nov 2024 --
 
 - Created method for checking if a customer is new in orders service.
