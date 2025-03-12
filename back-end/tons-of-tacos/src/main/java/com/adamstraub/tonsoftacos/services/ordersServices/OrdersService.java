@@ -137,8 +137,6 @@ public class OrdersService implements OrdersServiceInterface {
 
     private void validateCustomerPhone(String customerPhone){
         try{
-
-
         if (customerPhone.matches("[0-9.]*")
                 && customerPhone.charAt(3) == (char) 46
                 && customerPhone.charAt(7) == (char) 46

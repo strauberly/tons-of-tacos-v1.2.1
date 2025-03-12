@@ -110,6 +110,7 @@ public class GlobalExceptionHandler {
             BadCredentialsException e, WebRequest webRequest
     ){
         logger.debug(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest).toString());
+        System.out.println(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest));
         return createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest);
     }
 

@@ -1,6 +1,7 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.session;
 
 import com.adamstraub.tonsoftacos.dto.businessDto.security.OwnerAuth;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.Token;
 import com.adamstraub.tonsoftacos.services.security.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,8 +16,14 @@ public class SessionController implements SessionControllerInterface {
     AuthService authService;
 
     @Override
-    public String ownerLogin(OwnerAuth authDto){
+    public Token ownerLogin(OwnerAuth authDto){
         System.out.println("controller");
         return authService.ownerLogin(authDto);
     }
+
+//    @Override
+//    public String ownerLogin(OwnerAuth authDto){
+//        System.out.println("controller");
+//        return authService.ownerLogin(authDto);
+//    }
 }

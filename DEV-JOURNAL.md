@@ -2,6 +2,14 @@
 
 ---
 
+-- 12 March 2025 --
+
+- Created a token DTO to be returned to the frontend instead of a string so 
+that front end developers can interpret response as json. Services and 
+controllers have been updated.
+
+---
+
 -- 10 Nov 2024 --
 
 - Try catch blocks added to methods in orders service.
