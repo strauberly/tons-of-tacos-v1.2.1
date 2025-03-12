@@ -126,6 +126,7 @@ public class LoginTest implements JwtSignatureValidator {
             HttpEntity<String> httpEntity = new HttpEntity<>(badUserNameBody, headers);
             ResponseEntity<Map<String, Object>> response = getRestTemplate().exchange(uri, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<>() {
             });
+            System.out.println(response.getStatusCode());
             System.out.println(response.getBody());
 //            Then: status code of 403 or 401 is returned
             Assertions.assertTrue(response.getStatusCode() == HttpStatusCode.valueOf(401) || response.getStatusCode() == HttpStatusCode.valueOf(403) );

@@ -45,9 +45,9 @@ private final HandlerExceptionResolver resolver;
             throws ServletException, IOException {
         System.out.println("jwt filter");
         try {
-//            System.out.println("request: " + request);
+            System.out.println("request: " + request);
             String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-//        System.out.println("auth header: " + authHeader);
+        System.out.println("auth header: " + authHeader);
             String token = null;
             String username = null;
             Date expiration = null;

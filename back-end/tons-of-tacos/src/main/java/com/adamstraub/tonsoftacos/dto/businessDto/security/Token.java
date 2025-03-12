@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OwnerAuth {
-    private String username;
-    private String psswrd;
+public class Token{
+    private String token;
 }
-
