@@ -45,9 +45,9 @@ private final HandlerExceptionResolver resolver;
             throws ServletException, IOException {
         System.out.println("jwt filter");
         try {
-            System.out.println("request: " + request);
+//            System.out.println("request: " + request);
             String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        System.out.println("auth header: " + authHeader);
+//        System.out.println("auth header: " + authHeader);
             String token = null;
             String username = null;
             Date expiration = null;
@@ -63,22 +63,24 @@ private final HandlerExceptionResolver resolver;
                 issuedAt = jwtService.extractIssuedAt(token);
 //                System.out.println("issued at = " + issuedAt);
             }
+//            System.out.println(jwtService.decrypt(username));
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userDetailsService().loadUserByUsername(jwtService.decrypt(username));
-//                System.out.println("user details: " + userDetails);
+
+                System.out.println("user details: " + userDetails);
 //
-//                System.out.println("token valid: " + jwtService.isTokenValid(token, userDetails));
+                System.out.println("token valid: " + jwtService.isTokenValid(token, userDetails));
                 jwtService.isTokenValid(token, userDetails);
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null
                         , userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-//                System.out.println("authToken: " + authToken);
+                System.out.println("authToken: " + authToken);
             }
             filterChain.doFilter(request, response);
         } catch (Exception e) {
-//            System.out.println(e);
+            System.out.println(e);
             resolver.resolveException(request, response, null, e);
         }
     }

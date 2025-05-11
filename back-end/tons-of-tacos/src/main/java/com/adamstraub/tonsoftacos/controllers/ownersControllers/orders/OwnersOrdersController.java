@@ -2,6 +2,7 @@ package com.adamstraub.tonsoftacos.controllers.ownersControllers.orders;
 
 import com.adamstraub.tonsoftacos.dto.businessDto.DailySales;
 import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.services.ownersServices.orders.OwnersOrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,19 +48,27 @@ public class OwnersOrdersController implements OwnersOrdersControllerInterface {
 
 
     @Override
-    public String deleteOrder(String orderUid) {
+    public ResponseMessage deleteOrder(String orderUid) {
         System.out.println("controller");
         return ownersOrdersService.deleteOrder(orderUid);
     }
 
     @Override
-    public String addToOrder(String orderUid, Integer menuItemId, Integer quantity) {
+    public ResponseMessage addToOrder(String orderUid, Integer menuItemId, Integer quantity, String itemSize) {
         System.out.println("controller");
-        return ownersOrdersService.addToOrder(orderUid, menuItemId, quantity);
+
+        return ownersOrdersService.addToOrder(orderUid, menuItemId, quantity, itemSize);
     }
 
     @Override
-    public String updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity) {
+    public ResponseMessage removeFromOrder(Integer orderItemId) {
+        System.out.println("controller");
+
+        return ownersOrdersService.removeFromOrder(orderItemId);
+    }
+
+    @Override
+    public ResponseMessage updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity) {
             System.out.println("controller");
         return ownersOrdersService.updateOrderItemQuantity(orderUid, orderItemId, newQuantity);
     }

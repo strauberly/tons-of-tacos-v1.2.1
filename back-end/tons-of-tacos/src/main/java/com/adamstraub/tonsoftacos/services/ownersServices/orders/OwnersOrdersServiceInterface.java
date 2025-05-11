@@ -1,6 +1,7 @@
 package com.adamstraub.tonsoftacos.services.ownersServices.orders;
 import com.adamstraub.tonsoftacos.dto.businessDto.DailySales;
 import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 
 import java.util.List;
 
@@ -19,11 +20,13 @@ public interface OwnersOrdersServiceInterface {
 
     OrderReturnedToOwner closeOrder(String orderUid);
 
-    String deleteOrder(String orderUid);
+    ResponseMessage deleteOrder(String orderUid);
 
-    String addToOrder(String orderUid, Integer menuItemId, Integer quantity);
+    ResponseMessage addToOrder(String orderUid, Integer menuItemId, Integer quantity, String itemSize);
 
-    String updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity);
+    ResponseMessage removeFromOrder( Integer orderItemId);
+
+    ResponseMessage updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity);
 
     DailySales todaysSales();
 

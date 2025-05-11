@@ -51,9 +51,8 @@ public interface SessionControllerInterface {
             }
     )
 
-    @PostMapping("/login")
-    Token ownerLogin(@RequestBody OwnerAuth authDto) throws UnsupportedEncodingException;
-
 //    @PostMapping("/login")
-//    String ownerLogin(@RequestBody OwnerAuth authDto) throws UnsupportedEncodingException;
+//    Token ownerLogin(@RequestBody OwnerAuth authDto) throws UnsupportedEncodingException;
+    @PostMapping("/login")
+   Token ownerLogin(@RequestBody OwnerAuth authDto) throws UnsupportedEncodingException;
 }

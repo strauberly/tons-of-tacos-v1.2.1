@@ -1,5 +1,6 @@
 package com.adamstraub.tonsoftacos.services.security;
 
+import com.adamstraub.tonsoftacos.dto.businessDto.security.Subject;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -7,11 +8,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.function.Function;
 
 //implement exception handling
@@ -52,27 +55,57 @@ public class JwtService {
     @Value("${CHARSET}")
     private String CHARSET;
 
+
+
     private Key getSignKey(){
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-    private String buildToken(String username){
-        String token = Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
+//    private String buildToken(String subject){
+//        String token = Jwts.builder()
+//                .setSubject(String.valueOf(subject))
+//                .setIssuedAt(new Date(System.currentTimeMillis()))
+////                16 hours, reflective of our owners work day - to be altered to facilitate mitigation of token theft
+//                .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60) * 16))
+//                .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
+////        System.out.println(token);
+////        System.out.println("token issued: " + new Date(System.currentTimeMillis()));
+////        System.out.println("token expires: " + new Date(System.currentTimeMillis() + (1000 * 60 * 60) * 16));
+//        return token;
+//    }
+
+private String buildToken(Subject subject){
+    StringJoiner joiner = new StringJoiner(", ");
+    joiner.add("{\"username\": " + '"' + subject.getUsername() + '"');
+    joiner.add("\"ownername\": " + '"' + subject.getOwnername() + "\"}");
+
+    System.out.println(joiner);
+
+
+    String token = Jwts.builder()
+//            .setSubject(String.valueOf(subject))
+//            .setSubject(String.valueOf(subject.getUsername()+subject.getOwnername()))
+//            .setSubject(joiner.toString())
+            .setSubject(subject.getUsername())
+            .claim("ownername", subject.getOwnername())
+            .setIssuedAt(new Date(System.currentTimeMillis()))
+
 //                16 hours, reflective of our owners work day - to be altered to facilitate mitigation of token theft
-                .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60) * 16))
-                .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
+            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60) * 16))
+            .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
 //        System.out.println(token);
 //        System.out.println("token issued: " + new Date(System.currentTimeMillis()));
 //        System.out.println("token expires: " + new Date(System.currentTimeMillis() + (1000 * 60 * 60) * 16));
-        return token;
-    }
+    return token;
+}
 
-
-    public String generateToken(String username){
-        return buildToken(username);
+    public String generateToken(Subject subject){
+        return buildToken(subject);
     }
+//
+//    public String generateToken(String subject){
+//        return buildToken(subject);
+//    }
 
 //    validate token
     private Claims extractAllClaims(String token){
