@@ -1,6 +1,7 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.orders;
 import com.adamstraub.tonsoftacos.dto.businessDto.DailySales;
 import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.entities.OrderItem;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
@@ -417,9 +418,10 @@ public interface OwnersOrdersControllerInterface {
     )
     @Transactional
     @DeleteMapping("/delete-order/{orderUid}")
-    String deleteOrder(@PathVariable String orderUid);
+    ResponseMessage deleteOrder(@PathVariable String orderUid);
 
 //add menu item to order
+
     @Operation(
             summary = "A menu item is added to an open order by respective uid and id.",
             description = "If request is successful then a message string is returned indicating as such (ex. 'cola x 3 added to order.')." +
@@ -440,16 +442,46 @@ public interface OwnersOrdersControllerInterface {
             }
     )
     @Transactional
-    @PutMapping("/add-to-order/{orderUid}/{menuItemId}/{quantity}")
-    String addToOrder(
-    @PathVariable
-    String orderUid,
-    @PathVariable
-    Integer menuItemId,
-    @PathVariable
-    Integer quantity);
+    @PutMapping("/add-to-order/{orderUid}/{menuItemId}/{quantity}/{itemSize}")
+    ResponseMessage addToOrder(
+            @PathVariable
+            String orderUid,
+            @PathVariable
+            Integer menuItemId,
+            @PathVariable
+            Integer quantity,
+            @PathVariable
+            String itemSize);
 
-//edit order item
+//    remove from order
+    @Operation(
+            summary = "An order item is removed from an order",
+            description = "If request is successful then a message string is returned indicating as such (ex. 'cola x 3 added to order.')." +
+                    " For owner use only with proper auth.",
+            responses = {
+
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "An order item is removed.",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = OrderItem.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Either the order to be altered or the menu item to be altered can not be found and is invalid."),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "An unplanned error occurred."),
+            }
+    )
+    @Transactional
+    @DeleteMapping("/remove-from-order/{orderItemId}")
+    ResponseMessage removeFromOrder(
+            @PathVariable
+            Integer orderItemId
+        );
+
+
+    //edit order item
     @Operation(
             summary = " Updates an order item quantity and corresponding order total.",
             description = """ 
@@ -472,7 +504,7 @@ public interface OwnersOrdersControllerInterface {
             }
     )
     @PutMapping("/update-order-item/{orderUid}/{orderItemId}/{newQuantity}")
-    String updateOrderItemQuantity(
+    ResponseMessage updateOrderItemQuantity(
     @PathVariable
     String orderUid,
     @PathVariable

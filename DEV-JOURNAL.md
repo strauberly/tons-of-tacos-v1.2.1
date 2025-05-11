@@ -2,6 +2,106 @@
 
 ---
 
+-- 11 May 2025 --
+
+- Updated removeFromOrder() in OwnersOrdersService to update order total when 
+removing an item from an order
+------------------------
+
+-- 7 May 2025 --
+
+- Added method calc price to OwnersOrdersService. This method is currently 
+called in AddtoOrder and calculate the the order item item total based off of 
+size selected by owner before updating the total for an order.
+
+
+----------------------------
+
+-- 27 Apr 2025 --
+
+- Updated update order item end point to return response message across 
+services controllers and corresponding interfaces.
+
+
+----------------------------
+-- 26 Apr 2025 --
+
+- Created end-point for an owner to remove an order item from an order. 
+OwnersOrdersController, OwnersOrdersControllerInterface, OwnersOrderService, 
+and OwnersOrdersServiceInterface alterered to implement functionality. Still 
+need to write tests in order to assure operatiing as desired.
+
+
+----------------------------
+
+-- 20 Apr 2025 --
+
+- Backend altered to accept a size so that a value of null is not entered into 
+the database for an item added to an order which would cause an error when 
+calling the orders and their items. Services and controllers updated. Endpoint 
+now returns a response message for confirmation.
+
+
+----------------------------
+
+-- 7 Apr 2025 --
+
+- Created a response message dto which returns a simple object containing 
+whatever we want to tell the front end on execution of services tied to an end 
+point.
+- All components pertaining to an owner deleting an order have been updated to 
+return a response message on successful completion of deleting an order by uid. 
+
+---
+
+-- 1 Apr 2025 --
+
+- Updated OrderItemReturnedToOwner to include order item size. Updated 
+ownersOrderItemDtoConvertor in OwnersOrdersServices to set the size. Allowing 
+to be displayed in frontend.
+
+---
+
+-- 31 March 2025 --
+
+- Created a Subject dto in business dto/security. This is now used in building 
+our jwt token. By adding an additional claim called owner name we can use the 
+username to find the owner encrypt the first name and send it in the token to 
+be decrypted and used in the owner dashboard on the front end.
+
+---
+
+-- 25 March 2025 --
+
+- Removed auth response object from dto package, now reusing token dto for 
+response. Cleaned up unused code.
+
+---
+
+-- 24 March 2025 --
+
+- backend adjusted to build jwt with owners name after submitted username 
+validates. This is encoded before loaded into the subject and eliminates 
+sending the owner name in plain text. 
+
+---
+
+-- 19 March 2025 --
+
+- controllers and services adjusted to return current desired object for front 
+end development concerning owner access to secured routes.
+
+---
+
+-- 17 March 2025 --
+
+- Created a new DTO called AuthenticationResponse that will be used instead of 
+token dto on successful user authentication. New DTO includes owners first name 
+to be used in greeting/successful login message/header. Will need to adjust 
+controllers and services once everything in place.
+
+---
+
 -- 12 March 2025 --
 
 - Created a token DTO to be returned to the frontend instead of a string so 

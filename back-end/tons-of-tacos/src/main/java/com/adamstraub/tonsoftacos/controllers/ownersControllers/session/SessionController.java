@@ -21,6 +21,13 @@ public class SessionController implements SessionControllerInterface {
         return authService.ownerLogin(authDto);
     }
 
+
+//    @Override
+//    public Token ownerLogin(OwnerAuth authDto){
+//        System.out.println("controller");
+//        return authService.ownerLogin(authDto);
+//    }
+
 //    @Override
 //    public String ownerLogin(OwnerAuth authDto){
 //        System.out.println("controller");

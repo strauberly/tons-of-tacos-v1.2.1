@@ -2,6 +2,7 @@ package com.adamstraub.tonsoftacos.services.ownersServices.orders;
 import com.adamstraub.tonsoftacos.dao.MenuItemRepository;
 import com.adamstraub.tonsoftacos.dao.OrderItemRepository;
 import com.adamstraub.tonsoftacos.dto.businessDto.DailySales;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
 import com.adamstraub.tonsoftacos.entities.OrderItem;
 import com.adamstraub.tonsoftacos.entities.Orders;
@@ -38,14 +39,20 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
         System.out.println("service");
         List<OrderReturnedToOwner> orderItemDtos = new ArrayList<>();
         List<Orders> orders;
-        try{
-         orders = ordersRepository.findAll();
+
+        try {
+            orders = ordersRepository.findAll();
+            System.out.println(orders);
             for (Orders order : orders) {
-            orderItemDtos.add(ownersGetOrderDtoConverter(order));
+                orderItemDtos.add(ownersGetOrderDtoConverter(order));
+            }
+            System.out.println(orderItemDtos);
+
+        } catch (Exception e) {
+//            throw new EntityNotFoundException("No orders found at all. Please contact your application team right away.");
+            System.out.println(e);
         }
-        } catch (Exception e){
-            throw new EntityNotFoundException("No orders found at all. Please contact your application team right away.");
-        }
+
         return orderItemDtos;
     }
 
@@ -53,8 +60,11 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
     public OrderReturnedToOwner getOrderByUid(String orderUid) {
         System.out.println("service");
         Orders order;
+
         try {
             order = ordersRepository.findByOrderUid(orderUid);
+//            create order DTO and return
+            ownersGetOrderDtoConverter(order);
             return ownersGetOrderDtoConverter(order);
         }catch (Exception e) {
             throw new EntityNotFoundException("No order found with that UID. Please verify and try again.");
@@ -134,9 +144,11 @@ public OrderReturnedToOwner closeOrder(String orderUid) {
 @Transactional
     @Override
 
-public String deleteOrder(String orderUid) {
+public ResponseMessage deleteOrder(String orderUid) {
+    System.out.println(orderUid);
         System.out.println("service");
         Orders order;
+    ResponseMessage message = new ResponseMessage();
         order = ordersRepository.findByOrderUid(orderUid);
 
         if(order == null){
@@ -144,42 +156,97 @@ public String deleteOrder(String orderUid) {
         }
 
         ordersRepository.deleteById(order.getOrderId());
-        return "Order " + order.getOrderUid() + " deleted.";
+        message.setMessage( "Order " + order.getOrderUid() + " deleted.");
+    System.out.println(message);
+    return message;
     }
 
     @Override
-    public String addToOrder(String orderUid, Integer menuItemId, Integer quantity) {
-            System.out.println("service");
-        Optional<MenuItem> menuItem;
-        Optional<Orders> orderToUpdate;
+    public ResponseMessage addToOrder(String orderUid, Integer menuItemId, Integer quantity, String itemSize) {
+        System.out.println(orderUid + " " + menuItemId + " " + quantity + " " + itemSize);
+        System.out.println("service");
+        ResponseMessage message = new ResponseMessage();
+//        System.out.println(orderUid + " " + menuItemId + " " + quantity);
+        Optional<MenuItem> menuItem = Optional.of(new MenuItem());
+        System.out.println(menuItem);
+        Optional<Orders> orderToUpdate = Optional.of(new Orders());
+        System.out.println(orderToUpdate);
+
+
+
         try{
             menuItem = Optional.of(menuItemRepository.getReferenceById(menuItemId));
+            System.out.println(menuItem);
         }catch (Exception e){
             throw new EntityNotFoundException("Menu item can not be added to order. Verify menu item id.");
         }
         try{
             orderToUpdate = Optional.of(ordersRepository.findByOrderUid(orderUid));
+            System.out.println(orderToUpdate);
         }catch (Exception e){
             throw new EntityNotFoundException("Menu item can not be added to order. Verify order id.");
         }
-        OrderItem orderItem = OrderItem.builder()
-                .item(menuItemRepository.getReferenceById(menuItemId))
-                .quantity(quantity)
-                .order(ordersRepository.findByOrderUid(orderUid)).build();
-        orderItem.setTotal(BigDecimal.valueOf(orderItem.getQuantity()).multiply(menuItemRepository.getReferenceById(menuItemId).getUnitPrice()));
-        orderItemRepository.save(orderItem);
+        try {
+            OrderItem orderItem = OrderItem.builder()
+                    .item(menuItemRepository.getReferenceById(menuItemId))
+                    .quantity(quantity)
+                    .order(ordersRepository.findByOrderUid(orderUid)).build();
+//            calc total
+//            orderItem.setTotal(BigDecimal.valueOf(orderItem.getQuantity()).multiply(menuItemRepository.getReferenceById(menuItemId).getUnitPrice()));
 
-        Orders order  = ordersRepository.findByOrderUid(orderUid);
-        order.setOrderTotal(order.getOrderTotal().add(menuItemRepository.getReferenceById(menuItemId).getUnitPrice().multiply(
-                BigDecimal.valueOf(quantity))));
-        ordersRepository.save(order);
-        return  menuItem.get().getItemName() + " x " + quantity + " added to order.";
+            orderItem.setSize(itemSize.charAt(0));
+            orderItem.setTotal(calcPrice(orderItem.getQuantity(), String.valueOf(orderItem.getSize()), menuItemRepository.getReferenceById(menuItemId).getUnitPrice()));
+            System.out.println("order item: " + orderItem);
+            orderItemRepository.save(orderItem);
+
+            Orders order = ordersRepository.findByOrderUid(orderUid);
+
+            order.setOrderTotal(order.getOrderTotal().add(orderItem.getTotal()));
+            System.out.println(order);
+
+            ordersRepository.save(order);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        message.setMessage( menuItem.get().getItemName() + " x " + quantity + " added to order.");
+        System.out.println(message);
+        return message;
+    }
+
+    @Override
+    public ResponseMessage removeFromOrder(Integer orderItemId) {
+        System.out.println(orderItemId);
+        System.out.println("service");
+        OrderItem orderItem;
+        BigDecimal oldTotal;
+        BigDecimal newTotal;
+
+        ResponseMessage message = new ResponseMessage();
+        orderItem = orderItemRepository.getByOrderItemId(orderItemId);
+        System.out.println(orderItem);
+
+        if(orderItem == null){
+            throw new EntityNotFoundException("Can not delete order item. Verify order item exists.");
+        }
+        orderItemRepository.deleteById(orderItemId);
+// update order total
+        oldTotal = orderItem.getOrder().getOrderTotal();
+        System.out.println(oldTotal);
+        newTotal = oldTotal.subtract(orderItem.getTotal());
+        System.out.println(newTotal);
+        Orders orderToEdit = ordersRepository.findByOrderUid(orderItem.getOrder().getOrderUid());
+        orderToEdit.setOrderTotal(newTotal);
+        ordersRepository.save(orderToEdit);
+
+        message.setMessage("Order item " + orderItem.getItem().getItemName() + " deleted.");
+        return message;
     }
 
     @Transactional
     @Override
-    public String updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity) {
+    public ResponseMessage updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity) {
             System.out.println("service");
+            ResponseMessage message = new ResponseMessage();
 //            validation
         Orders order = ordersRepository.findByOrderUid(orderUid);
         if (order == null){
@@ -189,7 +256,7 @@ public String deleteOrder(String orderUid) {
         if (orderItem == null){
             throw new EntityNotFoundException("Order item not updated. Verify order item is part of order.");
         }
-        String response;
+
             if (newQuantity > 10) {
                 throw new IllegalArgumentException("We were unable to process your request. " +
                         "Please contact us directly when trying to order more than 10 of any given item.");
@@ -198,7 +265,7 @@ public String deleteOrder(String orderUid) {
         if(newQuantity == 0){
                 orderItemRepository.delete(orderItem);
             order.setOrderTotal(order.getOrderTotal().subtract(orderItem.getTotal()));
-                response = "Item quantity updated, item removed, cart updated.";
+                message.setMessage( "Item quantity updated, item removed, order updated.");
             }else{
             orderItem.setQuantity(newQuantity);
             orderItem.setTotal(menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice().multiply(
@@ -206,9 +273,9 @@ public String deleteOrder(String orderUid) {
             order.setOrderTotal(order.getOrderTotal().add(orderItem.getTotal()));
             orderItemRepository.save(orderItem);
             ordersRepository.save(order);
-            response = "Item quantity updated, cart updated.";
+            message.setMessage( "Order item updated, order updated.");
         }
-        return response;
+        return message;
     }
 
 
@@ -248,7 +315,7 @@ public String deleteOrder(String orderUid) {
         System.out.println(formattedSales);
         return salesToday;
     }
-
+//try catch blocks
     private OrderReturnedToOwner ownersGetOrderDtoConverter(Orders order) {
         OrderReturnedToOwner orderReturnedToOwner = new OrderReturnedToOwner();
 //        set the dto
@@ -280,6 +347,20 @@ public String deleteOrder(String orderUid) {
         orderItemReturnedToOwner.setItemName(orderItem.getItem().getItemName());
         orderItemReturnedToOwner.setQuantity(orderItem.getQuantity());
         orderItemReturnedToOwner.setTotal(orderItem.getTotal());
+        orderItemReturnedToOwner.setSize(orderItem.getSize());
+//        set size
         return orderItemReturnedToOwner;
+    }
+
+    private BigDecimal calcPrice(Integer quantity, String size, BigDecimal unitPrice){
+        BigDecimal sizeSurcharge = BigDecimal.ZERO;
+        BigDecimal adjPrice;
+        if (size.equalsIgnoreCase("M")) {
+            sizeSurcharge = BigDecimal.valueOf(0.5);
+        } else if (size.equalsIgnoreCase( "L")) {
+            sizeSurcharge = BigDecimal.valueOf(1.0);
+        }
+        adjPrice = BigDecimal.valueOf(quantity).multiply(unitPrice.add(sizeSurcharge));
+        return adjPrice;
     }
 }
