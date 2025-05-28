@@ -1,6 +1,43 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+-- 28 May 2025 --
+
+- Solved issue with order persistence simply overwriting an existing order 
+instead of adding a new order.
+    - Originally suspected the issue stemmed from foreign customer key and 
+tried removing it from an order at first. Realized the issue was order that was 
+not being reset to a new order each time in the create order method and 
+subsequent methods were using a universal variable created on the class level. 
+Causing the the program to see the order as the same as last submitted.
+Customer foreign key has been restablish in an order.
+
+
+
+---
+
+-- 27 May 2025 --
+
+- order and ready now just return the time order marked ready or closed instead 
+of including the date, helps to cut down on display clutter
+
+---
+
+-- 17 May 2025 --
+
+- Updated Owners Orders Service. UpdateOrderItem() now also accepts a size so 
+that either the quantity or order item size can be updated. Updating correctly 
+uses the calcSize() method which takes into account a size surcharge as is 
+needed and correctly adjusts the item's total and the total for the order it 
+belongs to.
+
+- Adjusted controllers to reflect the changes to services.
+
+- Schema altered allowing order item to either store a descriptive size(ie 16 
+oz. bottle) or an abbreviated size(ie "M")
+
+- Sample data altered to use 'na' (not available) instead of null. 
+------------------------
 
 -- 11 May 2025 --
 

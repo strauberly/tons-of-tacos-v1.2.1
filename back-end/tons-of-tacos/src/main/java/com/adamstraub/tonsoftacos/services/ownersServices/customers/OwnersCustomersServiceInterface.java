@@ -1,5 +1,6 @@
 package com.adamstraub.tonsoftacos.services.ownersServices.customers;
 import com.adamstraub.tonsoftacos.dto.businessDto.CustomerReturnedToOwner;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ String updateCustomerEmail(String customerUid, String newCustomerEmail);
 String updateCustomerPhone(String customerUid, String newCustomerPhone);
 
 String deleteCustomer(String customerUid);
+
+ResponseMessage updateCustomer(String customerUid, String name, String phone, String email);
 }

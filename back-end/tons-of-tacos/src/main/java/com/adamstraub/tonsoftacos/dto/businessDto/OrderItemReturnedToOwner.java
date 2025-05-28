@@ -9,7 +9,8 @@ public class OrderItemReturnedToOwner {
     private Integer orderItemId;
     private String itemName;
     private Integer quantity;
-    private char size;
+//    private char size;
+    private String size;
     private BigDecimal total;
 
 

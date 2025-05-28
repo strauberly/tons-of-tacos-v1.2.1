@@ -8,7 +8,8 @@ public class OrderItemReturnedToCustomer {
      private String itemName;
      private BigDecimal unitPrice;
      private Integer quantity;
-     private Character size;
+//     private Character size;
+private String size;
      private BigDecimal total;
 
 }

@@ -12,7 +12,7 @@ import java.util.List;
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Customer findByName(@RequestParam("name") String customer);
 
-    @NotNull Customer getById(@RequestParam("id") @NotNull Integer customer);
+//    @NotNull Customer getById(@RequestParam("id") @NotNull Integer customer);
 
     Customer findByCustomerUid(@RequestParam("customer_uid") String customerUid);
 

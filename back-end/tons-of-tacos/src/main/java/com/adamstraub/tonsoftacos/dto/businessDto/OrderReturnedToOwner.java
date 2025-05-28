@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 public class OrderReturnedToOwner {
     private String orderUid;
+    private String customerUid;
     private String name = null;
     private String email = null;
     private String phone = null;

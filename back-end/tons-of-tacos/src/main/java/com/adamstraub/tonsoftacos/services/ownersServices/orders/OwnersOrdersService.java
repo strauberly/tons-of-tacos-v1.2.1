@@ -58,17 +58,22 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
 
     @Override
     public OrderReturnedToOwner getOrderByUid(String orderUid) {
+        System.out.println(orderUid);
         System.out.println("service");
         Orders order;
+        OrderReturnedToOwner returnedOrder = new OrderReturnedToOwner();
 
         try {
             order = ordersRepository.findByOrderUid(orderUid);
 //            create order DTO and return
-            ownersGetOrderDtoConverter(order);
-            return ownersGetOrderDtoConverter(order);
+           returnedOrder = ownersGetOrderDtoConverter(order);
+            System.out.println(returnedOrder);
+//            return ownersGetOrderDtoConverter(order);
         }catch (Exception e) {
-            throw new EntityNotFoundException("No order found with that UID. Please verify and try again.");
+            System.out.println(e);
+//            throw new EntityNotFoundException("No order found with that UID. Please verify and try again.");
         }
+        return returnedOrder;
     }
 
     @Override
@@ -82,7 +87,8 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
             throw new EntityNotFoundException("Customer not found.");
         }
         try {
-            orders = ordersRepository.findByCustomerId(customerObj.getCustomerId());
+            orders = ordersRepository.findByCustomerUid(customerObj.getCustomerUid());
+//            orders = ordersRepository.findByCustomerId(customerObj.getCustomerId());
         } catch (Exception e){
             throw new EntityNotFoundException("No orders for customer found.");
         }
@@ -107,7 +113,7 @@ public OrderReturnedToOwner orderReady(String orderUid) {
                 throw new EntityNotFoundException("Order does not exist. Please verify order id and try again.");
             }
 
-        String timeReady = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        String timeReady = new SimpleDateFormat(" hh:mm a ").format(Calendar.getInstance().getTime());
         order.setReady(timeReady);
         System.out.println("Order up!");
         return ownersGetOrderDtoConverter(order);
@@ -125,10 +131,11 @@ public OrderReturnedToOwner closeOrder(String orderUid) {
         if (order.getReady().equals("no")){
             throw new IllegalArgumentException("Order can not be closed if order is not ready.");
         }
-        String timeClosed = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        String timeClosed = new SimpleDateFormat("hh:mm a ").format(Calendar.getInstance().getTime());
         order.setClosed(timeClosed);
 
-    Customer customer = customerRepository.getReferenceById(order.getCustomerId());
+//    Customer customer = customerRepository.getReferenceById(order.getCustomerId());
+    Customer customer = customerRepository.findByCustomerUid(order.getCustomerUid());
         List<Orders> customerOrders = customer.getOrders();
         List<Orders> openOrders = new ArrayList<>();
         for (Orders customerOrder : customerOrders) {
@@ -137,7 +144,12 @@ public OrderReturnedToOwner closeOrder(String orderUid) {
             }
         }
         if (openOrders.isEmpty()){
-            customerRepository.deleteById(customer.getCustomerId());
+
+            customer.setName("na");
+            customer.setPhoneNumber("na");
+            customer.setEmail("na");
+            customerRepository.save(customer);
+//            customerRepository.deleteById(customer.getCustomerId());
         }
         return ownersGetOrderDtoConverter(order);
     }
@@ -164,6 +176,7 @@ public ResponseMessage deleteOrder(String orderUid) {
     @Override
     public ResponseMessage addToOrder(String orderUid, Integer menuItemId, Integer quantity, String itemSize) {
         System.out.println(orderUid + " " + menuItemId + " " + quantity + " " + itemSize);
+        System.out.println("Size length: " + itemSize.length());
         System.out.println("service");
         ResponseMessage message = new ResponseMessage();
 //        System.out.println(orderUid + " " + menuItemId + " " + quantity);
@@ -194,7 +207,8 @@ public ResponseMessage deleteOrder(String orderUid) {
 //            calc total
 //            orderItem.setTotal(BigDecimal.valueOf(orderItem.getQuantity()).multiply(menuItemRepository.getReferenceById(menuItemId).getUnitPrice()));
 
-            orderItem.setSize(itemSize.charAt(0));
+//            orderItem.setSize(itemSize.charAt(0));
+            orderItem.setSize(itemSize);
             orderItem.setTotal(calcPrice(orderItem.getQuantity(), String.valueOf(orderItem.getSize()), menuItemRepository.getReferenceById(menuItemId).getUnitPrice()));
             System.out.println("order item: " + orderItem);
             orderItemRepository.save(orderItem);
@@ -244,13 +258,15 @@ public ResponseMessage deleteOrder(String orderUid) {
 
     @Transactional
     @Override
-    public ResponseMessage updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity) {
+// change this to update order item and include size
+    public ResponseMessage updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity, String newSize) {
             System.out.println("service");
+
             ResponseMessage message = new ResponseMessage();
 //            validation
         Orders order = ordersRepository.findByOrderUid(orderUid);
         if (order == null){
-            throw new EntityNotFoundException("Order item not updated. Verify order exists.");
+            throw new EntityNotFoundException(" Verify order exists.");
         }
         OrderItem orderItem = orderItemRepository.getByOrderItemId(orderItemId);
         if (orderItem == null){
@@ -268,8 +284,12 @@ public ResponseMessage deleteOrder(String orderUid) {
                 message.setMessage( "Item quantity updated, item removed, order updated.");
             }else{
             orderItem.setQuantity(newQuantity);
-            orderItem.setTotal(menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice().multiply(
-                    BigDecimal.valueOf(orderItem.getQuantity())));
+            orderItem.setSize(newSize);
+
+//            orderItem.setTotal(calcPrice(orderItem.getQuantity(), orderItem.getSize(), menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice()));
+//            order.setOrderTotal(order.getOrderTotal().add(orderItem.getTotal()));
+            order.setOrderTotal(order.getOrderTotal().subtract(orderItem.getTotal()));
+            orderItem.setTotal(calcPrice(orderItem.getQuantity(), orderItem.getSize(), menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice()));
             order.setOrderTotal(order.getOrderTotal().add(orderItem.getTotal()));
             orderItemRepository.save(orderItem);
             ordersRepository.save(order);
@@ -319,12 +339,17 @@ public ResponseMessage deleteOrder(String orderUid) {
     private OrderReturnedToOwner ownersGetOrderDtoConverter(Orders order) {
         OrderReturnedToOwner orderReturnedToOwner = new OrderReturnedToOwner();
 //        set the dto
-        if (order.getCustomerId() != null) {
-            orderReturnedToOwner.setName(customerRepository.getReferenceById(order.getCustomerId()).getName());
-            orderReturnedToOwner.setEmail(customerRepository.getReferenceById(order.getCustomerId()).getEmail());
-            orderReturnedToOwner.setPhone(customerRepository.getReferenceById(order.getCustomerId()).getPhoneNumber());
+//        if (order.getCustomerId() != null) {
+        if (order.getCustomerUid() != null) {
+//            orderReturnedToOwner.setName(customerRepository.getReferenceById(order.getCustomerId()).getName());
+            orderReturnedToOwner.setName(customerRepository.findByCustomerUid(order.getCustomerUid()).getName());
+//            orderReturnedToOwner.setEmail(customerRepository.getReferenceById(order.getCustomerId()).getEmail());
+            orderReturnedToOwner.setEmail(customerRepository.findByCustomerUid(order.getCustomerUid()).getEmail());
+//            orderReturnedToOwner.setPhone(customerRepository.getReferenceById(order.getCustomerId()).getPhoneNumber());
+            orderReturnedToOwner.setPhone(customerRepository.findByCustomerUid(order.getCustomerUid()).getPhoneNumber());
         }
         orderReturnedToOwner.setOrderUid(order.getOrderUid());
+        orderReturnedToOwner.setCustomerUid(order.getCustomerUid());
 
 //        set the get order items dto
         List<OrderItemReturnedToOwner> orderItemReturnedToOwners = new ArrayList<>();
@@ -337,6 +362,7 @@ public ResponseMessage deleteOrder(String orderUid) {
         orderReturnedToOwner.setCreated(order.getCreated());
         orderReturnedToOwner.setReady(order.getReady());
         orderReturnedToOwner.setClosed(order.getClosed());
+        System.out.println(orderReturnedToOwner);
         return orderReturnedToOwner;
     }
 

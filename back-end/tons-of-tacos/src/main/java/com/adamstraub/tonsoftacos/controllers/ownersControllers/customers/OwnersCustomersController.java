@@ -1,5 +1,6 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.customers;
 import com.adamstraub.tonsoftacos.dto.businessDto.CustomerReturnedToOwner;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.services.ownersServices.customers.OwnersCustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +48,12 @@ public class OwnersCustomersController implements OwnersCustomersControllerInter
     public String updateCustomerPhone(String customerUid, String newCustomerPhone) {
         System.out.println("controller");
         return ownersCustomersService.updateCustomerPhone(customerUid, newCustomerPhone);
+    }
+
+    @Override
+    public ResponseMessage updateCustomer(String customerUid, String name, String phone, String email) {
+        System.out.println("controller");
+        return ownersCustomersService.updateCustomer(customerUid, name, phone, email);
     }
 
     @Override
