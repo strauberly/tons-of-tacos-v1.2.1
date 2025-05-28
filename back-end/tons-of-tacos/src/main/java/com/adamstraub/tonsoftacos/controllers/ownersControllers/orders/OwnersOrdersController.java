@@ -68,9 +68,9 @@ public class OwnersOrdersController implements OwnersOrdersControllerInterface {
     }
 
     @Override
-    public ResponseMessage updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity) {
+    public ResponseMessage updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity, String newSize) {
             System.out.println("controller");
-        return ownersOrdersService.updateOrderItemQuantity(orderUid, orderItemId, newQuantity);
+        return ownersOrdersService.updateOrderItemQuantity(orderUid, orderItemId, newQuantity, newSize);
     }
 
     @Override

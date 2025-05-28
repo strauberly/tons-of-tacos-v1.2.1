@@ -37,7 +37,8 @@ public class Customer {
     @Column(name= "customer_uid")
     private String customerUid;
 
-    @OneToMany(mappedBy = "customerId", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+//    @OneToMany(mappedBy = "customerId", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+@OneToMany(mappedBy = "customerUid", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Orders> orders = new ArrayList<>();
 
 

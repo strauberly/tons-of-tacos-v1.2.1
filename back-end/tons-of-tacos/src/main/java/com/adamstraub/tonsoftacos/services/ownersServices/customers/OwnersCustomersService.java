@@ -5,6 +5,7 @@ import com.adamstraub.tonsoftacos.dao.OrderItemRepository;
 import com.adamstraub.tonsoftacos.dao.CustomerRepository;
 import com.adamstraub.tonsoftacos.dao.OrdersRepository;
 import com.adamstraub.tonsoftacos.dto.businessDto.CustomerReturnedToOwner;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.entities.Customer;
 import com.adamstraub.tonsoftacos.entities.Orders;
 import jakarta.persistence.EntityNotFoundException;
@@ -175,6 +176,31 @@ public class OwnersCustomersService implements OwnersCustomersServiceInterface {
         }
     }
 
+    @Override
+    public ResponseMessage updateCustomer(String customerUid, String name, String phone, String email) {
+        System.out.println("update customer");
+        Customer customer;
+        ResponseMessage message = new ResponseMessage();
+        try {
+             customer = customerRepository.findByCustomerUid(customerUid);
+        }catch(Exception e){
+            throw new EntityNotFoundException("Customer not found");
+        }
+      customer.setName(name);
+      customer.setPhoneNumber(phone);
+      customer.setEmail(email);
+        System.out.println(customer);
+
+        try {
+            customerRepository.save(customer);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+      message.setMessage("Customer information updated.");
+      return message;
+    }
+
 
     private CustomerReturnedToOwner ownersCustomerDtoConvertor(Customer customer){
         CustomerReturnedToOwner ownersCustomerDto = new CustomerReturnedToOwner();
@@ -183,7 +209,9 @@ public class OwnersCustomersService implements OwnersCustomersServiceInterface {
         ownersCustomerDto.setEmail(customer.getEmail());
         ownersCustomerDto.setPhone(customer.getPhoneNumber());
 
-        List<Orders> orders = ordersRepository.findByCustomerId(customer.getCustomerId());
+        List<Orders> orders = ordersRepository.findByCustomerUid(customer.getCustomerUid());
+
+//        List<Orders> orders = ordersRepository.findByCustomerId(customer.getCustomerId());
         List<String> orderIds = new ArrayList<>();
         orders.forEach(order -> orderIds.add(order.getOrderUid()));
         ownersCustomerDto.setOrderIds(orderIds);

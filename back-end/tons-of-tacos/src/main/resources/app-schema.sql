@@ -39,7 +39,7 @@ ready VARCHAR(30) DEFAULT 'no',
 closed VARCHAR(30)DEFAULT 'no',
 customer_uid VARCHAR(9) NOT NULL,
 PRIMARY KEY (order_pk),
-FOREIGN KEY (customer_fk) REFERENCES customer(customer_pk)ON DELETE SET NULL
+FOREIGN KEY (customer_fk) REFERENCES customer(customer_pk)
 );
 
 CREATE TABLE order_item(
@@ -47,7 +47,7 @@ order_item_pk INT unsigned NOT NULL AUTO_INCREMENT,
 item_fk INT unsigned NOT NULL,
 quantity INT(2) NOT NULL,
 total DECIMAL(5, 2) DEFAULT 0.00 NOT NULL,
-order_item_size VARCHAR(3) DEFAULT NULL,
+order_item_size VARCHAR(14) DEFAULT NULL,
 order_fk INT unsigned NOT NULL,
 PRIMARY KEY (order_item_pk),
 FOREIGN KEY (item_fk) REFERENCES menu_item(item_pk),

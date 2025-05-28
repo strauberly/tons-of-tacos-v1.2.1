@@ -26,7 +26,7 @@ public interface OwnersOrdersServiceInterface {
 
     ResponseMessage removeFromOrder( Integer orderItemId);
 
-    ResponseMessage updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity);
+    ResponseMessage updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity, String newSize);
 
     DailySales todaysSales();
 

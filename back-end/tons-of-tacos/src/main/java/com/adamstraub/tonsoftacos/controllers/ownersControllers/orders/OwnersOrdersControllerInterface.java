@@ -503,14 +503,17 @@ public interface OwnersOrdersControllerInterface {
                             description = "An unplanned error occurred."),
             }
     )
-    @PutMapping("/update-order-item/{orderUid}/{orderItemId}/{newQuantity}")
+    @PutMapping("/update-order-item/{orderUid}/{orderItemId}/{newQuantity}/{newSize}")
     ResponseMessage updateOrderItemQuantity(
     @PathVariable
     String orderUid,
     @PathVariable
     Integer orderItemId,
     @PathVariable
-    Integer newQuantity);
+    Integer newQuantity,
+    @PathVariable
+    String newSize)
+    ;
 
 
 //get todays sales

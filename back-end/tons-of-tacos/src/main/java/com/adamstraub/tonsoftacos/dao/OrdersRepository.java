@@ -15,6 +15,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 
 Orders findByOrderUid (@RequestParam ("order_uid") String orderUid) throws EntityNotFoundException;
     List<Orders> findByCustomerId(@RequestParam("customer_fk") Integer customerId);
+List<Orders> findByCustomerUid(@RequestParam("customer_uid") String customerId);
 
     default List<Orders> findByClosed(){
         List<Orders> closedOrders = new ArrayList<>();
