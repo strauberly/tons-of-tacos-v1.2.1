@@ -32,7 +32,7 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
     private CustomerRepository customerRepository;
     @Autowired
     private MenuItemRepository menuItemRepository;
-
+// GO THROUGH AND GIVE PROPER TRY CATCHES WITH LOGGING AND RETURNED EXCEPTIONS
     @Override
     @Transactional(readOnly = true)
     public List<OrderReturnedToOwner> getAllOrders() {
@@ -69,40 +69,59 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
            returnedOrder = ownersGetOrderDtoConverter(order);
             System.out.println(returnedOrder);
 //            return ownersGetOrderDtoConverter(order);
+//            return returnedOrder;
         }catch (Exception e) {
             System.out.println(e);
-//            throw new EntityNotFoundException("No order found with that UID. Please verify and try again.");
+            throw new EntityNotFoundException("No order found with that UID. Please verify and try again.");
         }
         return returnedOrder;
     }
 
     @Override
-    public List<OrderReturnedToOwner> getOpenOrderByCustomer(String customer) {
+    public List<OrderReturnedToOwner> getOrdersByCustomer(String name) {
+        System.out.println(name);
         System.out.println("service");
-        Customer customerObj;
-        List<Orders> orders;
-        try {
-            customerObj = customerRepository.findByName(customer);
-        }catch (Exception e){
-            throw new EntityNotFoundException("Customer not found.");
-        }
-        try {
-            orders = ordersRepository.findByCustomerUid(customerObj.getCustomerUid());
-//            orders = ordersRepository.findByCustomerId(customerObj.getCustomerId());
-        } catch (Exception e){
-            throw new EntityNotFoundException("No orders for customer found.");
-        }
-        List<OrderReturnedToOwner> openOrders = new ArrayList<>();
-        for (Orders order: orders)
-            if (order.getClosed().equals("no")) {
-            openOrders.add(ownersGetOrderDtoConverter(order));
-            }
-        if (!openOrders.isEmpty()) {
-            return openOrders;
-        }else{
-            throw new EntityNotFoundException("No open orders for customer found");
-        }
+        List<Orders> returnedOrders = new ArrayList<>();
+        Customer customer  ;
+        List<OrderReturnedToOwner> customerOrders = new ArrayList<>();
+        customer = customerRepository.findByName(name);
+        System.out.println(customer);
+        returnedOrders = ordersRepository.findByCustomerUid(customer.getCustomerUid());
+        System.out.println(returnedOrders);
+        return customerOrders;
+
     }
+
+//    @Override
+//    public List<OrderReturnedToOwner> getOpenOrderByCustomer(String customer) {
+//        System.out.println(customer);
+//        System.out.println("service");
+////        Customer customerObj = new Customer();
+//        List<Orders> orders;
+//        try {
+//            Customer customerObj = new Customer();
+//            customerObj = customerRepository.findByName(customer);
+//            System.out.println(customerObj);
+//        }catch (Exception e){
+//            throw new EntityNotFoundException("Customer not found.");
+//        }
+//        try {
+//            orders = ordersRepository.findByCustomerUid(customerObj.getCustomerUid());
+////            orders = ordersRepository.findByCustomerId(customerObj.getCustomerId());
+//        } catch (Exception e){
+//            throw new EntityNotFoundException("No orders for customer found.");
+//        }
+//        List<OrderReturnedToOwner> openOrders = new ArrayList<>();
+//        for (Orders order: orders)
+//            if (order.getClosed().equals("no")) {
+//            openOrders.add(ownersGetOrderDtoConverter(order));
+//            }
+//        if (!openOrders.isEmpty()) {
+//            return openOrders;
+//        }else{
+//            throw new EntityNotFoundException("No open orders for customer found");
+//        }
+//    }
 @Transactional
     @Override
 public OrderReturnedToOwner orderReady(String orderUid) {
@@ -112,8 +131,9 @@ public OrderReturnedToOwner orderReady(String orderUid) {
             if (order == null){
                 throw new EntityNotFoundException("Order does not exist. Please verify order id and try again.");
             }
+    String timeReady = new SimpleDateFormat(" MMM-dd-yy HH:mm a").format(Calendar.getInstance().getTime());
 
-        String timeReady = new SimpleDateFormat(" hh:mm a ").format(Calendar.getInstance().getTime());
+//        String timeReady = new SimpleDateFormat(" hh:mm a ").format(Calendar.getInstance().getTime());
         order.setReady(timeReady);
         System.out.println("Order up!");
         return ownersGetOrderDtoConverter(order);
@@ -131,7 +151,8 @@ public OrderReturnedToOwner closeOrder(String orderUid) {
         if (order.getReady().equals("no")){
             throw new IllegalArgumentException("Order can not be closed if order is not ready.");
         }
-        String timeClosed = new SimpleDateFormat("hh:mm a ").format(Calendar.getInstance().getTime());
+//    yyyy-MM-dd HH:mm:ss
+        String timeClosed = new SimpleDateFormat("MMM-dd-yy HH:mm a").format(Calendar.getInstance().getTime());
         order.setClosed(timeClosed);
 
 //    Customer customer = customerRepository.getReferenceById(order.getCustomerId());
@@ -307,7 +328,9 @@ public ResponseMessage deleteOrder(String orderUid) {
         String formattedSales;
         LocalDate todaysDate = LocalDate.now();
         LocalDate dbDate;
-        DateTimeFormatter formattedDate = DateTimeFormatter.ofPattern("dd MMM yyyy");
+//        MMM-dd-yy
+//        DateTimeFormatter formattedDate = DateTimeFormatter.ofPattern("dd MM yyyy");
+        DateTimeFormatter formattedDate = DateTimeFormatter.ofPattern("MMM-dd-yy");
         BigDecimal salesTotal = BigDecimal.valueOf(0.00);
         List<Orders> todaysOrders = new ArrayList<>();
 
@@ -335,7 +358,26 @@ public ResponseMessage deleteOrder(String orderUid) {
         System.out.println(formattedSales);
         return salesToday;
     }
-//try catch blocks
+
+
+//try catch and error handling validation
+    @Override
+    public List<OrderReturnedToOwner> getOrdersByPhoneNumber(String phone) {
+        System.out.println(phone);
+        Customer customer = new Customer();
+
+        List<OrderReturnedToOwner> convertedOrders = new ArrayList<>();
+            customer = customerRepository.findByPhoneNumber(phone);
+            System.out.println(customer);
+        List<Orders> customerOrders = ordersRepository.findByCustomerUid(customer.getCustomerUid());
+
+        for (Orders order : customerOrders){
+            convertedOrders.add(ownersGetOrderDtoConverter(order));
+        }
+        return convertedOrders;
+    }
+
+    //try catch blocks
     private OrderReturnedToOwner ownersGetOrderDtoConverter(Orders order) {
         OrderReturnedToOwner orderReturnedToOwner = new OrderReturnedToOwner();
 //        set the dto

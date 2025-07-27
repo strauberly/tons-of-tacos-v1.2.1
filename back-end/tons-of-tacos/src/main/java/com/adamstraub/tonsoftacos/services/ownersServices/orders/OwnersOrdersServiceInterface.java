@@ -13,7 +13,9 @@ public interface OwnersOrdersServiceInterface {
     OrderReturnedToOwner getOrderByUid(String orderUid);
 
 
-    List<OrderReturnedToOwner> getOpenOrderByCustomer(String customer);
+//    List<OrderReturnedToOwner> getOpenOrderByCustomer(String customer);
+
+    List<OrderReturnedToOwner> getOrdersByCustomer(String customer);
 
     OrderReturnedToOwner orderReady(String orderUid);
 
@@ -30,4 +32,9 @@ public interface OwnersOrdersServiceInterface {
 
     DailySales todaysSales();
 
+//    List<OrderReturnedToOwner> getOrdersByPhone(String phone);
+
+    List<OrderReturnedToOwner> getOrdersByPhoneNumber(String phoneNumber);
+
+//    List<OrderReturnedToOwner> getOrdersByPhone(String phone);
 }

@@ -1,6 +1,22 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+
+-- 8 Jun 2025 --
+
+- Daily sales updated in backend updated for comparing dates with new 
+formatting.
+
+---
+
+-- 6 Jun 2025 --
+
+- improvements made to date formatting.
+- fixed a recursion error occcuring with order being totaled.
+
+
+
+---
 -- 28 May 2025 --
 
 - Solved issue with order persistence simply overwriting an existing order 
