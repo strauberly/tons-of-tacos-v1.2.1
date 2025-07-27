@@ -20,6 +20,11 @@ public class OwnersOrdersController implements OwnersOrdersControllerInterface {
         System.out.println("controller");
         return ownersOrdersService.getAllOrders();
     }
+    @Override
+    public List<OrderReturnedToOwner> getOrdersByPhoneNumber(String phone) {
+        return ownersOrdersService.getOrdersByPhoneNumber(phone);
+    }
+
 
 
     @Override
@@ -29,10 +34,12 @@ public class OwnersOrdersController implements OwnersOrdersControllerInterface {
     }
 
     @Override
-    public List<OrderReturnedToOwner> getOpenOrderByCustomer(String customer) {
+    public List<OrderReturnedToOwner> getOrdersByCustomer(String customer) {
         System.out.println("controller");
-        return ownersOrdersService.getOpenOrderByCustomer(customer);
+//        return ownersOrdersService.getOpenOrderByCustomer(customer);
+        return ownersOrdersService.getOrdersByCustomer(customer);
     }
+
 
     @Override
     public OrderReturnedToOwner orderReady(String orderUid) {

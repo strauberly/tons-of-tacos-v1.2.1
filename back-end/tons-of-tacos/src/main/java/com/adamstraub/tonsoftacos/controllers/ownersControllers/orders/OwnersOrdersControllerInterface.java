@@ -203,7 +203,7 @@ public interface OwnersOrdersControllerInterface {
     @Operation(
             summary = "Orders returned by customer name.",
             description = """ 
-                 An array of open orders are returned to an owner by customer name.
+                 An array of  orders are returned to an owner by customer name.
                  For owner use only with proper auth."""
             + "\n" + "\n" + "Example response: " + "\n" + "\n"
             + """
@@ -269,9 +269,81 @@ public interface OwnersOrdersControllerInterface {
     )
     @Transactional
     @GetMapping("/get-order-customer/{customer}")
-   List <OrderReturnedToOwner> getOpenOrderByCustomer(@RequestParam String customer);
+//   List <OrderReturnedToOwner> getOpenOrderByCustomer(@RequestParam String customer);
+    List <OrderReturnedToOwner> getOrdersByCustomer(@RequestParam String customer);
 
-
+//    ------------------------------
+@Operation(
+        summary = "Orders returned by customer phone number.",
+        description = """ 
+                 An array of  orders are returned to an owner by customer phone number.
+                 For owner use only with proper auth."""
+                + "\n" + "\n" + "Example response: " + "\n" + "\n"
+                + """
+                    [
+                        {
+                            "name": "John Johnson",
+                            "email": "john@johnson.com",
+                            "phone": "555.555.5552",
+                            "orderUid": "654654-4655-555",
+                            "orderItems": [
+                                {
+                                    "orderItemId": 1,
+                                    "itemName": "pound",
+                                    "quantity": 3,
+                                    "total": 3.0
+                                },
+                                {
+                                    "orderItemId": 2,
+                                    "itemName": "golden pound",
+                                    "quantity": 4,
+                                    "total": 4.0
+                                }
+                            ],
+                            "orderTotal": 25.55,
+                            "created": "2023-08-05T23:54:52.000+00:00",
+                            "ready": "no",
+                            "closed": "no"
+                        },
+                        {
+                            "name": "John Johnson",
+                            "email": "john@johnson.com",
+                            "phone": "555.555.5552",
+                            "orderUid": "654654-4657-555",
+                            "orderItems": [
+                                {
+                                    "orderItemId": 4,
+                                    "itemName": "cola",
+                                    "quantity": 3,
+                                    "total": 1.5
+                                }
+                            ],
+                            "orderTotal": 10.0,
+                            "created": "2023-08-05T23:54:52.000+00:00",
+                            "ready": "no",
+                            "closed": "no"
+                        }
+                    ]
+                    """,
+        responses = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "Orders for customer returned."),
+                @ApiResponse(
+                        responseCode = "400",
+                        description = "Request parameters invalid."),
+                @ApiResponse(
+                        responseCode = "404",
+                        description = "No orders found."),
+                @ApiResponse(
+                        responseCode = "500",
+                        description = "An unplanned error occured."),
+        }
+)
+@Transactional
+@GetMapping("/get-order-customer-phone/{phone}")
+//   List <OrderReturnedToOwner> getOpenOrderByCustomer(@RequestParam String customer);
+List <OrderReturnedToOwner> getOrdersByPhoneNumber(@RequestParam String phone);
 
 //mark food ready by uid
     @Operation(

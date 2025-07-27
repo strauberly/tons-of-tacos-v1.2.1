@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+//    Customer findByName( String customer);
     Customer findByName(@RequestParam("name") String customer);
 
 //    @NotNull Customer getById(@RequestParam("id") @NotNull Integer customer);
@@ -19,5 +20,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Customer findFirstByOrderByCustomerIdDesc();
 
     List<Customer> findByNameContaining(String name);
+
+    Customer findByPhoneNumber(@RequestParam("phone_number") String phone);
 
 }

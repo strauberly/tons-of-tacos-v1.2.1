@@ -143,7 +143,7 @@ public class GlobalExceptionHandler {
                 ((ServletWebRequest)webRequest).getRequest().getRequestURI());
     }
     error.put("message", e);
-    error.put("status code", status.toString());
+    error.put("status", status.toString());
     error.put("timestamp", timestamp);
     return error;
     }

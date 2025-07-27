@@ -40,7 +40,7 @@ public class OrdersService implements OrdersServiceInterface {
     private boolean customerPhoneNumberValid = false;
     private boolean customerEmailValid = false;
     private boolean newCustomerFlag = false;
-    private BigDecimal orderTotal = BigDecimal.valueOf(0.00);
+//    private BigDecimal orderTotal = BigDecimal.valueOf(0.00);
 //    chase and fix persistance
 //    private final Orders newOrder = new Orders();
     private final OrderReturnedToCustomer customerCopyDto = new OrderReturnedToCustomer();
@@ -219,6 +219,7 @@ public class OrdersService implements OrdersServiceInterface {
 
 //    operations
     private void totalOrder(Orders newOrder){
+         BigDecimal orderTotal = BigDecimal.valueOf(0.00);
         try{
 //            String medium = String.valueOf('M');
         for (OrderItem orderItem : newOrder.getOrderItems()) {
