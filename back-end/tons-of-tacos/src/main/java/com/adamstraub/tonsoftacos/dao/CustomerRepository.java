@@ -21,6 +21,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     List<Customer> findByNameContaining(String name);
 
-    Customer findByPhoneNumber(@RequestParam("phone_number") String phone);
+    List<Customer> findByPhoneNumber(@RequestParam("phone_number") String phone);
 
 }

@@ -364,17 +364,59 @@ public ResponseMessage deleteOrder(String orderUid) {
     @Override
     public List<OrderReturnedToOwner> getOrdersByPhoneNumber(String phone) {
         System.out.println(phone);
-        Customer customer = new Customer();
-
+//        Customer customer = new Customer();
         List<OrderReturnedToOwner> convertedOrders = new ArrayList<>();
-            customer = customerRepository.findByPhoneNumber(phone);
-            System.out.println(customer);
-        List<Orders> customerOrders = ordersRepository.findByCustomerUid(customer.getCustomerUid());
+        List<List<Orders>> customerOrders = new ArrayList<>(
 
-        for (Orders order : customerOrders){
-            convertedOrders.add(ownersGetOrderDtoConverter(order));
+        );
+        List<Orders> orders;
+
+//        Orders order = new Orders();
+//        List <Orders> customerOrders = (ArrayList);
+
+        try {
+            List<Customer> customers = customerRepository.findByPhoneNumber(phone);
+            System.out.println(customers);
+
+            for (Customer customer : customers) {
+                orders = ordersRepository.findByCustomerUid(customer.getCustomerUid());
+                System.out.println(orders);
+//                customerOrders.add(ordersRepository.findByCustomerUid(customer.getCustomerUid()));
+                customerOrders.add(ordersRepository.findByCustomerUid(customer.getCustomerUid()));
+
+            }
+//            System.out.println(customer);
+//                customerOrders = ordersRepository.findByCustomerUid(customer.getCustomerUid());
+                System.out.println(customerOrders);
+
         }
-        return convertedOrders;
+            catch (Exception e) {
+            System.out.println(e);
+            throw new EntityNotFoundException("Customer with that phone number not found.");
+        }
+
+        for ( List<Orders> order : customerOrders){
+            for (Orders order1: order){
+                convertedOrders.add(ownersGetOrderDtoConverter(order1));
+            }
+        }
+
+//        try{
+
+//        } catch (Exception e) {
+//            throw new EntityNotFoundException("No orders found for that customer.");
+//        }
+//        for (order :  customerOrders){
+//            convertedOrders.add(ownersGetOrderDtoConverter(order));
+//        }
+//        customerOrders.forEach(convertedOrders.add(ownersGetOrderDtoConverter(customerOrders<Orders>)));
+
+        if(convertedOrders.isEmpty()){
+            throw new EntityNotFoundException("No orders found.");
+
+        }else {
+            return convertedOrders;
+        }
     }
 
     //try catch blocks
