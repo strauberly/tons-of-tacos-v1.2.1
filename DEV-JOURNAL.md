@@ -2,6 +2,27 @@
 
 ---
 
+-- 14 Sep 2025 --
+
+Improvemnets made to looking for customer by phone number in the case of 
+multiple orders submitted with same phone number by error or intention.
+
+
+---
+
+-- 2 Aug 2025 --
+
+- Created path for owner to return all orders for a customer by the customer's 
+phone number. Updated controllers, services,repositories and dto. Essentialy 
+the phone number is useed to find the customer and then the customer uid is 
+used to find all the orders. This replaces looking up a Customer by name 
+because two entirely different Customers can have the exact same name but will 
+not have the same phone number. Service is wrapped in a try catch block with 
+error handling to be returned to front end and handled in event of customer not 
+existing with submitted phone number.
+
+---
+
 -- 8 Jun 2025 --
 
 - Daily sales updated in backend updated for comparing dates with new 
