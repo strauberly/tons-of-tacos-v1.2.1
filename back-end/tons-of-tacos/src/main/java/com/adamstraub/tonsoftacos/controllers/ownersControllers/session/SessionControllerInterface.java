@@ -1,5 +1,6 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.session;
 
+import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponse;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.OwnerAuth;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.Token;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -54,5 +55,6 @@ public interface SessionControllerInterface {
 //    @PostMapping("/login")
 //    Token ownerLogin(@RequestBody OwnerAuth authDto) throws UnsupportedEncodingException;
     @PostMapping("/login")
-   Token ownerLogin(@RequestBody OwnerAuth authDto) throws UnsupportedEncodingException;
+    JwtResponse ownerLogin(@RequestBody OwnerAuth authDto) throws UnsupportedEncodingException;
+//   Token ownerLogin(@RequestBody OwnerAuth authDto) throws UnsupportedEncodingException;
 }

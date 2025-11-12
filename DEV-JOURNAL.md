@@ -1,6 +1,26 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+-- 12 Nov 2025 --
+
+- Began implementation of token refresh. New DTO created under security 
+additions made to services, new entity. Still in early phases making sure first 
+token transfer happens and then will create new controller enppoint to enable 
+the actual refresh. So far just creating the initial access token and refresh 
+token.
+
+- Appears to be creating refresh token as designed so far.
+
+
+---
+-- 21 Oct 2025 --
+
+- OrdersService altered in orderTotal() to stop calculating item total based on 
+size in back end. This is now handled on front end for immediate visible 
+feedback for user. Issue needs further rectification.
+
+
+---
 
 -- 14 Sep 2025 --
 

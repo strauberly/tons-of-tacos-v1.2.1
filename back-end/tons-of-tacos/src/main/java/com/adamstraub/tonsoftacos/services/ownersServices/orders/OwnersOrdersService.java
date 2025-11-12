@@ -241,6 +241,7 @@ public ResponseMessage deleteOrder(String orderUid) {
 
             ordersRepository.save(order);
         } catch (Exception e) {
+
             System.out.println(e);
         }
         message.setMessage( menuItem.get().getItemName() + " x " + quantity + " added to order.");
@@ -395,6 +396,7 @@ public ResponseMessage deleteOrder(String orderUid) {
             throw new EntityNotFoundException("Customer with that phone number not found.");
         }
 
+//        address naming
         for ( List<Orders> order : customerOrders){
             for (Orders order1: order){
                 convertedOrders.add(ownersGetOrderDtoConverter(order1));

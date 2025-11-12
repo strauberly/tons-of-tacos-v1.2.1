@@ -19,6 +19,8 @@ customer_uid VARCHAR(9) NOT NULL,
 PRIMARY KEY (customer_pk)
 );
 
+
+
 CREATE TABLE menu_item(
 item_pk INT unsigned NOT NULL AUTO_INCREMENT,
 category VARCHAR(30) NOT NUll,
@@ -64,10 +66,19 @@ role VARCHAR(12) NOT NULL,
 PRIMARY KEY (owners_pk)
 );
 
+CREATE TABLE refresh_token(
+token_pk INT unsigned NOT NULL AUTO_INCREMENT,
+exp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+token VARCHAR(68) NOT NULL,
+owner_fk INT unsigned NOT NULL,
+PRIMARY KEY(token_pk),
+FOREIGN KEY(owner_fk) REFERENCES owner(owners_pk)
+);
+
 CREATE TABLE menu_category(
 menu_category_pk INT unsigned NOT NULL AUTO_INCREMENT,
 name VARCHAR (20) NOT NULL,
 description VARCHAR (255) NOT NULL,
 available CHAR (1) NOT NULL,
 PRIMARY KEY (menu_category_pk)
-)
+);
