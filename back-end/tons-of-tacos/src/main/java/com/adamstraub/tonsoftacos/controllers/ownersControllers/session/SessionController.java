@@ -1,5 +1,6 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.session;
 
+import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponse;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.OwnerAuth;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.Token;
 import com.adamstraub.tonsoftacos.services.security.AuthService;
@@ -16,10 +17,16 @@ public class SessionController implements SessionControllerInterface {
     AuthService authService;
 
     @Override
-    public Token ownerLogin(OwnerAuth authDto){
+    public JwtResponse ownerLogin(OwnerAuth authDto){
         System.out.println("controller");
         return authService.ownerLogin(authDto);
     }
+
+//    @Override
+//    public Token ownerLogin(OwnerAuth authDto){
+//        System.out.println("controller");
+//        return authService.ownerLogin(authDto);
+//    }
 
 
 //    @Override

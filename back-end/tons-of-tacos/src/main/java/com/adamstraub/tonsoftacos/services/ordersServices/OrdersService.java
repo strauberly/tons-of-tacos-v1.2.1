@@ -225,19 +225,22 @@ public class OrdersService implements OrdersServiceInterface {
         for (OrderItem orderItem : newOrder.getOrderItems()) {
 //            char itemSize = orderItem.getSize();
             String itemSize = orderItem.getSize();
-            BigDecimal adjustedUnitPrice = switch (itemSize) {
+            BigDecimal adjustedUnitPrice = orderItem.getTotal();
+//            BigDecimal adjustedUnitPrice = switch (itemSize) {
+//
+////                case 'm' -> menuItemRepository
+//                case "M" -> menuItemRepository
+//                        .getReferenceById(orderItem.getItem().getId()).getUnitPrice().add(BigDecimal.valueOf(0.25));
+//                case "L" -> menuItemRepository
+//                        .getReferenceById(orderItem
+//                                .getItem().getId())
+//                        .getUnitPrice()
+//                        .add(BigDecimal.valueOf(0.50));
+//                default -> menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice();
+//            };
+//            orderItem.setTotal(adjustedUnitPrice.multiply(BigDecimal.valueOf(orderItem.getQuantity())));
+            orderItem.setTotal(orderItem.getTotal());
 
-//                case 'm' -> menuItemRepository
-                case "M" -> menuItemRepository
-                        .getReferenceById(orderItem.getItem().getId()).getUnitPrice().add(BigDecimal.valueOf(0.25));
-                case "L" -> menuItemRepository
-                        .getReferenceById(orderItem
-                                .getItem().getId())
-                        .getUnitPrice()
-                        .add(BigDecimal.valueOf(0.50));
-                default -> menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice();
-            };
-            orderItem.setTotal(adjustedUnitPrice.multiply(BigDecimal.valueOf(orderItem.getQuantity())));
             System.out.println("item total: " + orderItem.getTotal().toString());
             orderTotal = orderTotal.add(orderItem.getTotal());
         }

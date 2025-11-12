@@ -21,12 +21,11 @@ fluffy shell', 'golden pound', 'na', 5.30);
 INSERT INTO menu_item (category, description , item_name, item_size,
 unit_price)
 VALUES('drinks', 'The classic.', 'cola', 
-'16 oz.bottle', 1.00),
-('drinks', 'Refreshing citrus zing in a bottle.', 'orange soda', '16 
-oz.bottle', 
-1.25),
+'na', 1.00),
+('drinks', 'Refreshing citrus zing in a bottle.', 'orange soda',
+'na', 1.25),
 ('drinks', 'Purple drank!', 'grape soda', 'na', 1.25),
-('drinks', 'Tropical waves of refreshment.', 'pineapple soda', '16 oz.bottle', 
+('drinks', 'Tropical waves of refreshment.', 'pineapple soda', 'na', 
 1.25),
 ('drinks', 'A light and smooth drinking creamy concoction infused with 
 spices.', 
