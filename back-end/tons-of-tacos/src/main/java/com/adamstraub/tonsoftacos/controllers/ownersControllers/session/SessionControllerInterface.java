@@ -1,19 +1,22 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.session;
 
+import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponse;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.OwnerAuth;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.RefreshToken;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.Token;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 @Validated
 @RequestMapping(
@@ -57,4 +60,29 @@ public interface SessionControllerInterface {
     @PostMapping("/login")
     JwtResponse ownerLogin(@RequestBody OwnerAuth authDto) throws UnsupportedEncodingException;
 //   Token ownerLogin(@RequestBody OwnerAuth authDto) throws UnsupportedEncodingException;
+@Operation(
+        summary = "Create new access token once original expires.",
+        description = """ 
+             Wait for it
+                    """,
+        responses = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "Credentials valid and new token issued."),
+                @ApiResponse(
+                        responseCode = "400",
+                        description = "Request parameters invalid."),
+                @ApiResponse(
+                        responseCode = "404",
+                        description = "person with valid credentials not found."),
+                @ApiResponse(
+                        responseCode = "500",
+                        description = "An unplanned error occured."),
+        }
+)
+@Transactional
+@PostMapping("/refresh")
+JwtResponse refreshToken(@RequestBody RefreshToken refreshToken);
 }
+
+

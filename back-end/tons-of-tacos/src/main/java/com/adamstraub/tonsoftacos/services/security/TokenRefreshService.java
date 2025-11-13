@@ -9,13 +9,14 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public  class TokenRefreshService {
     @Autowired
-    private final RefreshTokenRepository refreshTokenRepository;
+    private static RefreshTokenRepository refreshTokenRepository;
 @Autowired
     private final OwnerRepository ownerRepository;
 
@@ -41,6 +42,19 @@ public  class TokenRefreshService {
 
         return refreshTokenRepository.save(refreshToken);
     }
+
+    public Optional <RefreshToken> findByToken(String token){
+        return refreshTokenRepository.findByToken(token);
+    }
+
+    public static RefreshToken verifyExp(RefreshToken refreshToken){
+        if (refreshToken.getExp().compareTo(Instant.now())<0){
+            refreshTokenRepository.delete(refreshToken);
+            throw new RuntimeException(refreshToken.getToken() + "Refresh expired try again");
+        }
+        return refreshToken;
+    }
+
 
 
 }
