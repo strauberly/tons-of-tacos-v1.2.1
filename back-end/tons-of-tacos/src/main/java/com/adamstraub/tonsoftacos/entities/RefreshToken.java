@@ -8,6 +8,7 @@ import java.time.Instant;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
+@Data
 @Table(name = "refresh_token")
 @Getter
 @Setter

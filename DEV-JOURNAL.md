@@ -11,6 +11,8 @@ token.
 
 - Appears to be creating refresh token as designed so far.
 
+- Endpoint for refresh created and set to bypass need for authentication to 
+access.
 
 ---
 -- 21 Oct 2025 --
