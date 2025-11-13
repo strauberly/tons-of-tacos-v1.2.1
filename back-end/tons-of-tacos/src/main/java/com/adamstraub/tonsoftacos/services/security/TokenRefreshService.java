@@ -2,6 +2,9 @@ package com.adamstraub.tonsoftacos.services.security;
 
 import com.adamstraub.tonsoftacos.dao.OwnerRepository;
 import com.adamstraub.tonsoftacos.dao.RefreshTokenRepository;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponse;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.RefreshTokenReq;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.Subject;
 import com.adamstraub.tonsoftacos.entities.RefreshToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public  class TokenRefreshService {
     @Autowired
-    private static RefreshTokenRepository refreshTokenRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
 @Autowired
     private final OwnerRepository ownerRepository;
 
@@ -43,11 +46,11 @@ public  class TokenRefreshService {
         return refreshTokenRepository.save(refreshToken);
     }
 
-    public Optional <RefreshToken> findByToken(String token){
+    public RefreshToken findByToken(String token){
         return refreshTokenRepository.findByToken(token);
     }
 
-    public static RefreshToken verifyExp(RefreshToken refreshToken){
+    public  RefreshToken verifyExp(RefreshToken refreshToken){
         if (refreshToken.getExp().compareTo(Instant.now())<0){
             refreshTokenRepository.delete(refreshToken);
             throw new RuntimeException(refreshToken.getToken() + "Refresh expired try again");
@@ -56,5 +59,18 @@ public  class TokenRefreshService {
     }
 
 
+    public JwtResponse refreshToken(RefreshTokenReq token) {
+        RefreshToken oldToken =   verifyExp(findByToken(token.getRefreshToken()));
+        Subject subject = new Subject();
+
+        subject.setOwnername(oldToken.getOwnerInfo().getName());
+        subject.setUsername(oldToken.getOwnerInfo().getUsername());
+
+        String accessToken = jwtService.generateToken(subject);
+        return JwtResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(oldToken.getToken())
+                .build();
+    }
 
 }
