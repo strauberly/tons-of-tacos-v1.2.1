@@ -1,22 +1,18 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.session;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponse;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.OwnerAuth;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.RefreshToken;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.Token;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.RefreshTokenReq;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
-import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 
 @Validated
 @RequestMapping(
@@ -82,7 +78,7 @@ public interface SessionControllerInterface {
 )
 @Transactional
 @PostMapping("/refresh")
-JwtResponse refreshToken(@RequestBody RefreshToken refreshToken);
+JwtResponse refreshToken(@RequestBody RefreshTokenReq refreshTokenReq);
 }
 
 
