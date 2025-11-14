@@ -14,6 +14,10 @@ token.
 - Endpoint for refresh created and set to bypass need for authentication to 
 access.
 
+- made change to the refresh token so that we should be generating a new 
+refresh with the actual token when refreshing preventing a recycle. Lots of 
+testing needed.
+
 ---
 -- 21 Oct 2025 --
 

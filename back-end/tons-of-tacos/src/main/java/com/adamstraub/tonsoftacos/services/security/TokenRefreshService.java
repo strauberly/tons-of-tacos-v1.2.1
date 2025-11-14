@@ -69,7 +69,7 @@ public  class TokenRefreshService {
         String accessToken = jwtService.generateToken(subject);
         return JwtResponse.builder()
                 .accessToken(accessToken)
-                .refreshToken(oldToken.getToken())
+                .refreshToken(createRefreshToken(oldToken.getOwnerInfo().getUsername()).getToken())
                 .build();
     }
 
