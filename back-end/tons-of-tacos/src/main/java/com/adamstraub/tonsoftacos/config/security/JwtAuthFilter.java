@@ -25,7 +25,10 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.util.WebUtils;
+
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 
 @Component
@@ -47,6 +50,12 @@ private final HandlerExceptionResolver resolver;
         try {
 //            System.out.println("request: " + request);
             String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+            String cookie = request.getHeader(HttpHeaders.COOKIE);
+            System.out.println("cookie: " + cookie);
+            System.out.println("cookie1: " + WebUtils.getCookie(request, "accessToken" ));
+//            System.out.println("cookie: " + cookie.);
+            System.out.println("cookies:" + Arrays.toString(request.getCookies()));
+
 //        System.out.println("auth header: " + authHeader);
             String token = null;
             String username = null;
