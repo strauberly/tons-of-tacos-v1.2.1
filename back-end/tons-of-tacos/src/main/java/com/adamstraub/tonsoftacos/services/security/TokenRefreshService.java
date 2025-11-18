@@ -36,13 +36,12 @@ public  class TokenRefreshService {
                 .ownerInfo(ownerRepository.findByUsername(jwtService.decrypt(userName)).get())
                 .token(UUID.randomUUID().toString())
 //                .exp(Instant.now().plusMillis((1000*60) * 10))
-                .exp(new Date(System.currentTimeMillis() + (1000 * 60 ) * 10).toInstant())
-
+                .exp(new Date((System.currentTimeMillis() + (1000 * 60 ) * 10)))
                 .build();
         System.out.println(refreshToken);
         System.out.println(refreshToken.getToken());
         System.out.println(refreshToken.getOwnerInfo());
-
+  
         return refreshTokenRepository.save(refreshToken);
     }
 
@@ -51,7 +50,8 @@ public  class TokenRefreshService {
     }
 
     public  RefreshToken verifyExp(RefreshToken refreshToken){
-        if (refreshToken.getExp().compareTo(Instant.now())<0){
+//        if (refreshToken.getExp().compareTo(Instant.now())<0){
+        if (refreshToken.getExp().compareTo(new Date(System.currentTimeMillis()))<0){
             refreshTokenRepository.delete(refreshToken);
             throw new RuntimeException(refreshToken.getToken() + "Refresh expired try again");
         }

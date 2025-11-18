@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
+import java.util.Date;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
@@ -22,7 +23,9 @@ public class RefreshToken {
     @Column(name="token_pk")
     private int id;
     @Column (name="exp")
-    private Instant exp;
+    private Date exp;
+//    @Column (name="exp")
+//    private Instant exp;
     @Column(name="token")
     private String token;
 
