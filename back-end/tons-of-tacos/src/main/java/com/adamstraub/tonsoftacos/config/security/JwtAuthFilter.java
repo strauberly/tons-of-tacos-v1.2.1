@@ -1,6 +1,7 @@
 package com.adamstraub.tonsoftacos.config.security;
 import com.adamstraub.tonsoftacos.dao.OwnerRepository;
 import com.adamstraub.tonsoftacos.services.security.JwtService;
+import com.adamstraub.tonsoftacos.services.security.TokenRefreshService;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -37,6 +38,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final OwnerRepository ownerRepository;
+    private final TokenRefreshService tokenRefreshService;
 
 @Autowired
 @Qualifier("handlerExceptionResolver")
@@ -52,15 +54,22 @@ private final HandlerExceptionResolver resolver;
             String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
             String cookie = request.getHeader(HttpHeaders.COOKIE);
             System.out.println("cookie: " + cookie);
-            System.out.println("cookie1: " + WebUtils.getCookie(request, "accessToken" ));
+
 //            System.out.println("cookie: " + cookie.);
-            System.out.println("cookies:" + Arrays.toString(request.getCookies()));
+
 
 //        System.out.println("auth header: " + authHeader);
             String token = null;
             String username = null;
             Date expiration = null;
             Date issuedAt = null;
+//            UserDetails userDetails;
+            if(cookie!= null){
+            token = cookie;
+            username  = tokenRefreshService.findByToken(token).getOwnerInfo().getUsername();
+
+            }else
+
 
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 token = authHeader.substring(7);
@@ -73,14 +82,17 @@ private final HandlerExceptionResolver resolver;
 //                System.out.println("issued at = " + issuedAt);
             }
 //            System.out.println(jwtService.decrypt(username));
-
+            UserDetails userDetails;
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = userDetailsService().loadUserByUsername(jwtService.decrypt(username));
-
+                if(cookie!=null) {
+                    userDetails = userDetailsService().loadUserByUsername(username);
+                }else{
+                    userDetails = userDetailsService().loadUserByUsername(jwtService.decrypt(username));
+                }
                 System.out.println("user details: " + userDetails);
 //
-                System.out.println("token valid: " + jwtService.isTokenValid(token, userDetails));
-                jwtService.isTokenValid(token, userDetails);
+//                System.out.println("token valid: " + jwtService.isTokenValid(token, userDetails));
+//                jwtService.isTokenValid(token, userDetails);
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null
                         , userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -89,7 +101,7 @@ private final HandlerExceptionResolver resolver;
             }
             filterChain.doFilter(request, response);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("hi: " + e);
             resolver.resolveException(request, response, null, e);
         }
     }

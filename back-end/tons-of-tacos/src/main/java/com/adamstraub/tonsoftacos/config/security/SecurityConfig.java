@@ -41,7 +41,8 @@ public class SecurityConfig {
 //                available
                         .authorizeHttpRequests()
 
-                        .requestMatchers("/api/menu/**", "/api/order/**", "/api/owners-tools/login", "/api/owners-tools/refresh" ,"/api/v1/auth/**", "/api/utility/**",
+                        .requestMatchers("/api/menu/**", "/api/order/**", "/api/owners-tools/login",
+                                "/api/owners-tools/refresh", "/api/v1/auth/**", "/api/utility/**",
 
 
 

@@ -60,16 +60,19 @@ public  class TokenRefreshService {
 
 
     public JwtResponse refreshToken(RefreshTokenReq token) {
+        System.out.println("refresh service : token: " + token);
         RefreshToken oldToken =   verifyExp(findByToken(token.getRefreshToken()));
+        System.out.println("old token: " + oldToken);
         Subject subject = new Subject();
 
         subject.setOwnername(oldToken.getOwnerInfo().getName());
         subject.setUsername(oldToken.getOwnerInfo().getUsername());
-
+        System.out.println("subject: " + subject);
         String accessToken = jwtService.generateToken(subject);
+        System.out.println("access token: " + accessToken);
         return JwtResponse.builder()
                 .accessToken(accessToken)
-                .refreshToken(createRefreshToken(oldToken.getOwnerInfo().getUsername()).getToken())
+                .refreshToken(UUID.randomUUID().toString())
                 .build();
     }
 

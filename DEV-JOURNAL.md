@@ -1,6 +1,17 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+
+-- 21 Nov 2025 --
+
+- Lots of refactoring and deeper dive into the mechanics of refresh token. 
+Discovered ill formed request on front end was preventing connection with 
+controller endpoint creating refresh token. 
+
+- Just about there need to finish creating the refresh token that is to be 
+stored in back end and ensure it is validated and returned to front end.
+
+---
 -- 12 Nov 2025 --
 
 - Began implementation of token refresh. New DTO created under security 
