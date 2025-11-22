@@ -29,7 +29,8 @@ public class SessionController implements SessionControllerInterface {
 
     @Override
     public JwtResponse refreshToken(RefreshTokenReq token) {
-    return tokenRefreshService.refreshToken(token);
+        System.out.println("refresh token controller: " + token);
+        return tokenRefreshService.refreshToken(token);
     }
 //        Subject subject = new Subject();
 }
