@@ -2,6 +2,15 @@
 
 ---
 
+-- 23 Nov 2025 --
+
+- Error on frontend rectified ceasing the runway creation of refresh tokens. 
+Appears correct functionality is in place to login get tokens, refresh and send 
+with subsequent requests. Still need to implement logout as well but very close 
+to wrapping up this task.
+
+---
+
 -- 22 Nov 2025 --
 
 - Much closer. Main hiccup seems to be the refresh token being created 

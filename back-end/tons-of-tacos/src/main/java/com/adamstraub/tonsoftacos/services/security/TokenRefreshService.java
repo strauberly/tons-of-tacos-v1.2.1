@@ -85,7 +85,7 @@ public  class TokenRefreshService {
         System.out.println(refreshToken);
         System.out.println(refreshToken.getToken());
         System.out.println(refreshToken.getOwnerInfo());
-//        refreshTokenRepository.deleteAll();
+        refreshTokenRepository.deleteAll();
          refreshTokenRepository.save(refreshToken);
         System.out.println("saved Token: " + refreshTokenRepository.findByToken(refreshToken.getToken()).getToken());
 
