@@ -73,6 +73,7 @@ public class AuthService {
 //            return token;
 //         RefreshToken refreshToken = TokenRefreshService.createRefreshToken(ownerAuth.getUsername());
         refreshToken = tokenRefreshService.createRefreshToken(subject.getUsername());
+//        refreshToken = tokenRefreshService.refreshToken(token.getToken())
         return JwtResponse.builder()
                 .accessToken(jwtService.generateToken(subject))
                 .refreshToken(refreshToken.getToken()).build();

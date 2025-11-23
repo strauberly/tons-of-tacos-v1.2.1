@@ -2,6 +2,17 @@
 
 ---
 
+-- 22 Nov 2025 --
+
+- Much closer. Main hiccup seems to be the refresh token being created 
+and saved as part of auth process, need to address as db is loggin an insane 
+amount of tokens in the process. May also be result of doing so while time is 
+less than the other causing runaway loop in use effect. However the 
+functionality of the last token created passed back to the front end stored and 
+used for subsequent requests appears to be functioning correctly.
+
+---
+
 -- 21 Nov 2025 --
 
 - Lots of refactoring and deeper dive into the mechanics of refresh token. 
