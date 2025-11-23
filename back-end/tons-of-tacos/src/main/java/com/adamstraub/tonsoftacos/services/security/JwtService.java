@@ -93,7 +93,7 @@ private String buildToken(Subject subject){
 //                16 hours, reflective of our owners work day - to be altered to facilitate mitigation of token theft
 //            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60) * 16))
 //            5 min for testing logout
-            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 30 )))
+            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 )))
 
             .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
 //        System.out.println(token);
