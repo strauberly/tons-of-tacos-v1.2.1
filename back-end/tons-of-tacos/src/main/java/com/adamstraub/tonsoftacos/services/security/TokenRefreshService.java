@@ -64,15 +64,34 @@ public  class TokenRefreshService {
         RefreshToken oldToken =   verifyExp(findByToken(token.getRefreshToken()));
         System.out.println("old token: " + oldToken);
         Subject subject = new Subject();
-
+        String uuid = UUID.randomUUID().toString();
         subject.setOwnername(oldToken.getOwnerInfo().getName());
         subject.setUsername(oldToken.getOwnerInfo().getUsername());
         System.out.println("subject: " + subject);
         String accessToken = jwtService.generateToken(subject);
         System.out.println("access token: " + accessToken);
+//        JwtResponse response = JwtResponse.builder()
+//                .accessToken(accessToken)
+//                .refreshToken(UUID.randomUUID().toString())
+//                .build();
+//        System.out.println("response: " + response);
+        RefreshToken refreshToken =
+        RefreshToken.builder()
+                .ownerInfo(oldToken.getOwnerInfo())
+                .token(uuid)
+//                .exp(Instant.now().plusMillis((1000*60) * 10))
+                .exp(new Date((System.currentTimeMillis() + (1000 * 60 ) * 10)))
+                .build();
+        System.out.println(refreshToken);
+        System.out.println(refreshToken.getToken());
+        System.out.println(refreshToken.getOwnerInfo());
+//        refreshTokenRepository.deleteAll();
+         refreshTokenRepository.save(refreshToken);
+        System.out.println("saved Token: " + refreshTokenRepository.findByToken(refreshToken.getToken()).getToken());
+
         return JwtResponse.builder()
                 .accessToken(accessToken)
-                .refreshToken(UUID.randomUUID().toString())
+                .refreshToken(uuid)
                 .build();
     }
 
