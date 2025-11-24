@@ -35,8 +35,8 @@ public  class TokenRefreshService {
         RefreshToken.builder()
                 .ownerInfo(ownerRepository.findByUsername(jwtService.decrypt(userName)).get())
                 .token(UUID.randomUUID().toString())
-//                .exp(Instant.now().plusMillis((1000*60) * 10))
-                .exp(new Date((System.currentTimeMillis() + (1000 * 60 ) * 10)))
+//                .exp(Date.from(Instant.now().plusMillis((1000*60) * 10)))
+                .exp(new Date((System.currentTimeMillis() + (1000 * 60 * 60) * 4)))
                 .build();
         System.out.println(refreshToken);
         System.out.println(refreshToken.getToken());
@@ -79,8 +79,8 @@ public  class TokenRefreshService {
         RefreshToken.builder()
                 .ownerInfo(oldToken.getOwnerInfo())
                 .token(uuid)
-//                .exp(Instant.now().plusMillis((1000*60) * 10))
-                .exp(new Date((System.currentTimeMillis() + (1000 * 60 ) * 10)))
+//                .exp(Date.from(Instant.now().plusMillis((1000*60) * 10)))
+                .exp(new Date((System.currentTimeMillis() + (1000 * 60 * 60 ) * 4)))
                 .build();
         System.out.println(refreshToken);
         System.out.println(refreshToken.getToken());
