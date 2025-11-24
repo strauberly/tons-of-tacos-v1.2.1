@@ -79,6 +79,32 @@ public interface SessionControllerInterface {
 @Transactional
 @PostMapping("/refresh")
 JwtResponse refreshToken(@RequestBody RefreshTokenReq refreshTokenReq);
+
+
+
+    @Operation(
+            summary = "logout user by removing refresh token.",
+            description = """ 
+             Wait for it
+                    """,
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Credentials valid and new token issued."),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Request parameters invalid."),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "person with valid credentials not found."),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "An unplanned error occured."),
+            }
+    )
+    @Transactional
+    @DeleteMapping("/logout")
+    String ownerLogout(@RequestBody String refreshTokenReq);
 }
 
 

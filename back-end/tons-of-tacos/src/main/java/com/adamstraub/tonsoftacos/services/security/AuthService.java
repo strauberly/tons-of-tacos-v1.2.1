@@ -1,9 +1,7 @@
 package com.adamstraub.tonsoftacos.services.security;
 import com.adamstraub.tonsoftacos.dao.OwnerRepository;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponse;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.OwnerAuth;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.Subject;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.Token;
+import com.adamstraub.tonsoftacos.dao.RefreshTokenRepository;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.*;
 import com.adamstraub.tonsoftacos.entities.Owner;
 import com.adamstraub.tonsoftacos.entities.RefreshToken;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +26,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     @Autowired
     private final OwnerRepository ownerRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
     private final Token token = new Token();
     private  final JwtResponse jwtResponse = new JwtResponse();
 
@@ -80,6 +79,14 @@ public class AuthService {
 
 
     }
+
+    public String ownerLogout(String token) {
+        System.out.println(token);
+        System.out.println(refreshToken);
+        refreshTokenRepository.deleteById(refreshToken.getId());
+        return "logged out";
+    }
+
 
 }
 

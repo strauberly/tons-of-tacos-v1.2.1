@@ -9,6 +9,13 @@ Appears correct functionality is in place to login get tokens, refresh and send
 with subsequent requests. Still need to implement logout as well but very close 
 to wrapping up this task.
 
+- altered refresh token exp time to 4 hours. front end will auto logout at 8pm.
+    - at some point would probbaly implment running any reports etc prior to 
+this.
+- access token altered for 10 min.
+- logout endpoint added and is utilized by front end to remove refresh token 
+from db. Further testing and refinements required.
+
 ---
 
 -- 22 Nov 2025 --

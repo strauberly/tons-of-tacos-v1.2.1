@@ -93,7 +93,8 @@ private String buildToken(Subject subject){
 //                16 hours, reflective of our owners work day - to be altered to facilitate mitigation of token theft
 //            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60) * 16))
 //            5 min for testing logout
-            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 )))
+            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 ) * 10))
+//            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 )))
 
             .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
 //        System.out.println(token);
@@ -112,6 +113,7 @@ private String buildToken(Subject subject){
 
 //    validate token
     private Claims extractAllClaims(String token){
+        System.out.println("from claims: " + token);
         try {
             return
                     Jwts

@@ -73,13 +73,13 @@ private final HandlerExceptionResolver resolver;
 
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 token = authHeader.substring(7);
-//                System.out.println("token = " + token);
+                System.out.println("token = " + token);
                 username = jwtService.extractUsername(token);
-//                System.out.println("username = " + username);
+                System.out.println("username = " + username);
                 expiration = jwtService.extractExpiration(token);
-//                System.out.println("expiration = " + expiration);
+                System.out.println("expiration = " + expiration);
                 issuedAt = jwtService.extractIssuedAt(token);
-//                System.out.println("issued at = " + issuedAt);
+                System.out.println("issued at = " + issuedAt);
             }
 //            System.out.println(jwtService.decrypt(username));
             UserDetails userDetails;

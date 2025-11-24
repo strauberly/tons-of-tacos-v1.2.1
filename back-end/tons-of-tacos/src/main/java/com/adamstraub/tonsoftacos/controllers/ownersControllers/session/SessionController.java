@@ -1,7 +1,6 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.session;
 
 import com.adamstraub.tonsoftacos.dto.businessDto.security.*;
-import com.adamstraub.tonsoftacos.entities.RefreshToken;
 import com.adamstraub.tonsoftacos.services.security.AuthService;
 import com.adamstraub.tonsoftacos.services.security.JwtService;
 import com.adamstraub.tonsoftacos.services.security.TokenRefreshService;
@@ -31,6 +30,12 @@ public class SessionController implements SessionControllerInterface {
     public JwtResponse refreshToken(RefreshTokenReq token) {
         System.out.println("refresh token controller: " + token);
         return tokenRefreshService.refreshToken(token);
+    }
+
+    @Override
+    public String ownerLogout(String token) {
+        System.out.println("logout controller: " + token);
+       return authService.ownerLogout(token)    ;
     }
 //        Subject subject = new Subject();
 }
