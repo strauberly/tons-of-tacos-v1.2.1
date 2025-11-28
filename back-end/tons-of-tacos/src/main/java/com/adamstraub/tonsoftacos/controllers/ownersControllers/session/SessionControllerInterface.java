@@ -1,5 +1,6 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.session;
 
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponse;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.OwnerAuth;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.RefreshTokenReq;
@@ -104,7 +105,7 @@ JwtResponse refreshToken(@RequestBody RefreshTokenReq refreshTokenReq);
     )
     @Transactional
     @DeleteMapping("/logout")
-    String ownerLogout(@RequestBody String refreshTokenReq);
+    ResponseMessage ownerLogout(@RequestBody String refreshTokenReq);
 }
 
 

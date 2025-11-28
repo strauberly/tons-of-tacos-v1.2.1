@@ -2,6 +2,24 @@
 
 ---
 
+-- 28 Nov 2025 --
+
+- Was running into issue where tokens were failing after refreh. Though the 
+issue was on front end and chesed solutions for a while before remembering 
+that the backend was looking for an encrytpted username to run through the jwt 
+authfilter. Was able to resolve by ensure refresh token encrypted the user name 
+in the subject before generating the new token. We now successfully issue a 
+token, a refresh token is also created and issued. The refernce for the 
+refresh token is used to refernce the correct user belonging to the token, gen 
+a new token and refresh token for the user. 
+
+- back to the method of a users token is updated instead of completeley 
+creating a new one and deleting it upon log out.
+
+---
+
+
+
 -- 23 Nov 2025 --
 
 - Error on frontend rectified ceasing the runway creation of refresh tokens. 

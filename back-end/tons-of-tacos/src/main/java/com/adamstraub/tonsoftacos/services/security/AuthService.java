@@ -1,6 +1,7 @@
 package com.adamstraub.tonsoftacos.services.security;
 import com.adamstraub.tonsoftacos.dao.OwnerRepository;
 import com.adamstraub.tonsoftacos.dao.RefreshTokenRepository;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.*;
 import com.adamstraub.tonsoftacos.entities.Owner;
 import com.adamstraub.tonsoftacos.entities.RefreshToken;
@@ -80,11 +81,14 @@ public class AuthService {
 
     }
 
-    public String ownerLogout(String token) {
+    public ResponseMessage ownerLogout(String token) {
+        ResponseMessage message = new ResponseMessage();
         System.out.println(token);
         System.out.println(refreshToken);
         refreshTokenRepository.deleteById(refreshToken.getId());
-        return "logged out";
+        message.setMessage("Logged out.");
+        System.out.println(message);
+        return message;
     }
 
 

@@ -1,5 +1,6 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.session;
 
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.*;
 import com.adamstraub.tonsoftacos.services.security.AuthService;
 import com.adamstraub.tonsoftacos.services.security.JwtService;
@@ -33,7 +34,7 @@ public class SessionController implements SessionControllerInterface {
     }
 
     @Override
-    public String ownerLogout(String token) {
+    public ResponseMessage ownerLogout(String token) {
         System.out.println("logout controller: " + token);
        return authService.ownerLogout(token)    ;
     }
