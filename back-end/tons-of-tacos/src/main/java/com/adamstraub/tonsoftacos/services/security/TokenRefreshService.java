@@ -60,13 +60,15 @@ public  class TokenRefreshService {
 
 
     public JwtResponse refreshToken(RefreshTokenReq token) {
+
         System.out.println("refresh service : token: " + token);
         RefreshToken oldToken =   verifyExp(findByToken(token.getRefreshToken()));
-        System.out.println("old token: " + oldToken);
+        String name = oldToken.getOwnerInfo().getName();
+                System.out.println("old token: " + oldToken);
         Subject subject = new Subject();
         String uuid = UUID.randomUUID().toString();
-        subject.setOwnername(oldToken.getOwnerInfo().getName());
-        subject.setUsername(oldToken.getOwnerInfo().getUsername());
+        subject.setOwnername(name.substring(0, name.indexOf(' ')));
+        subject.setUsername(jwtService.encrypt(oldToken.getOwnerInfo().getUsername()));
         System.out.println("subject: " + subject);
         String accessToken = jwtService.generateToken(subject);
         System.out.println("access token: " + accessToken);
@@ -75,6 +77,9 @@ public  class TokenRefreshService {
 //                .refreshToken(UUID.randomUUID().toString())
 //                .build();
 //        System.out.println("response: " + response);
+        oldToken.setToken(uuid);
+        oldToken.setExp(new Date((System.currentTimeMillis() + (1000 * 60 * 60 ) * 4)));
+
         RefreshToken refreshToken =
         RefreshToken.builder()
                 .ownerInfo(oldToken.getOwnerInfo())
@@ -85,8 +90,11 @@ public  class TokenRefreshService {
         System.out.println(refreshToken);
         System.out.println(refreshToken.getToken());
         System.out.println(refreshToken.getOwnerInfo());
-        refreshTokenRepository.deleteAll();
-         refreshTokenRepository.save(refreshToken);
+//        refreshTokenRepository.deleteAll();
+//        refreshTokenRepository.deleteById(oldToken.getId());
+//         refreshTokenRepository.save(refreshToken);
+        refreshTokenRepository.save(oldToken);
+//         refreshTokenRepository.
         System.out.println("saved Token: " + refreshTokenRepository.findByToken(refreshToken.getToken()).getToken());
 
         return JwtResponse.builder()

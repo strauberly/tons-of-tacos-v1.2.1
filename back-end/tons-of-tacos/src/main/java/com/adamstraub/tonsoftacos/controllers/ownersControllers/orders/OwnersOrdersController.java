@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 @RestController
-public class OwnersOrdersController implements OwnersOrdersControllerInterface {
+public class    OwnersOrdersController implements OwnersOrdersControllerInterface {
 
     @Autowired
     private OwnersOrdersService ownersOrdersService;

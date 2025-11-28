@@ -90,11 +90,9 @@ private String buildToken(Subject subject){
             .claim("ownername", subject.getOwnername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
 
-//                16 hours, reflective of our owners work day - to be altered to facilitate mitigation of token theft
-//            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60) * 16))
-//            5 min for testing logout
+//            ten min for access token, 4hrs for refresh token, front end is checking every minute since it needs to update the clock
             .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 ) * 10))
-//            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 )))
+//            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 120 )))
 
             .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
 //        System.out.println(token);
