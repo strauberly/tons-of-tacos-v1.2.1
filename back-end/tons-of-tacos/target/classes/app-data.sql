@@ -12,20 +12,20 @@ VALUES( 'John Johnson', 'john@johnson.com', '555.555.5552', 'jk34-h5j0'),
 -- menu-item taco
 INSERT INTO menu_item (category, description, item_name, item_size, unit_price)
 VALUES('tacos', 'The basic staple made with farm fresh ingredients, love, and 
-unique seasonings.', 'pound', 'na', 2.25),
+unique seasonings.', 'pound', 'NA', 2.25),
 ('tacos', 'Try our daily chefs choice gourmet offering. Features our signature 
-fluffy shell', 'golden pound', 'na', 5.30);
+fluffy shell', 'golden pound', 'NA', 5.30);
 
 
 -- menu-item drink
 INSERT INTO menu_item (category, description , item_name, item_size,
 unit_price)
 VALUES('drinks', 'The classic.', 'cola', 
-'na', 1.00),
+'NA', 1.00),
 ('drinks', 'Refreshing citrus zing in a bottle.', 'orange soda',
-'na', 1.25),
-('drinks', 'Purple drank!', 'grape soda', 'na', 1.25),
-('drinks', 'Tropical waves of refreshment.', 'pineapple soda', 'na', 
+'NA', 1.25),
+('drinks', 'Purple drank!', 'grape soda', 'NA', 1.25),
+('drinks', 'Tropical waves of refreshment.', 'pineapple soda', 'NA', 
 1.25),
 ('drinks', 'A light and smooth drinking creamy concoction infused with 
 spices.', 
@@ -37,31 +37,31 @@ sweetener of choice.', 'iced tea', 'a', 1.00);
 -- menu-item  side
 INSERT INTO menu_item (category, description , item_name, item_size,
 unit_price)
-VALUES('sides', 'A tangy and seasoned corn salad.', 'elote', 'na', 1.00),
-('sides', 'A delectable diced salsa.', 'pico de gallo', 'na', 1.50),
-('sides', 'A zesty and spicy cabbage salad.', 'slaw de mexicana', 'na', 1.00),
-('sides', 'Seasoned and roasted potatoes.', 'papas', 'na', 2.15),
+VALUES('sides', 'A tangy and seasoned corn salad.', 'elote', 'NA', 1.00),
+('sides', 'A delectable diced salsa.', 'pico de gallo', 'NA', 1.50),
+('sides', 'A zesty and spicy cabbage salad.', 'slaw de mexicana', 'NA', 1.00),
+('sides', 'Seasoned and roasted potatoes.', 'papas', 'NA', 2.15),
 ('sides', 'Highly nutritional black beans flavored with reduced fat milk and a 
-pinch of magic.', 'frijoles', 'na', 1.50);
+pinch of magic.', 'frijoles', 'NA', 1.50);
 
 
 -- menu-item  toppings
 INSERT INTO menu_item (category, description , item_name, item_size,
 unit_price)
-VALUES('toppings', 'Crisp and cool.', 'cabbage', 'na', .50),
-('toppings', 'A fresh and bright addition.', 'cilantro', 'na', .50),
-('toppings', 'Sweet and spicy.', 'pickled jalapenos and onions', 'na', 1.00),
-('toppings', 'Cool and creamy.', 'sour cream', 'na', 1.50),
-('toppings', 'Treat yourself.', 'avocado', 'na', 1.50),
-('toppings', 'That little extra tang that adds so much.', 'lime', 'na', 1.50),
-('toppings', 'Made fresh from our home adding that authentic goodness.', 'queso 
-fresco', 'na', 1.50),
-('toppings', 'Four cheese blend fiesta mix.', 'mixed queso', 'na', .50),
-('toppings', 'Picked fresh each morning.', 'diced tomato', 'na', .50),
+VALUES('toppings', 'Crisp and cool.', 'cabbage', 'NA', .50),
+('toppings', 'A fresh and bright addition.', 'cilantro', 'NA', .50),
+('toppings', 'Sweet and spicy.', 'pickled jalapenos and onions', 'NA', 1.00),
+('toppings', 'Cool and creamy.', 'sour cream', 'NA', 1.50),
+('toppings', 'Treat yourself.', 'avocado', 'NA', 1.50),
+('toppings', 'That little extra tang that adds so much.', 'lime', 'NA', 1.50),
+('toppings', 'Made fresh from our home adding that authentic goodness.',
+'queso fresco', 'NA', 1.50),
+('toppings', 'Four cheese blend fiesta mix.', 'mixed queso', 'NA', .50),
+('toppings', 'Picked fresh each morning.', 'diced tomato', 'NA', .50),
 ('toppings', 'A little heat, more tang and incredible amounts of delicious.', 
-'salsa verde', 'na', .50),
-('toppings', 'Delicious spicy roasted tomato and garlic flavors. ', 'salsa 
-roja', 'na', .50);
+'salsa verde', 'NA', .50),
+('toppings', 'Delicious spicy roasted tomato and garlic flavors. ',
+'salsa roja', 'NA', .50);
 
 
 
@@ -75,9 +75,9 @@ VALUES(2, 3.00, '654654-465465-555', 'gd34-igjr'),
 ---- Sample order items
 INSERT INTO order_item(item_fk, quantity, total, order_item_size, order_fk)
 VALUES(7, 3, 4.50, 'm',  2),
-(2, 4, 21.20, 'na', 2),
-(3, 3, 3.00, 'na', 1),
-(4, 3, 3.75, 'na', 3);
+(2, 4, 21.20, 'NA', 2),
+(3, 3, 3.00, 'NA', 1),
+(4, 3, 3.75, 'NA', 3);
 
 -- Sample owners
 INSERT INTO owner (name, username, psswrd, contact, role)

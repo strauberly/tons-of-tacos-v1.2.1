@@ -166,9 +166,9 @@ public OrderReturnedToOwner closeOrder(String orderUid) {
         }
         if (openOrders.isEmpty()){
 
-            customer.setName("na");
-            customer.setPhoneNumber("na");
-            customer.setEmail("na");
+            customer.setName("NA");
+            customer.setPhoneNumber("NA");
+            customer.setEmail("NA");
             customerRepository.save(customer);
 //            customerRepository.deleteById(customer.getCustomerId());
         }

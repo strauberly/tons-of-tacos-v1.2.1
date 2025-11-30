@@ -16,9 +16,13 @@ a new token and refresh token for the user.
 - back to the method of a users token is updated instead of completeley 
 creating a new one and deleting it upon log out.
 
+- addressed formatting issue in database that was preventing some menu items 
+from displaying properly
+
+- all instances of "na" have been changed to "NA" for unimormity. Will need to 
+continue to mintor for any bugs that may pop up as a result.
+
 ---
-
-
 
 -- 23 Nov 2025 --
 
