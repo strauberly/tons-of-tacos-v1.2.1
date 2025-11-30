@@ -87,7 +87,7 @@ public class AuthService {
         System.out.println(refreshToken);
         refreshTokenRepository.deleteById(refreshToken.getId());
         message.setMessage("Logged out.");
-        System.out.println(message);
+        System.out.println(message.getMessage());
         return message;
     }
 
