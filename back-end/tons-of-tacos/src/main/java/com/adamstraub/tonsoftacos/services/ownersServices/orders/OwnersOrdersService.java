@@ -80,7 +80,7 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
     @Override
     public List<OrderReturnedToOwner> getOrdersByCustomer(String name) {
         System.out.println(name);
-        System.out.println("service");
+        System.out.println("orders service");
         List<Orders> returnedOrders = new ArrayList<>();
         Customer customer  ;
         List<OrderReturnedToOwner> customerOrders = new ArrayList<>();
@@ -160,6 +160,7 @@ public OrderReturnedToOwner closeOrder(String orderUid) {
         List<Orders> customerOrders = customer.getOrders();
         List<Orders> openOrders = new ArrayList<>();
         for (Orders customerOrder : customerOrders) {
+//            reconsider this logic and condition
             if (customerOrder.getClosed().equals("open")){
                 openOrders.add(customerOrder);
             }
