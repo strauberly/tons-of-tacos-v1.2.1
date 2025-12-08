@@ -92,6 +92,8 @@ private String buildToken(Subject subject){
 
 //            ten min for access token, 4hrs for refresh token, front end is checking every minute since it needs to update the clock
             .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 ) * 10))
+//            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 )))
+//              application is set for this time
 //            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 120 )))
 
             .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();

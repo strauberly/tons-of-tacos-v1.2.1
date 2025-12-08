@@ -68,9 +68,9 @@ VALUES('toppings', 'Crisp and cool.', 'cabbage', 'NA', .50),
 
 ---- Sample orders
 INSERT INTO orders (customer_fk, order_total, order_uid, customer_uid)
-VALUES(2, 3.00, '654654-465465-555', 'gd34-igjr'),
-(1, 25.70, '654654-4655-555', 'jk34-h5j0'),
-(1, 3.75, '654654-4657-555', 'jk34-h5j0');
+VALUES(2, 3.00, 'JKH54', 'gd34-igjr'),
+(1, 25.70, '90ERT', 'jk34-h5j0'),
+(1, 3.75, '7EFD8', 'jk34-h5j0');
 
 ---- Sample order items
 INSERT INTO order_item(item_fk, quantity, total, order_item_size, order_fk)
