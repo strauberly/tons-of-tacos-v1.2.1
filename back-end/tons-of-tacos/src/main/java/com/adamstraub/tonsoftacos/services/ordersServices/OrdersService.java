@@ -221,24 +221,12 @@ public class OrdersService implements OrdersServiceInterface {
     private void totalOrder(Orders newOrder){
          BigDecimal orderTotal = BigDecimal.valueOf(0.00);
         try{
-//            String medium = String.valueOf('M');
-        for (OrderItem orderItem : newOrder.getOrderItems()) {
-//            char itemSize = orderItem.getSize();
-            String itemSize = orderItem.getSize();
-            BigDecimal adjustedUnitPrice = orderItem.getTotal();
-//            BigDecimal adjustedUnitPrice = switch (itemSize) {
 //
-////                case 'm' -> menuItemRepository
-//                case "M" -> menuItemRepository
-//                        .getReferenceById(orderItem.getItem().getId()).getUnitPrice().add(BigDecimal.valueOf(0.25));
-//                case "L" -> menuItemRepository
-//                        .getReferenceById(orderItem
-//                                .getItem().getId())
-//                        .getUnitPrice()
-//                        .add(BigDecimal.valueOf(0.50));
-//                default -> menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice();
-//            };
-//            orderItem.setTotal(adjustedUnitPrice.multiply(BigDecimal.valueOf(orderItem.getQuantity())));
+        for (OrderItem orderItem : newOrder.getOrderItems()) {
+//
+//
+//
+////
             orderItem.setTotal(orderItem.getTotal());
 
             System.out.println("item total: " + orderItem.getTotal().toString());

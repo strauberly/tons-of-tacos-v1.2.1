@@ -35,8 +35,8 @@ public  class TokenRefreshService {
         RefreshToken.builder()
                 .ownerInfo(ownerRepository.findByUsername(jwtService.decrypt(userName)).get())
                 .token(UUID.randomUUID().toString())
-//                .exp(Date.from(Instant.now().plusMillis((1000*60) * 10)))
-                .exp(new Date((System.currentTimeMillis() + (1000 * 60 * 60) * 4)))
+                .exp(Date.from(Instant.now().plusMillis((1000*60) * 4)))
+//                .exp(new Date((System.currentTimeMillis() + (1000 * 60 * 60) * 4)))
                 .build();
         System.out.println(refreshToken);
         System.out.println(refreshToken.getToken());
@@ -78,14 +78,15 @@ public  class TokenRefreshService {
 //                .build();
 //        System.out.println("response: " + response);
         oldToken.setToken(uuid);
-        oldToken.setExp(new Date((System.currentTimeMillis() + (1000 * 60 * 60 ) * 4)));
+                oldToken.setExp(new Date((System.currentTimeMillis() + (1000 * 60) * 4)));
+//        oldToken.setExp(new Date((System.currentTimeMillis() + (1000 * 60 * 60 ) * 4)));
 
         RefreshToken refreshToken =
         RefreshToken.builder()
                 .ownerInfo(oldToken.getOwnerInfo())
                 .token(uuid)
-//                .exp(Date.from(Instant.now().plusMillis((1000*60) * 10)))
-                .exp(new Date((System.currentTimeMillis() + (1000 * 60 * 60 ) * 4)))
+                .exp(Date.from(Instant.now().plusMillis((1000*60) * 4)))
+//                .exp(new Date((System.currentTimeMillis() + (1000 * 60 * 60 ) * 4)))
                 .build();
         System.out.println(refreshToken);
         System.out.println(refreshToken.getToken());
@@ -94,6 +95,7 @@ public  class TokenRefreshService {
 //        refreshTokenRepository.deleteById(oldToken.getId());
 //         refreshTokenRepository.save(refreshToken);
         refreshTokenRepository.save(oldToken);
+//        next step is deleting previous refresh token
 //         refreshTokenRepository.
         System.out.println("saved Token: " + refreshTokenRepository.findByToken(refreshToken.getToken()).getToken());
 

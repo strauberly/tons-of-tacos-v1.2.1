@@ -151,28 +151,32 @@ public OrderReturnedToOwner closeOrder(String orderUid) {
         if (order.getReady().equals("no")){
             throw new IllegalArgumentException("Order can not be closed if order is not ready.");
         }
-//    yyyy-MM-dd HH:mm:ss
+
         String timeClosed = new SimpleDateFormat("MMM-dd-yy HH:mm a").format(Calendar.getInstance().getTime());
         order.setClosed(timeClosed);
 
-//    Customer customer = customerRepository.getReferenceById(order.getCustomerId());
+
     Customer customer = customerRepository.findByCustomerUid(order.getCustomerUid());
-        List<Orders> customerOrders = customer.getOrders();
+
+        List<Orders> customerOrders = ordersRepository.findByCustomerUid(order.getCustomerUid());
+    System.out.println("orders: " + customerOrders);
         List<Orders> openOrders = new ArrayList<>();
         for (Orders customerOrder : customerOrders) {
 //            reconsider this logic and condition
-            if (customerOrder.getClosed().equals("open")){
+            if (Objects.equals(customerOrder.getClosed(), "no")){
                 openOrders.add(customerOrder);
             }
         }
+    System.out.println("!Open Orders! " + openOrders.isEmpty());
         if (openOrders.isEmpty()){
-
             customer.setName("NA");
             customer.setPhoneNumber("NA");
             customer.setEmail("NA");
             customerRepository.save(customer);
 //            customerRepository.deleteById(customer.getCustomerId());
         }
+//    String timeClosed = new SimpleDateFormat("MMM-dd-yy HH:mm a").format(Calendar.getInstance().getTime());
+//    order.setClosed(timeClosed);
         return ownersGetOrderDtoConverter(order);
     }
 @Transactional

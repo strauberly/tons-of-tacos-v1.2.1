@@ -1,6 +1,35 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+-- 22 Jan 2026--
+
+- Starting with security folder in config. Removing print lines and unused or 
+outdated code.
+
+    - Jwt Auth filter
+        - scrub completed, notes made for improvements, loggers added for 
+errors.
+
+
+---
+
+-- 21 Jan 2026--
+
+- Closing an order now correctly checks if a customer has any remaining open 
+orders and if not deletes their information. This will change after 
+implementation of user accounts. 
+
+
+---
+
+-- 20 Jan 2026--
+
+- Refresh endpoint now makes use of a cookie to transport the refresh token 
+instead of in a request body.
+- Had to make adjustments to jwt auth filter to accomodate.
+
+
+---
 
 -- 28 Nov 2025 --
 
