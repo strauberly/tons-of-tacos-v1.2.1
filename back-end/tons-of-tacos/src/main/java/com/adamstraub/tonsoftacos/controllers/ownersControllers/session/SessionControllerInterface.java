@@ -52,11 +52,9 @@ public interface SessionControllerInterface {
             }
     )
 
-//    @PostMapping("/login")
-//    Token ownerLogin(@RequestBody OwnerAuth authDto) throws UnsupportedEncodingException;
     @PostMapping("/login")
     JwtResponse ownerLogin(@RequestBody OwnerAuth authDto) throws UnsupportedEncodingException;
-//   Token ownerLogin(@RequestBody OwnerAuth authDto) throws UnsupportedEncodingException;
+
 @Operation(
         summary = "Create new access token once original expires.",
         description = """ 
@@ -77,9 +75,11 @@ public interface SessionControllerInterface {
                         description = "An unplanned error occured."),
         }
 )
+
 @Transactional
 @PostMapping("/refresh")
-JwtResponse refreshToken(@RequestBody RefreshTokenReq refreshTokenReq);
+@ResponseBody
+JwtResponse refreshToken(@CookieValue ("token") RefreshTokenReq token);
 
 
 

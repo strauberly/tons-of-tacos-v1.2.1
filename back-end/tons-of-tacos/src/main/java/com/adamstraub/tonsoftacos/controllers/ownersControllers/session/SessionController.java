@@ -6,6 +6,7 @@ import com.adamstraub.tonsoftacos.services.security.AuthService;
 import com.adamstraub.tonsoftacos.services.security.JwtService;
 import com.adamstraub.tonsoftacos.services.security.TokenRefreshService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -28,10 +29,12 @@ public class SessionController implements SessionControllerInterface {
     }
 
     @Override
-    public JwtResponse refreshToken(RefreshTokenReq token) {
-        System.out.println("refresh token controller: " + token);
+    public JwtResponse refreshToken(@CookieValue RefreshTokenReq token) {
+        System.out.println("refresh controller: " + token);
         return tokenRefreshService.refreshToken(token);
     }
+
+
 
     @Override
     public ResponseMessage ownerLogout(String token) {
