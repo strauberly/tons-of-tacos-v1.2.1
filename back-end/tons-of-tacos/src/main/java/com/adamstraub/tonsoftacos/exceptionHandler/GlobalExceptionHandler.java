@@ -134,10 +134,8 @@ public class GlobalExceptionHandler {
 
 
     private Map<String,Object> createExceptionMessage(String e, HttpStatus status, WebRequest webRequest) {
-
     Map <String, Object> error = new HashMap<>();
     String timestamp = ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME);
-
     if(webRequest instanceof ServletWebRequest){
         error.put("uri",
                 ((ServletWebRequest)webRequest).getRequest().getRequestURI());

@@ -34,17 +34,13 @@ public class OrderItem implements Serializable {
     private BigDecimal total;
 
     @Column(name = "order_item_size")
-//    private Character size;
         private String size;
 
     @ManyToOne()
     @JoinColumn(name = "order_fk")
     private Orders order;
 
-//    @JsonBackReference
-//    public Orders getOrder() {
-//        return order;
-//    }
+
 
 
 

@@ -39,7 +39,7 @@ public class Owner implements UserDetails {
     @Column(name = "contact")
     private String contact;
 
-//research implementation of roles
+// will become seperate classes and tables once the actual need for roles is there(ie. customer accounts, employee accounts)
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -50,7 +50,6 @@ public class Owner implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
-
 
     @Override
     public String getPassword() {
@@ -77,7 +76,7 @@ public class Owner implements UserDetails {
         return true;
     }
 
-    // may need to be separate class
+
     public enum Role {
     ADMIN
     }

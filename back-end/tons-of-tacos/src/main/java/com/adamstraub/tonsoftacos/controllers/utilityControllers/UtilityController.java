@@ -1,7 +1,7 @@
 package com.adamstraub.tonsoftacos.controllers.utilityControllers;
 
 import com.adamstraub.tonsoftacos.dto.categoryDto.ReturnedCategory;
-import com.adamstraub.tonsoftacos.services.utilityServices.UtilityService;
+import com.adamstraub.tonsoftacos.services.utilityService.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 

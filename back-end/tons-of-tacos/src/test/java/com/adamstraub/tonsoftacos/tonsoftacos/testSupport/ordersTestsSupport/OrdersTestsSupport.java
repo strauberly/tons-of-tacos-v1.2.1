@@ -1,5 +1,5 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.testSupport.ordersTestsSupport;
-import com.adamstraub.tonsoftacos.services.ordersServices.OrdersService;
+import com.adamstraub.tonsoftacos.services.ordersService.OrdersService;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.TestUris;
 import org.springframework.http.*;
 
