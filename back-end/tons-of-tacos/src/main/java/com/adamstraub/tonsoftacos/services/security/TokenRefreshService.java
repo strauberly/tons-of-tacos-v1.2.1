@@ -3,16 +3,14 @@ package com.adamstraub.tonsoftacos.services.security;
 import com.adamstraub.tonsoftacos.dao.OwnerRepository;
 import com.adamstraub.tonsoftacos.dao.RefreshTokenRepository;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponse;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.RefreshTokenReq;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.RefreshToken;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.Subject;
-import com.adamstraub.tonsoftacos.entities.RefreshToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Date;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -28,11 +26,11 @@ public  class TokenRefreshService {
 
 
 
-    public  RefreshToken createRefreshToken(String userName){
+    public com.adamstraub.tonsoftacos.entities.RefreshToken createRefreshToken(String userName){
         System.out.println("username 2: " + jwtService.decrypt(userName));
         System.out.println("username 3: " + ownerRepository.findByUsername(jwtService.decrypt(userName)).get());
-        RefreshToken refreshToken =
-        RefreshToken.builder()
+        com.adamstraub.tonsoftacos.entities.RefreshToken refreshToken =
+        com.adamstraub.tonsoftacos.entities.RefreshToken.builder()
                 .ownerInfo(ownerRepository.findByUsername(jwtService.decrypt(userName)).get())
                 .token(UUID.randomUUID().toString())
                 .exp(Date.from(Instant.now().plusMillis((1000*60) * 4)))
@@ -45,12 +43,11 @@ public  class TokenRefreshService {
         return refreshTokenRepository.save(refreshToken);
     }
 
-    public RefreshToken findByToken(String token){
+    public com.adamstraub.tonsoftacos.entities.RefreshToken findByToken(String token){
         return refreshTokenRepository.findByToken(token);
     }
 
-    public  RefreshToken verifyExp(RefreshToken refreshToken){
-//        if (refreshToken.getExp().compareTo(Instant.now())<0){
+    public com.adamstraub.tonsoftacos.entities.RefreshToken verifyExp(com.adamstraub.tonsoftacos.entities.RefreshToken refreshToken){
         if (refreshToken.getExp().compareTo(new Date(System.currentTimeMillis()))<0){
             refreshTokenRepository.delete(refreshToken);
             throw new RuntimeException(refreshToken.getToken() + "Refresh expired try again");
@@ -59,10 +56,9 @@ public  class TokenRefreshService {
     }
 
 
-    public JwtResponse refreshToken(RefreshTokenReq token) {
-
+    public JwtResponse refreshToken(RefreshToken token) {
         System.out.println("refresh service : token: " + token);
-        RefreshToken oldToken =   verifyExp(findByToken(token.getRefreshToken()));
+        com.adamstraub.tonsoftacos.entities.RefreshToken oldToken =   verifyExp(findByToken(token.getRefreshToken()));
         String name = oldToken.getOwnerInfo().getName();
                 System.out.println("old token: " + oldToken);
         Subject subject = new Subject();
@@ -72,17 +68,12 @@ public  class TokenRefreshService {
         System.out.println("subject: " + subject);
         String accessToken = jwtService.generateToken(subject);
         System.out.println("access token: " + accessToken);
-//        JwtResponse response = JwtResponse.builder()
-//                .accessToken(accessToken)
-//                .refreshToken(UUID.randomUUID().toString())
-//                .build();
-//        System.out.println("response: " + response);
         oldToken.setToken(uuid);
                 oldToken.setExp(new Date((System.currentTimeMillis() + (1000 * 60) * 4)));
 //        oldToken.setExp(new Date((System.currentTimeMillis() + (1000 * 60 * 60 ) * 4)));
 
-        RefreshToken refreshToken =
-        RefreshToken.builder()
+        com.adamstraub.tonsoftacos.entities.RefreshToken refreshToken =
+        com.adamstraub.tonsoftacos.entities.RefreshToken.builder()
                 .ownerInfo(oldToken.getOwnerInfo())
                 .token(uuid)
                 .exp(Date.from(Instant.now().plusMillis((1000*60) * 4)))
@@ -91,14 +82,10 @@ public  class TokenRefreshService {
         System.out.println(refreshToken);
         System.out.println(refreshToken.getToken());
         System.out.println(refreshToken.getOwnerInfo());
-//        refreshTokenRepository.deleteAll();
-//        refreshTokenRepository.deleteById(oldToken.getId());
-//         refreshTokenRepository.save(refreshToken);
         refreshTokenRepository.save(oldToken);
-//        next step is deleting previous refresh token
-//         refreshTokenRepository.
-        System.out.println("saved Token: " + refreshTokenRepository.findByToken(refreshToken.getToken()).getToken());
+//        next step is deleting previous refresh token check to see if this is being accomplished.
 
+        System.out.println("saved Token: " + refreshTokenRepository.findByToken(refreshToken.getToken()).getToken());
         return JwtResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(uuid)

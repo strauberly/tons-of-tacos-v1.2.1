@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface MenuItemRepository extends JpaRepository<MenuItem, Integer>{
-         MenuItem getById(@RequestParam("item_pk")  Integer id);
 
         List<MenuItem> findByCategory(@RequestParam("category")String category);
 }

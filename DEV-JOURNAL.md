@@ -1,6 +1,37 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+
+-- 27 Jan 2026 --
+
+- DAO file scrub and notes complete. Moving on to Data transfer objects.
+- RefreshTokenReq dto reneamed to just refresh token
+- Removed file OrderItems in orderItemsDTO as it has no usages reported.
+- DTO files scrubbed and notes made. Moving on to entities.
+- Entities files scrubbed and notes made. Moving to exception handler.
+- Exception handler file notes made.
+- Notes made in maintenance folder. Moving on to services.
+- Files scrubbed and notes made for Services.
+- Should be ready to get to work.
+
+
+
+---
+
+-- 23 Jan 2026--
+
+- Continuing analysis of  API moving onto our controllers. Scrubbing unneeded 
+code, comments, while looking for areas of improvement absolutely needed 
+before releasing MVP.
+
+- In ownersController/session: ownerlogout now utilizes the Auth head 
+holding the token to execute the function Front end no longer needs to send 
+header and response body.
+
+- Notes made for Controllers folders and files. Moving onto Data Access Objects.
+
+---
+
 -- 22 Jan 2026--
 
 - Starting with security folder in config. Removing print lines and unused or 
@@ -10,6 +41,7 @@ outdated code.
         - scrub completed, notes made for improvements, loggers added for 
 errors.
 
+- Notes made for remaining files in security folder
 
 ---
 

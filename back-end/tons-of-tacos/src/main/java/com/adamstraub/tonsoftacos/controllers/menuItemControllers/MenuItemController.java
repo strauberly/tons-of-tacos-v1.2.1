@@ -1,7 +1,7 @@
 package com.adamstraub.tonsoftacos.controllers.menuItemControllers;
 
 import com.adamstraub.tonsoftacos.entities.MenuItem;
-import com.adamstraub.tonsoftacos.services.menuItemServices.MenuItemService;
+import com.adamstraub.tonsoftacos.services.menuItemService.MenuItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 

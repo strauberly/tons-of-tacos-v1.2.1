@@ -24,8 +24,6 @@ public class RefreshToken {
     private int id;
     @Column (name="exp")
     private Date exp;
-//    @Column (name="exp")
-//    private Instant exp;
     @Column(name="token")
     private String token;
 

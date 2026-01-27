@@ -61,55 +61,35 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-//    private String buildToken(String subject){
-//        String token = Jwts.builder()
-//                .setSubject(String.valueOf(subject))
-//                .setIssuedAt(new Date(System.currentTimeMillis()))
-////                16 hours, reflective of our owners work day - to be altered to facilitate mitigation of token theft
-//                .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60) * 16))
-//                .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
-////        System.out.println(token);
-////        System.out.println("token issued: " + new Date(System.currentTimeMillis()));
-////        System.out.println("token expires: " + new Date(System.currentTimeMillis() + (1000 * 60 * 60) * 16));
-//        return token;
-//    }
+
 
 private String buildToken(Subject subject){
+//        maybe log this instead
     StringJoiner joiner = new StringJoiner(", ");
     joiner.add("{\"username\": " + '"' + subject.getUsername() + '"');
     joiner.add("\"ownername\": " + '"' + subject.getOwnername() + "\"}");
-
     System.out.println(joiner);
 
 
     String token = Jwts.builder()
-//            .setSubject(String.valueOf(subject))
-//            .setSubject(String.valueOf(subject.getUsername()+subject.getOwnername()))
-//            .setSubject(joiner.toString())
             .setSubject(subject.getUsername())
             .claim("ownername", subject.getOwnername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
 
-//            ten min for access token, 4hrs for refresh token, front end is checking every minute since it needs to update the clock
+//            10 min for access token, 4hrs for refresh token, front end is checking every minute since it needs to update the clock
 //            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 ) * 10))
-//            .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 )))
-//              application is set for this time
+//              application is set for this time for testing restore when done to above
             .setExpiration(new Date(System.currentTimeMillis() + (1000 * 120 )))
 
             .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
-//        System.out.println(token);
-//        System.out.println("token issued: " + new Date(System.currentTimeMillis()));
-//        System.out.println("token expires: " + new Date(System.currentTimeMillis() + (1000 * 60 * 60) * 16));
     return token;
 }
 
     public String generateToken(Subject subject){
         return buildToken(subject);
     }
-//
-//    public String generateToken(String subject){
-//        return buildToken(subject);
-//    }
+
+
 
 //    validate token
     private Claims extractAllClaims(String token){
@@ -156,7 +136,7 @@ private String buildToken(Subject subject){
 
 
 //  encrypt - helper method used during development as a means to encrypt credentials
-//  before storing them and facilitating decryption means. Algorithm will be implemented from the front end.
+//  before storing them and facilitating decryption means. Algorithm will be implemented from the front end. ensure not available!!
 
     public String encrypt(String string){
 

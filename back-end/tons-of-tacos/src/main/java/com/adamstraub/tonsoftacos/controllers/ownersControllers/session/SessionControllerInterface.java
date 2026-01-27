@@ -3,12 +3,13 @@ package com.adamstraub.tonsoftacos.controllers.ownersControllers.session;
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponse;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.OwnerAuth;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.RefreshTokenReq;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.RefreshToken;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -79,7 +80,7 @@ public interface SessionControllerInterface {
 @Transactional
 @PostMapping("/refresh")
 @ResponseBody
-JwtResponse refreshToken(@CookieValue ("token") RefreshTokenReq token);
+JwtResponse refreshToken(@CookieValue ("token") RefreshToken token);
 
 
 
@@ -105,7 +106,8 @@ JwtResponse refreshToken(@CookieValue ("token") RefreshTokenReq token);
     )
     @Transactional
     @DeleteMapping("/logout")
-    ResponseMessage ownerLogout(@RequestBody String refreshTokenReq);
+//    ResponseMessage ownerLogout(@RequestBody String refreshTokenReq);
+    ResponseMessage ownerLogout(HttpServletRequest token);
 }
 
 

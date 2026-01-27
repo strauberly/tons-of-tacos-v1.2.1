@@ -49,7 +49,6 @@ public class Orders implements Serializable {
 
 
 @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-//    @JsonManagedReference
     private List<OrderItem> orderItems;
 
 
@@ -66,7 +65,4 @@ public class Orders implements Serializable {
                 ", customerUid='" + customerUid + '\'' +
                 '}';
     }
-
-//    public void setCustomerUid(String s) {
-//    }
 }

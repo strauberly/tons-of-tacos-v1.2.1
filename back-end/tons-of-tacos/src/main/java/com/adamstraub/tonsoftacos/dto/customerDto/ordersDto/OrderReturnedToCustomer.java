@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.dto.customerDto.ordersDto;
 
-import com.adamstraub.tonsoftacos.dto.customerDto.orderItemsDto.OrderItemReturnedToCustomer;
+import com.adamstraub.tonsoftacos.dto.customerDto.orderItemDto.OrderItemReturnedToCustomer;
 import lombok.Data;
 
 import java.math.BigDecimal;

@@ -34,9 +34,6 @@ public class AuthService {
     RefreshToken refreshToken;
 
 
-    //possibly add logger here for bad login attempts in order to log the submitted credentials separately.
-//    public Token ownerLogin(OwnerAuth ownerAuth) {
-//        public Token ownerLogin(OwnerAuth ownerAuth) {
     public JwtResponse ownerLogin(OwnerAuth ownerAuth) {
 
         String name;
@@ -44,7 +41,7 @@ public class AuthService {
         System.out.println(ownerAuth);
         System.out.println(jwtService.decrypt(ownerAuth.getUsername()));
         System.out.println(jwtService.decrypt(ownerAuth.getPsswrd()));
-//        RefreshToken refreshToken;
+
         Subject subject;
         try {
             Authentication authentication = authenticationManager
@@ -53,27 +50,14 @@ public class AuthService {
             Optional<Owner> owner = ownerRepository.findByUsername(jwtService.decrypt(ownerAuth.getUsername()));
             System.out.println("owner: " + owner);
             name = owner.orElseThrow().getName();
-
             subject = new Subject(ownerAuth.getUsername(), jwtService.encrypt(name.substring(0, name.indexOf(' '))));
-//        Subject subject = new Subject(jwtService.decrypt(ownerAuth.getUsername()), name.substring(0, name.indexOf(' ')));
             token.setToken(jwtService.generateToken(subject));
-//            refreshToken = TokenRefreshService.createRefreshToken(ownerAuth.getUsername());
-//            JwtResponse.builder()
-//                    .accessToken(jwtService.generateToken(subject))
-//                    .token(refreshToken.getToken()).build();
-//        token.setToken(jwtService.generateToken(jwtService.encrypt(name.substring(0, name.indexOf(' ')))));
             System.out.println(token);
-
         } catch (Exception e) {
             throw new BadCredentialsException("Bad credentials.");
         }
 
-//    System.out.println(response);
-
-//            return token;
-//         RefreshToken refreshToken = TokenRefreshService.createRefreshToken(ownerAuth.getUsername());
         refreshToken = tokenRefreshService.createRefreshToken(subject.getUsername());
-//        refreshToken = tokenRefreshService.refreshToken(token.getToken())
         return JwtResponse.builder()
                 .accessToken(jwtService.generateToken(subject))
                 .refreshToken(refreshToken.getToken()).build();
