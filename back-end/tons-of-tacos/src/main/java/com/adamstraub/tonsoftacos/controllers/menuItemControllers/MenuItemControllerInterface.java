@@ -1,5 +1,6 @@
 package com.adamstraub.tonsoftacos.controllers.menuItemControllers;
 
+import com.adamstraub.tonsoftacos.dto.categoryDto.ReturnedCategory;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
@@ -111,5 +112,33 @@ public interface MenuItemControllerInterface {
     List<MenuItem> getByCategory(
             @RequestParam(required = true)
             String category);
+
+    @Operation(
+            summary = "All categories marked with 'y' for availability are returned.",
+            description = """
+                    
+                    This is a ulity function that allows developers to dynamically serve all menu 
+                    categories and their descriptions if inteded to be available for viewing. The intent
+                    is to provdie a means for the fictional owners of Tons of Tacos to create a new menu category 
+                    but only provide it or its items when ready.
+                    
+                    """,
+
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = """
+                            Menu catefogories and their descriptions returned if marked available
+                            with a 'y'"""),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "An unplanned error occured."),
+            }
+    )
+
+//    @Transactional
+    @GetMapping ("/categories")
+    List<ReturnedCategory> getAvailableCategories();
+
 }
 
