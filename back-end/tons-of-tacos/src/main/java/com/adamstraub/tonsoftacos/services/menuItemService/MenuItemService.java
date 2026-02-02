@@ -1,5 +1,7 @@
 package com.adamstraub.tonsoftacos.services.menuItemService;
+import com.adamstraub.tonsoftacos.dao.CategoryRepository;
 import com.adamstraub.tonsoftacos.dao.MenuItemRepository;
+import com.adamstraub.tonsoftacos.dto.categoryDto.ReturnedCategory;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import java.util.List;
 @Service
 public class MenuItemService implements MenuItemServiceInterface {
     @Autowired
+
+    private CategoryRepository categoryRepository;
     private MenuItemRepository menuItemRepository;
     @Transactional
     @Override
@@ -30,12 +34,18 @@ public class MenuItemService implements MenuItemServiceInterface {
     @Transactional(readOnly = true)
     @Override
     public List<MenuItem> findByCategory(String category) {
-        System.out.println(" menu item serviceservice");
+        System.out.println(" menu item service");
             List<MenuItem> menuItems = menuItemRepository.findByCategory(category);
             if (menuItems.isEmpty()){
                 throw new EntityNotFoundException("You have chosen a category that does not exist. Please check your spelling and formatting.");
         }
             return menuItems;
 
+    }
+
+
+    public List<ReturnedCategory> getCategories() {
+        System.out.println("service");
+        return categoryRepository.getByAvailable();
     }
 }

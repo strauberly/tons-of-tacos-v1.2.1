@@ -1,5 +1,6 @@
 package com.adamstraub.tonsoftacos.controllers.menuItemControllers;
 
+import com.adamstraub.tonsoftacos.dto.categoryDto.ReturnedCategory;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
 import com.adamstraub.tonsoftacos.services.menuItemService.MenuItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,10 @@ public class MenuItemController implements MenuItemControllerInterface {
     public List<MenuItem> getByCategory(String category) {
         System.out.println("controller");
         return menuItemService.findByCategory(category);
+    }
+
+    @Override
+    public List<ReturnedCategory> getAvailableCategories() {
+        return menuItemService.getCategories();
     }
 }
