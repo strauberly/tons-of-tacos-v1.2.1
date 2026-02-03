@@ -2,6 +2,19 @@
 
 ---
 
+-- 3 Feb 2026 --
+
+- Spent fair amount of time on logger. Should now be configured in a manner 
+where we have info logged to console Error log gets to the heart of the problem 
+and Debug is giving us more information to analyse and disect issues. Hopefully 
+this improves the development experience quite a bit and is in play for 
+production.
+
+- Back to running through the rest of our refactor notes.
+
+
+---
+
 -- 27 Jan 2026 --
 
 - DAO file scrub and notes complete. Moving on to Data transfer objects.

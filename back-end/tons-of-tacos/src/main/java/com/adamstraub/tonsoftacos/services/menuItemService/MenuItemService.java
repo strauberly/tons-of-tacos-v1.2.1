@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 public class MenuItemService implements MenuItemServiceInterface {
     @Autowired
-
     private CategoryRepository categoryRepository;
+    @Autowired
     private MenuItemRepository menuItemRepository;
     @Transactional
     @Override
@@ -35,6 +35,7 @@ public class MenuItemService implements MenuItemServiceInterface {
     @Override
     public List<MenuItem> findByCategory(String category) {
         System.out.println(" menu item service");
+        System.out.println(category);
             List<MenuItem> menuItems = menuItemRepository.findByCategory(category);
             if (menuItems.isEmpty()){
                 throw new EntityNotFoundException("You have chosen a category that does not exist. Please check your spelling and formatting.");
@@ -43,7 +44,8 @@ public class MenuItemService implements MenuItemServiceInterface {
 
     }
 
-
+    @Transactional(readOnly = true)
+    @Override
     public List<ReturnedCategory> getCategories() {
         System.out.println("service");
         return categoryRepository.getByAvailable();
