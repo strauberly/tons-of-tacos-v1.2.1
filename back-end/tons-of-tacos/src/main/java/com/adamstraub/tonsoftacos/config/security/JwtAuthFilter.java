@@ -27,6 +27,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 
 @Component
@@ -65,7 +66,6 @@ private final HandlerExceptionResolver resolver;
                 username = jwtService.extractUsername(token);
 
             }
-//try catches l
             UserDetails userDetails;
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 if(cookie!=null) {
@@ -81,8 +81,6 @@ private final HandlerExceptionResolver resolver;
             }
             filterChain.doFilter(request, response);
         } catch (Exception e) {
-            logger.error("Couldn't login: " + e);
-            logger.debug("Failed login:", e  );
             resolver.resolveException(request, response, null, e);
         }
     }
