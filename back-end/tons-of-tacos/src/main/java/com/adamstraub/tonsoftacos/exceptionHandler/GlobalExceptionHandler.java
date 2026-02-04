@@ -1,5 +1,6 @@
 package com.adamstraub.tonsoftacos.exceptionHandler;
 
+import com.adamstraub.tonsoftacos.dto.businessDto.security.OwnerAuth;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -22,6 +23,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -109,8 +111,7 @@ public class GlobalExceptionHandler {
     public Map<String, Object> handleBadCredentialsException(
             BadCredentialsException e, WebRequest webRequest
     ){
-        logger.debug(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest).toString());
-        System.out.println(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest));
+        logger.error(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest).toString());
         return createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest);
     }
 
@@ -145,4 +146,22 @@ public class GlobalExceptionHandler {
     error.put("timestamp", timestamp);
     return error;
     }
+
+//    String ipAddress = getClientIpAddress(request);
+
+    private String getClientIpAddress(WebRequest request) {
+        String ipAddress = request.getHeader("X-Forwarded-For");
+
+        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getHeader("Proxy-Client-IP");
+        }
+        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.toString();
+        }
+        return ipAddress;
+    }
+
 }

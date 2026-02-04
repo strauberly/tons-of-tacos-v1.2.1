@@ -11,7 +11,21 @@ this improves the development experience quite a bit and is in play for
 production.
 
 - Back to running through the rest of our refactor notes.
+- Updated paths in security config. There were a still a couple in there that 
+are no longer needed.
 
+- While working on auth filter came to conclusion the backend team(me ^_^: 
+Adam Straub) wants to log the entered credtials and ip address in order to 
+montitor for malicious activity or repeated fail attempts so we can see what is 
+going on and assist the user.
+- Controller for login now also takes Http Servlet request and is utilized in 
+the AuthService.
+
+- A try catch block in the login method handles the exception if the 
+authentication manager can not validate the user.
+    - If that is the case the submitted user name, password and ip address are 
+logged to the error log and exception is logged to the debug log. The error 
+response is also logged to the error log.
 
 ---
 
