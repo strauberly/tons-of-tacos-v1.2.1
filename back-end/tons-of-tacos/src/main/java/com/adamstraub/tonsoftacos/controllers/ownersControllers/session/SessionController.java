@@ -22,9 +22,9 @@ public class SessionController implements SessionControllerInterface {
 
 
     @Override
-    public JwtResponse ownerLogin(OwnerAuth authDto){
+    public JwtResponse ownerLogin(HttpServletRequest request, OwnerAuth authDto){
         System.out.println("login controller");
-        return authService.ownerLogin(authDto);
+        return authService.ownerLogin(request, authDto);
     }
 
     @Override

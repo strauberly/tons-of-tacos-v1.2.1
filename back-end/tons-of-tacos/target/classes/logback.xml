@@ -26,7 +26,7 @@
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${DEV_HOME}/archived/debug.%d{yyyy-MM-dd}.%i.log.gz
+            <fileNamePattern>${DEV_HOME}/archived/debug.%d{yyyy-MM-dd}.%i.log.zip
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -51,7 +51,7 @@
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${DEV_HOME}/archived/error.%d{yyyy-MM-dd}.%i.log.gz
+            <fileNamePattern>${DEV_HOME}/archived/error.%d{yyyy-MM-dd}.%i.log.zip
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -62,10 +62,13 @@
         </rollingPolicy>
     </appender>
 
+
+
     <logger name="com.adamstraub.tonsoftacos" level="Warning" additivity="false" >
         <appender-ref ref="Debug" />
         <appender-ref ref="Error" />
     </logger>
+
 
 
     <root level="Info">

@@ -46,6 +46,7 @@ private final HandlerExceptionResolver resolver;
     protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response,
                                     @NotNull FilterChain filterChain)
             throws ServletException, IOException {
+
         System.out.println("jwt filter");
         try {
 
@@ -73,7 +74,6 @@ private final HandlerExceptionResolver resolver;
                 }else{
                     userDetails = userDetailsService().loadUserByUsername(jwtService.decrypt(username));
                 }
-
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null
                         , userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -82,6 +82,7 @@ private final HandlerExceptionResolver resolver;
             filterChain.doFilter(request, response);
         } catch (Exception e) {
             resolver.resolveException(request, response, null, e);
+
         }
     }
 

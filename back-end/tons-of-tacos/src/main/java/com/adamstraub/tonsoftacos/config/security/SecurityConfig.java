@@ -40,12 +40,7 @@ public class SecurityConfig {
                         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
 //                available
                         .authorizeHttpRequests()
-
                         .requestMatchers("/api/menu/**", "/api/order/**", "/api/owners-tools/login",
-                                "/api/owners-tools/refresh", "/api/v1/auth/**", "/api/utility/**",
-
-
-
                                 "/v3/api-docs/**",
                                 "/v3/api-docs.yaml",
                                 "/swagger-ui/**",

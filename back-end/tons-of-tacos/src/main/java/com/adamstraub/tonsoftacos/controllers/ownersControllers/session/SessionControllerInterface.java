@@ -54,7 +54,8 @@ public interface SessionControllerInterface {
     )
 
     @PostMapping("/login")
-    JwtResponse ownerLogin(@RequestBody OwnerAuth authDto) throws UnsupportedEncodingException;
+
+    JwtResponse ownerLogin(HttpServletRequest request, @RequestBody   OwnerAuth authDto) throws UnsupportedEncodingException;
 
 @Operation(
         summary = "Create new access token once original expires.",
