@@ -1,6 +1,66 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+-- 5 Feb 2026 --
+
+- Authentication Manager has been updated, in a manner that still applies 
+similar functionality to what was in place before hand but eliminates the 
+DaoAuthenticationProvider that is deprecated. Took quite a bit of research 
+including utilizing Duck.ai. Am finding Duck.ai to be helpful in examining 
+examples. Most examples are not plug and play but do illustrate updated 
+features that can be leveraged while building my own solutions that do work. 
+Modifications shown below:
+
+    - From: 
+    
+    @Bean
+    public  PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+   public AuthenticationProvider authenticationProvider(){
+       DaoAuthenticationProvider daoAuthenticationProvider = new 
+DaoAuthenticationProvider();
+       daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+       daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        return daoAuthenticationProvider;
+    }
+
+    @Bean
+    public AuthenticationManager 
+authenticationManager(AuthenticationConfiguration config)throws Exception{
+        return config.getAuthenticationManager();
+    
+    
+    
+    - To: 
+    
+        private  PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws 
+Exception {
+        AuthenticationManagerBuilder authManagerBuilder =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
+        authManagerBuilder
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+
+        return authManagerBuilder.build();
+    }
+
+- Below is the updated security filter chain. As of note is the jwt filter is 
+now only called once and whether placed at beginning or end doesn't seem to 
+impact functionality at this time.
+
+- Moving onto logger to see if I can restore functionality.
+    
+
+
+---
 
 -- 5 Feb 2026 --
 
@@ -18,6 +78,7 @@ to a string. Makes sense just odd it want having issues before hand. Dunno will
 continue to montor and evaluate.
 - Application appears to functioning fine on the front end.
 
+---
 
 -- 3 Feb 2026 --
 
