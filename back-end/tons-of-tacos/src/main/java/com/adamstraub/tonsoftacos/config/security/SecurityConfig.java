@@ -27,35 +27,36 @@ public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
 @Autowired
     private final UserDetailsService userDetailsService;
-@Autowired
+//@Autowired
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         System.out.println("filter chain in place");
 
-        return
+//        return
                 http
-                        .csrf().disable()
+                        .csrf(AbstractHttpConfigurer::disable)
                         .cors(Customizer.withDefaults())
                         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
 //                available
-                        .authorizeHttpRequests()
+                        .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/menu/**", "/api/order/**", "/api/owners-tools/login",
                                 "/v3/api-docs/**",
                                 "/v3/api-docs.yaml",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html").permitAll()
-                        .and()
+//                        .and()
 //               restricted
-                        .authorizeHttpRequests().requestMatchers("/api/owners-tools/**")
-                        .authenticated().and()
-                        .sessionManagement()
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                        .and()
+                        .requestMatchers("/api/owners-tools/**")
+                        .authenticated())
+                        .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                        .and()
                         .authenticationProvider(authenticationProvider())
 //                        filters
-                        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                        .build();
+                        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                        return
+                        http.build();
     }
 
     @Bean
@@ -75,5 +76,7 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config)throws Exception{
         return config.getAuthenticationManager();
     }
+
+
 
 }

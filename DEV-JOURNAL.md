@@ -2,6 +2,23 @@
 
 ---
 
+-- 5 Feb 2026 --
+
+- Started working on migration to Spring 3.5
+    - Notable issues thus far
+        - Security config is jacked due to deprecations that need to be 
+addressed. Primarily how we are handling our authenticationManager. The issue 
+primaily stems from the deprecation of the DaoAuthenticationProvider.
+        - Logback configuration was improved to match current version 
+requirements but is not functioning as of yet. Saw something about it may be 
+required to add dependencies for it now so will start checking there when I get 
+back to that task.
+        - OrderItemRespository suddenly stated having issues comparing Orders 
+to a string. Makes sense just odd it want having issues before hand. Dunno will 
+continue to montor and evaluate.
+- Application appears to functioning fine on the front end.
+
+
 -- 3 Feb 2026 --
 
 - Spent fair amount of time on logger. Should now be configured in a manner 
