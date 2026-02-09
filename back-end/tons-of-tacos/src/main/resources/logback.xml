@@ -12,6 +12,29 @@
         </encoder>
     </appender>
 
+    <appender name="Session"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${DEV_HOME}/session.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>Info</level>
+        </filter>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -
+                %msg %ex{1}%n
+            </Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${DEV_HOME}/archived/login.%d{yyyy-MM-dd}.%i.log.zip
+            </fileNamePattern>
+            <maxFileSize>50MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>50MB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+
     <appender name="Debug"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${DEV_HOME}/debug.log</file>
@@ -31,7 +54,6 @@
                 <maxFileSize>50MB</maxFileSize>
                 <maxHistory>30</maxHistory>
                 <totalSizeCap>50MB</totalSizeCap>
-
         </rollingPolicy>
     </appender>
 
@@ -63,6 +85,7 @@
     <logger name="com.adamstraub.tonsoftacos" level="Warning" additivity="false" >
         <appender-ref ref="Debug" />
         <appender-ref ref="Error" />
+        <appender-ref ref="Session" />
     </logger>
 
 

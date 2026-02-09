@@ -108,7 +108,7 @@ JwtResponse refreshToken(@CookieValue ("token") RefreshToken token);
     @Transactional
     @DeleteMapping("/logout")
 //    ResponseMessage ownerLogout(@RequestBody String refreshTokenReq);
-    ResponseMessage ownerLogout(HttpServletRequest token);
+    ResponseMessage ownerLogout(HttpServletRequest request);
 }
 
 
