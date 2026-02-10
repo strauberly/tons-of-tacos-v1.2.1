@@ -1,6 +1,22 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+-- 9 Feb 2026 --
+
+- Application appears to be functioning as intended complete with logging 
+functionality as intended.
+    - Goiong to try out logging successful login and log out.
+- Application Successfully loging user session for owner at login and logout 
+with simple message. File is named session and appears in logs folder.
+- Will further address upversioning at a later time and am returning focus to 
+completing current tasks and we will  need to upversion before 
+launch regardless. Oh Spring, why can't you just address vulnerabilities and 
+make the rest optional.
+- Removed Code in MyDataRestConfig as it is no longer needed.
+- Relatively pleased with state of files and underconfig package. Notes made.
+- Moving on to controllers
+
+---
 -- 5 Feb 2026 --
 
 - Authentication Manager has been updated, in a manner that still applies 

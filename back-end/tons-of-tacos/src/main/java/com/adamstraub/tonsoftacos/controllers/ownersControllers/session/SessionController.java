@@ -34,9 +34,9 @@ public class SessionController implements SessionControllerInterface {
     }
 
     @Override
-    public ResponseMessage ownerLogout(HttpServletRequest token) {
-        System.out.println("logout controller: " + token.getHeader("Authorization"));
-       return authService.ownerLogout(token.getHeader("Authorization"))    ;
+    public ResponseMessage ownerLogout(HttpServletRequest request) {
+        System.out.println("logout controller: " + request.getHeader("Authorization"));
+       return authService.ownerLogout(request, request.getHeader("Authorization"));
     }
 }
 

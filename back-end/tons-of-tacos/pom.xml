@@ -144,6 +144,8 @@
             <version>24.0.1</version>
             <scope>compile</scope>
         </dependency>
+<!--logging		-->
+
     </dependencies>
 
 	<build>
