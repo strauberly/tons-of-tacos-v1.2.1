@@ -4,7 +4,6 @@ import com.adamstraub.tonsoftacos.services.security.JwtService;
 import com.adamstraub.tonsoftacos.services.security.TokenRefreshService;
 
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -26,9 +25,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Date;
+
 
 @Component
 @RequiredArgsConstructor
@@ -45,7 +42,7 @@ private final HandlerExceptionResolver resolver;
     @Override
     protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response,
                                     @NotNull FilterChain filterChain)
-            throws ServletException, IOException {
+            {
 
         System.out.println("jwt filter");
         try {
@@ -55,8 +52,7 @@ private final HandlerExceptionResolver resolver;
 
             String token = null;
             String username = null;
-            Date expiration = null;
-            Date issuedAt = null;
+
             if(cookie!= null){
                 token = cookie.substring(cookie.indexOf("=") + 1);
             username  = tokenRefreshService.findByToken(token).getOwnerInfo().getUsername();
@@ -82,7 +78,6 @@ private final HandlerExceptionResolver resolver;
             filterChain.doFilter(request, response);
         } catch (Exception e) {
             resolver.resolveException(request, response, null, e);
-
         }
     }
 
