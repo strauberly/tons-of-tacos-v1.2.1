@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,47 +20,6 @@ import java.util.List;
 @OpenAPIDefinition(info = @Info(title = "End point documentation for the Tons of Tacos food truck application."),
         servers = {@Server(url="http://localhost:8080/", description = "Local server")})
 public interface MenuItemControllerInterface {
-    @Operation(
-            summary = "Return menu item by id.",
-            description = "For use by customers to view individual menu items and create an order."
-            + "\n"  + "\n" + "Example response: "  + "\n"  + "\n" +
-                    """
-                            {
-                                "id": 2,
-                                "category": "taco",
-                                "description": "nom nom",
-                                "itemName": "golden pound",
-                                "itemSize": null,
-                                "unitPrice": 5.3
-                            }
-                            """,
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "A menu-item is returned."),
-                    @ApiResponse(
-                            responseCode = "400",
-                            description = "Request parameters invalid."),
-                    @ApiResponse(
-                            responseCode = "404",
-                            description = "No menu-id found according to input."),
-                    @ApiResponse(
-                            responseCode = "500",
-                            description = "An unplanned error occured."),
-
-            },
-            parameters = {
-                    @Parameter(name = "id", allowEmptyValue = false, required = false),
-            }
-    )
-
-    @GetMapping("/{id}")
-    MenuItem getById(
-            @RequestParam
-            Integer id);
-
-
-
     @Operation(
             summary = "Return menu items by category.",
             description = """
@@ -109,7 +69,7 @@ public interface MenuItemControllerInterface {
     )
 
     @GetMapping("/category")
-    List<MenuItem> getByCategory(
+    ResponseEntity<List<MenuItem>> getByCategory(
             @RequestParam(required = true)
             String category);
 
@@ -138,7 +98,7 @@ public interface MenuItemControllerInterface {
 
 //    @Transactional
     @GetMapping ("/categories")
-    List<ReturnedCategory> getAvailableCategories();
+    ResponseEntity<List<ReturnedCategory>> getAvailableCategories();
 
 }
 

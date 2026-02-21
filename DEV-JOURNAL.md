@@ -1,6 +1,58 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+
+-- 18 Feb 2026 --
+
+- Updated global exception for run time error to correctly be thrown and return 
+more generic response to the user instead of the actual system error keeping 
+details of the backend structure obfusicated. The actual error is logged into 
+the debug file.
+
+- This completes current task list for menu item controller. Moving on to 
+orders controller where we will be implementing similar solutions.
+
+
+---
+
+-- 17 Feb 2026 --
+
+- Updated /categories endpoint to return response entity or throw runtime 
+exception.
+
+---
+
+--15 Feb 2026 --
+
+- Menu Item controllers services and interfaces updated to remove find by menu 
+item id as this is not being utilized and unnecessary.
+
+--- 
+
+--11 Feb 2026 --
+
+- Application appears to be functioning as intended complete with logging 
+functionality as intended.
+    - Goiong to try out logging successful login and log out.
+- Application Successfully loging user session for owner at login and logout 
+with simple message. File is named session and appears in logs folder.
+- Will further address upversioning at a later time and am returning focus to 
+completing current tasks and we will  need to upversion before 
+launch regardless. Oh Spring, why can't you just address vulnerabilities and 
+make the rest optional.
+- Removed Code in MyDataRestConfig as it is no longer needed.
+- Relatively pleased with state of files and underconfig package. Notes made.
+- Moving on to controllers
+
+- Currently reconfiguring controllers and exception handler as a result of 
+discovery that call of menu items by category wasnt being handled properly if 
+category didnt exist.
+- Working with response handlers and making sure front end 
+is seeing them.
+- Ensuring exception handler is correclty catching and returning the error
+- Much of what I am doing is similar to what was in place just trying to have 
+it conform closer to industry standards.
+---
 -- 9 Feb 2026 --
 
 - Application appears to be functioning as intended complete with logging 
@@ -96,7 +148,11 @@ continue to montor and evaluate.
 
 ---
 
+# RefactorStart
+
 -- 3 Feb 2026 --
+
+
 
 - Spent fair amount of time on logger. Should now be configured in a manner 
 where we have info logged to console Error log gets to the heart of the problem 

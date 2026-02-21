@@ -4,6 +4,7 @@ import com.adamstraub.tonsoftacos.dto.categoryDto.ReturnedCategory;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
 import com.adamstraub.tonsoftacos.services.menuItemService.MenuItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -14,19 +15,15 @@ public class MenuItemController implements MenuItemControllerInterface {
     @Autowired
     private MenuItemService menuItemService;
 
+
     @Override
-    public MenuItem getById(Integer id) {
-        System.out.println("controller");
-        return menuItemService.findById(id);
-    }
-    @Override
-    public List<MenuItem> getByCategory(String category) {
+    public ResponseEntity<List<MenuItem>> getByCategory(String category) {
         System.out.println("controller");
         return menuItemService.findByCategory(category);
     }
 
     @Override
-    public List<ReturnedCategory> getAvailableCategories() {
+    public ResponseEntity<List<ReturnedCategory>> getAvailableCategories() {
         return menuItemService.getCategories();
     }
 }
