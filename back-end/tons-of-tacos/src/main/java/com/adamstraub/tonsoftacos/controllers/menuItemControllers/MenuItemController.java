@@ -23,7 +23,7 @@ public class MenuItemController implements MenuItemControllerInterface {
     }
 
     @Override
-    public List<ReturnedCategory> getAvailableCategories() {
+    public ResponseEntity<List<ReturnedCategory>> getAvailableCategories() {
         return menuItemService.getCategories();
     }
 }

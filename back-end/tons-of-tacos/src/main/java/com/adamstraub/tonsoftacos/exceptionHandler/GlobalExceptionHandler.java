@@ -119,15 +119,28 @@ public class GlobalExceptionHandler {
         return createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest);
     }
 
+//    system exceptions
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     public Map<String, Object> handleRuntimeException(
+            RuntimeException e, WebRequest webRequest
+    ){
+
+        logger.debug("Investigate: ", e);
+        return createExceptionMessage("Give us a shout and let us know what's going on. Thanks!", HttpStatus.INTERNAL_SERVER_ERROR, webRequest);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    public Map<String, Object> handleIllegalStateException(
             HttpServerErrorException.InternalServerError e, WebRequest webRequest
     ){
-        logger.error(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR, webRequest).toString());
-        return createExceptionMessage(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR, webRequest);
+        logger.debug("Investigate: ", e);
+        return createExceptionMessage(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST, webRequest);
     }
+
+
 
     @ExceptionHandler(InternalAuthenticationServiceException.class)
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)

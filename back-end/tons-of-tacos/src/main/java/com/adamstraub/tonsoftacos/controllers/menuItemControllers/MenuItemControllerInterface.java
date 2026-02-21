@@ -98,7 +98,7 @@ public interface MenuItemControllerInterface {
 
 //    @Transactional
     @GetMapping ("/categories")
-    List<ReturnedCategory> getAvailableCategories();
+    ResponseEntity<List<ReturnedCategory>> getAvailableCategories();
 
 }
 

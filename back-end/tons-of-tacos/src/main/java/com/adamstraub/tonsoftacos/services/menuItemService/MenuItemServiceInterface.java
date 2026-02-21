@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface MenuItemServiceInterface {
 ResponseEntity<List<MenuItem>> findByCategory(String category);
-    List<ReturnedCategory>getCategories();
+
+ResponseEntity<List<ReturnedCategory>>getCategories();
 }

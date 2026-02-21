@@ -2,6 +2,26 @@
 
 ---
 
+-- 18 Feb 2026 --
+
+- Updated global exception for run time error to correctly be thrown and return 
+more generic response to the user instead of the actual system error keeping 
+details of the backend structure obfusicated. The actual error is logged into 
+the debug file.
+
+- This completes current task list for menu item controller. Moving on to 
+orders controller where we will be implementing similar solutions.
+
+
+---
+
+-- 17 Feb 2026 --
+
+- Updated /categories endpoint to return response entity or throw runtime 
+exception.
+
+---
+
 --15 Feb 2026 --
 
 - Menu Item controllers services and interfaces updated to remove find by menu 

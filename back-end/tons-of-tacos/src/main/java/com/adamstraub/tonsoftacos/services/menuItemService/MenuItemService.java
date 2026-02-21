@@ -8,6 +8,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +32,7 @@ public class MenuItemService implements MenuItemServiceInterface {
         System.out.println(category);
 
             List<MenuItem> menuItems = menuItemRepository.findByCategory(category);
+
             if (menuItems.isEmpty()) {
                 throw new EntityNotFoundException("You have chosen a category: " + category + ", that does not exist. Please check your spelling and formatting.");
             }
@@ -39,9 +41,15 @@ public class MenuItemService implements MenuItemServiceInterface {
 //bring up to date with the above and implement try catch
     @Transactional(readOnly = true)
     @Override
-    public List<ReturnedCategory> getCategories() {
-
+    public ResponseEntity<List<ReturnedCategory>> getCategories() {
         System.out.println("menu item service");
-        return categoryRepository.getByAvailable();
+        List<ReturnedCategory> categories;
+        try{
+             categories = categoryRepository.getByAvailable();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return ResponseEntity.ok(categories);
     }
 }
