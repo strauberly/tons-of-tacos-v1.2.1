@@ -13,6 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,16 +49,14 @@ public class OrdersService implements OrdersServiceInterface {
     @Override
     @Transactional
 
-    public OrderReturnedToCustomer createOrder(@RequestBody @NotNull SubmittedOrder order)
+
+    public ResponseEntity<OrderReturnedToCustomer> createOrder(@RequestBody @NotNull SubmittedOrder order)
     {
-        System.out.println("service");
-        System.out.println(order);
+        System.out.println("orders service");
         Orders newOrder = new Orders();
-        Customer newCustomer = new Customer();
-        newCustomer = order.getCustomer();
+        Customer newCustomer = order.getCustomer();
 
         try{
-
         validateCustomerInfo(order);
         if (order.getOrder().isEmpty()) {
             throw new IllegalArgumentException("An order must contain at least 1 menu item and must not be null. Please consult the documentation.");
@@ -80,7 +81,8 @@ public class OrdersService implements OrdersServiceInterface {
 } catch (Exception e) {
             log.error("error: ", e);
 }
-        return customerCopyDto;
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(customerCopyDto);
     }
 
     private void setOrderConfirmation(Customer newCustomer, Orders newOrder){
@@ -198,11 +200,9 @@ public class OrdersService implements OrdersServiceInterface {
             customerRepository.save(customer);
             System.out.println("saved customer");
             newOrder.setCustomerUid(customer.getCustomerUid());
-//            newOrder.setCustomerId(customerRepository.findByCustomerUid(customer.getCustomerUid()).getCustomerId());
             System.out.println("customer set to order");
         }else {
             System.out.println("existing customer: " + existingCustomer);
-//            newOrder.setCustomerId(existingCustomer.getCustomerId());
             newOrder.setCustomerUid(existingCustomer.getCustomerUid());
             System.out.println("customer set to order");
             System.out.println("new order: " + newOrder);
@@ -216,14 +216,8 @@ public class OrdersService implements OrdersServiceInterface {
     private void totalOrder(Orders newOrder){
          BigDecimal orderTotal = BigDecimal.valueOf(0.00);
         try{
-//
         for (OrderItem orderItem : newOrder.getOrderItems()) {
-//
-//
-//
-////
             orderItem.setTotal(orderItem.getTotal());
-
             System.out.println("item total: " + orderItem.getTotal().toString());
             orderTotal = orderTotal.add(orderItem.getTotal());
         }
@@ -259,8 +253,6 @@ public class OrdersService implements OrdersServiceInterface {
         try {
             for (OrderItemDTO orderItemDTO : orderItems) {
                 OrderItem orderItem = new OrderItem();
-//                char itemSize = orderItemDTO.getSize();
-
                 String itemSize = orderItemDTO.getSize();
 
 
@@ -271,7 +263,6 @@ public class OrdersService implements OrdersServiceInterface {
 
 
 // adjust item price and total if a size is available and selected
-//                this should be an reuseable method
                     BigDecimal adjustedUnitPrice = switch (itemSize) {
                         case "M" -> menuItemRepository
                                 .getReferenceById(Integer.valueOf(orderItemDTO

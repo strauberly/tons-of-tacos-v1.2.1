@@ -32,7 +32,7 @@ public class SecurityConfig {
         System.out.println("filter chain in place");
 
                 http
-//                        .csrf(AbstractHttpConfigurer::disable)
+                        .csrf(AbstractHttpConfigurer::disable)
                         .cors(Customizer.withDefaults())
                         .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/menu/**", "/api/order/**", "/api/owners-tools/login",

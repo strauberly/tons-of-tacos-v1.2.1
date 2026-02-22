@@ -4,6 +4,7 @@ import com.adamstraub.tonsoftacos.dto.customerDto.ordersDto.OrderReturnedToCusto
 import com.adamstraub.tonsoftacos.dto.customerDto.ordersDto.SubmittedOrder;
 import com.adamstraub.tonsoftacos.services.ordersService.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +16,7 @@ public class OrdersController implements OrdersControllerInterface {
 
 
     @Override
-    public  OrderReturnedToCustomer createOrder(@RequestBody SubmittedOrder order) {
+    public ResponseEntity<OrderReturnedToCustomer> createOrder(@RequestBody SubmittedOrder order) {
         System.out.println("controller");
         return ordersService.createOrder(order);
     }
