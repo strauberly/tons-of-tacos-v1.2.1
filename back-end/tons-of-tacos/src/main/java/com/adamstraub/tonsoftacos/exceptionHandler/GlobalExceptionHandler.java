@@ -126,7 +126,6 @@ public class GlobalExceptionHandler {
     public Map<String, Object> handleRuntimeException(
             RuntimeException e, WebRequest webRequest
     ){
-
         logger.debug("Investigate: ", e);
         return createExceptionMessage("Give us a shout and let us know what's going on. Thanks!", HttpStatus.INTERNAL_SERVER_ERROR, webRequest);
     }

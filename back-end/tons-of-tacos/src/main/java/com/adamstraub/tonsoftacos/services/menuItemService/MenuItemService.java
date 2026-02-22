@@ -38,7 +38,7 @@ public class MenuItemService implements MenuItemServiceInterface {
             }
             return ResponseEntity.ok(menuItems);
     }
-//bring up to date with the above and implement try catch
+
     @Transactional(readOnly = true)
     @Override
     public ResponseEntity<List<ReturnedCategory>> getCategories() {

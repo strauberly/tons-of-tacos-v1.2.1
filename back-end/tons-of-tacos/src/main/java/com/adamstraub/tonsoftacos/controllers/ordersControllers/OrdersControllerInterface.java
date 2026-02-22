@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -110,7 +111,6 @@ public interface OrdersControllerInterface {
 
 
 
-    @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping("/checkout")
-    OrderReturnedToCustomer createOrder(@RequestBody SubmittedOrder order) throws Exception;
+   ResponseEntity<OrderReturnedToCustomer> createOrder(@RequestBody SubmittedOrder order);
 }

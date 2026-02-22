@@ -2,6 +2,16 @@
 
 ---
 
+-- 22 Feb 2026 --
+
+- Orders services and controllers updated to return response entity to front 
+end for customer recept after succesfully placing an order. Verified try catch 
+blocks and logging are in place for error handling.
+
+- Moving on to owners controllers next.
+
+---
+
 -- 18 Feb 2026 --
 
 - Updated global exception for run time error to correctly be thrown and return 
