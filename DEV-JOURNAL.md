@@ -2,6 +2,40 @@
 
 ---
 
+-- 25 Feb 2026 --
+- Working on validation of information received for the customer update end 
+point and realized the logic and methods for this already exist in the orders 
+service and would be better utilized as a service that can me implemented in 
+multiple places of the application. Have created the package and files for the 
+customerValidationService and am currently working on refactoring the methods 
+for validation from the orders service to be multi use in the 
+customerValidationService.
+
+-- 22 Feb 2026 --
+
+- Removed route /get-customers as it is not being used so need to for it to be 
+sitting around. Will be reimplemented if needed. Associated code removed from 
+controllers and services.
+
+- Same for customer by name.
+
+- Same for get customer by uids
+    - feels weird removing so much especially when proud for having a robust 
+api but if not needed, not needed. 
+
+
+- The only path actually needed by the owner currently in this controller is 
+updating their info. Services will need more care in determining what is 
+actually being used however. Loooking back ton dev journal appears we overbuilt 
+just so full crud would be available if we needed it. Littel more foresight or 
+input would have mitigated. Oh well here we are, uneccessary is being removed.
+
+- Methods for validation of updated info will be implemented into the logic of 
+updating a customer which appears to currently rely on the validation being 
+handled by the front end.
+
+---
+
 -- 22 Feb 2026 --
 
 - Orders services and controllers updated to return response entity to front 

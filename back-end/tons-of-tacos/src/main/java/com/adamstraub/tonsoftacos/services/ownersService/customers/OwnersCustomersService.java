@@ -11,6 +11,8 @@ import com.adamstraub.tonsoftacos.entities.Orders;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,35 +31,7 @@ public class OwnersCustomersService implements OwnersCustomersServiceInterface {
     @Autowired
     private MenuItemRepository menuItemRepository;
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<CustomerReturnedToOwner> getAllCustomers() {
-        System.out.println("service");
-        List<CustomerReturnedToOwner> allCustomersDtos = new ArrayList<>();
-        List<Customer> customers;
-        try {
-            customers = customerRepository.findAll();
-            for (Customer customer : customers) {
-                allCustomersDtos.add(ownersCustomerDtoConvertor(customer));
-            }
-        } catch (Exception e) {
-            throw new EntityNotFoundException("No customers found at all. Please contact your application team right away.");
-        }
-        return  allCustomersDtos;
-    }
 
-
-    @Override
-    public CustomerReturnedToOwner getCustomerByName(String name) {
-        System.out.println("service");
-            Customer customer = customerRepository.findByName(name);
-            if (customer == null){
-                throw new EntityNotFoundException("No customer found by that name. Please check your spelling" +
-                    " and formatting.");
-            }else {
-                return ownersCustomerDtoConvertor(customer);
-            }
-    }
 
     @Override
     public CustomerReturnedToOwner getCustomerByUid(String customerUid) {
@@ -71,8 +45,8 @@ public class OwnersCustomersService implements OwnersCustomersServiceInterface {
         }
     }
 
-    @Override
-    public String updateCustomerName(String customerUid, String newCustomerName) {
+
+    public String validateCustomerName(String newCustomerName) {
         System.out.println("service");
         Customer customer;
 
@@ -163,7 +137,7 @@ public class OwnersCustomersService implements OwnersCustomersServiceInterface {
         }
     }
 
-    @Override
+
     public String deleteCustomer(String customerUid) {
         System.out.println("service");
         Customer customer = customerRepository.findByCustomerUid(customerUid);
@@ -175,7 +149,7 @@ public class OwnersCustomersService implements OwnersCustomersServiceInterface {
         return "Customer " +  customer.getName() + "(" + customerUid + "), removed from application records.";
         }
     }
-
+//incorporate validation from other services methods
     @Override
     public ResponseMessage updateCustomer(String customerUid, String name, String phone, String email) {
         System.out.println("update customer");
