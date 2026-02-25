@@ -3,6 +3,7 @@ import com.adamstraub.tonsoftacos.dto.businessDto.CustomerReturnedToOwner;
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.services.ownersService.customers.OwnersCustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -13,53 +14,10 @@ public class OwnersCustomersController implements OwnersCustomersControllerInter
     @Autowired
     private OwnersCustomersService ownersCustomersService;
 
-
-    @Override
-    public List<CustomerReturnedToOwner> getAllCustomers() {
-        System.out.println("Owners Customers Controller");
-        return ownersCustomersService.getAllCustomers();
-    }
-
-    @Override
-    public CustomerReturnedToOwner getCustomerByName(String name){
-        System.out.println("Owners Customers Controller");
-            return ownersCustomersService.getCustomerByName(name);
-    }
-
-    @Override
-    public CustomerReturnedToOwner getCustomerByUid(String customerUid) {
-        System.out.println("Owners Customers Controller");
-        return ownersCustomersService.getCustomerByUid(customerUid);
-    }
-
-    @Override
-    public String updateCustomerName(String customerUid, String newCustomerName) {
-        System.out.println("Owners Customers Controller");
-        return ownersCustomersService.updateCustomerName(customerUid, newCustomerName);
-    }
-
-    @Override
-    public String updateCustomerEmail(String customerUid, String newCustomerEmail) {
-        System.out.println("Owners Customers Controller");
-        return ownersCustomersService.updateCustomerEmail(customerUid, newCustomerEmail);
-    }
-
-    @Override
-    public String updateCustomerPhone(String customerUid, String newCustomerPhone) {
-        System.out.println("Owners Customers Controller");
-        return ownersCustomersService.updateCustomerPhone(customerUid, newCustomerPhone);
-    }
-
     @Override
     public ResponseMessage updateCustomer(String customerUid, String name, String phone, String email) {
         System.out.println("Owners Customers Controller");
         return ownersCustomersService.updateCustomer(customerUid, name, phone, email);
-    }
-
-    @Override
-    public String deleteCustomer(String customerUid) {
-        System.out.println("Owners Customers Controller");
-        return ownersCustomersService.deleteCustomer(customerUid);
     }
 
 }
