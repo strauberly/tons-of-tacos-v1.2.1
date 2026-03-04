@@ -61,38 +61,38 @@ public interface OwnersCustomersControllerInterface {
 
 
 //    //edit customer email
-//    @Operation(
-//            summary = "Updates a customer's email.",
-//            description = """
-//                    Accepts the uid of the customer to be updated as a parameter along with the new email for the customer.
-//                    Returned response is a message as a string that the customers email has been updated.
-//                    For owner use only with proper auth."""
-//                    + "\n" + "\n" + "Example request: " + "\n" + "\n" +
-//                    "localhost:8080/api/owners-tools/customers/edit-customer-email/09t8-g093/gussy@gus.com"
-//                    + "\n" + "\n" + "Example response: " + "\n" + "\n" +
-//                    "Previous customer email: bobby@bobert.com, updated to: gussy@gus.com.",
-//            responses = {
-//                    @ApiResponse(
-//                            responseCode = "200",
-//                            description = "Customer email updated."),
-//                    @ApiResponse(
-//                            responseCode = "400",
-//                            description = "Request parameters invalid."),
-//                    @ApiResponse(
-//                            responseCode = "404",
-//                            description = "No customer found according to parameter."),
-//                    @ApiResponse(
-//                            responseCode = "500",
-//                            description = "An unplanned error occured."),
-//            }
-//    )
-//    @Transactional
-//    @PutMapping("/edit-customer-email/{customerUid}/{newCustomerEmail}")
-//    ResponseEntity<ResponseMessage> updateCustomerEmail(
-//            @PathVariable
-//            String customerUid,
-//            @PathVariable
-//            String newCustomerEmail);
+    @Operation(
+            summary = "Updates a customer's email.",
+            description = """
+                    Accepts the uid of the customer to be updated as a parameter along with the new email for the customer.
+                    Returned response is a message as a string that the customers email has been updated.
+                    For owner use only with proper auth."""
+                    + "\n" + "\n" + "Example request: " + "\n" + "\n" +
+                    "localhost:8080/api/owners-tools/customers/edit-customer-email/09t8-g093/gussy@gus.com"
+                    + "\n" + "\n" + "Example response: " + "\n" + "\n" +
+                    "Previous customer email: bobby@bobert.com, updated to: gussy@gus.com.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Customer email updated."),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Request parameters invalid."),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No customer found according to parameter."),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "An unplanned error occured."),
+            }
+    )
+    @Transactional
+    @PutMapping("/edit-customer-email/{customerUid}/{newCustomerEmail}")
+    ResponseEntity<ResponseMessage> updateCustomerEmail(
+            @PathVariable
+            String customerUid,
+            @PathVariable
+            String newCustomerEmail);
 //
 //
 //    //edit customer phone number

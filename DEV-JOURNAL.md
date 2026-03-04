@@ -4,9 +4,9 @@
 
 -- 3 Mar 2026 --
 
-- Gave the front-end team (me ^_^) time to work with the new routes to ensure 
-functionality. Looks like we are good to and ready to implement the same 
-methodology for the rest of the routes.
+- Gave the front-end team (me ^_^) time to work with the new route for 
+updating a customer's name to ensure functionality. Looks like we are good to go
+and ready to implement the same methodology for the rest of the routes.
 
 - Updates:
     - Altered CorsConfiguration to allow for range of http methods and 
@@ -18,6 +18,9 @@ service interface that still need to be refactored.
     - Restablished route for editing customer name utilizing new validation 
 service.
     - Tested for functionality with front-end team (^_^;) while comparing notes.
+    
+- update customer email endpoint updated to match work on update customer name 
+and is active. Function tested and operating as desired.
 
 -- 25 Feb 2026 --
 

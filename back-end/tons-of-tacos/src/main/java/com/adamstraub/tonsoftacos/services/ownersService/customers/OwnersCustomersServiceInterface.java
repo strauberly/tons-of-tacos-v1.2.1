@@ -9,11 +9,11 @@ import java.util.List;
 public interface OwnersCustomersServiceInterface {
 
 // ResponseEntity<> updateCustomerName(String customerUid, String newCustomerName);
-//
+
  ResponseEntity<ResponseMessage> updateCustomerName(String customerUid, String newCustomerName);
 
-//
-//    String updateCustomerEmail(String customerUid, String newCustomerEmail);
+
+    ResponseEntity<ResponseMessage>updateCustomerEmail(String customerUid, String newCustomerEmail);
 //
 //String updateCustomerPhone(String customerUid, String newCustomerPhone);
 //

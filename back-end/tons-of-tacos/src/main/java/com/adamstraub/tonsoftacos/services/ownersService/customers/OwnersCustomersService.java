@@ -40,11 +40,15 @@ public class OwnersCustomersService implements OwnersCustomersServiceInterface {
 
     @Override
     public ResponseEntity<ResponseMessage> updateCustomerName(String customerUid, String newCustomerName) {
-//public ResponseEntity<ResponseMessage> updateCustomerName(String customerUid, String newCustomerName) {
-        System.out.println("update name service");
+
+        System.out.println("update customer service");
         ResponseMessage message = new ResponseMessage();
         Customer customer;
-        customer = customerRepository.findByCustomerUid(customerUid);
+        try {
+            customer = customerRepository.findByCustomerUid(customerUid);
+        } catch (Exception e) {
+            throw new EntityNotFoundException("No customer with supplied uid(" + customerUid + ")found.");
+        }
         String oldName = customer.getName();
 
         if (Objects.equals(oldName, newCustomerName)) {
@@ -58,28 +62,30 @@ public class OwnersCustomersService implements OwnersCustomersServiceInterface {
             return ResponseEntity.ok(message);
         }
     }
-//
-//    @Override
-//    public String updateCustomerEmail(String customerUid, String newCustomerEmail) {
-//        System.out.println("service");
-//        Customer customer;
-//
-//            customer = customerRepository.findByCustomerUid(customerUid);
-//            if (customer == null){
-//                throw new EntityNotFoundException("No customer with that id found.");
-//            }
-//
-//        String oldEmail = customer.getEmail();
-//        if (oldEmail.equals(newCustomerEmail)) {
-//            throw new IllegalArgumentException("New customer email can not be same as previous.");
-//        }
-//        if (!newCustomerEmail.matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,}")) {
-//            throw new IllegalArgumentException("Email does not match formatting requirements, please consult the docs.");
-//        }
-//        customer.setEmail(newCustomerEmail);
-//        customerRepository.save(customer);
-//        return "Previous customer email: " + oldEmail + ", updated to: " + customer.getEmail() + ".";
-//    }
+
+    @Override
+    public ResponseEntity<ResponseMessage> updateCustomerEmail(String customerUid, String newCustomerEmail) {
+        System.out.println("update customer service");
+        Customer customer;
+        ResponseMessage message = new ResponseMessage();
+        try {
+            customer = customerRepository.findByCustomerUid(customerUid);
+        } catch (Exception e) {
+            throw new EntityNotFoundException("No customer with supplied uid(" + customerUid + ")found.");
+        }
+
+        String oldEmail = customer.getEmail();
+        if (Objects.equals(oldEmail, newCustomerEmail)) {
+            throw new IllegalArgumentException("New customer email can not be same as previous.");
+        }
+        if (!validationService.validateCustomerEmail(newCustomerEmail)) {
+            throw new IllegalArgumentException("Email does not match formatting requirements, please consult documentation.");
+        }
+        customer.setEmail(newCustomerEmail);
+        customerRepository.save(customer);
+        message.setMessage("Previous customer email: " + oldEmail + ", updated to: " + customer.getEmail() + ".");
+        return ResponseEntity.ok(message);
+    }
 //
 //    @Override
 //    public String updateCustomerPhone(String customerUid, String newCustomerPhone) {
