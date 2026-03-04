@@ -2,7 +2,25 @@
 
 ---
 
+-- 3 Mar 2026 --
+
+- Gave the front-end team (me ^_^) time to work with the new routes to ensure 
+functionality. Looks like we are good to and ready to implement the same 
+methodology for the rest of the routes.
+
+- Updates:
+    - Altered CorsConfiguration to allow for range of http methods and 
+establishing the front end origin which can be altered in the 
+application.properties file. This defeats the issues we were experiencing with 
+pre-flight requests sent from the browser.
+    - Commented out paths in controllers, controller interface, service and 
+service interface that still need to be refactored.
+    - Restablished route for editing customer name utilizing new validation 
+service.
+    - Tested for functionality with front-end team (^_^;) while comparing notes.
+
 -- 25 Feb 2026 --
+
 - Working on validation of information received for the customer update end 
 point and realized the logic and methods for this already exist in the orders 
 service and would be better utilized as a service that can me implemented in 

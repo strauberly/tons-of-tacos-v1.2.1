@@ -14,7 +14,7 @@ public class customerValidationService {
     private boolean customerNameValid = false;
     private boolean customerPhoneNumberValid = false;
     private boolean customerEmailValid = false;
-    private void validateCustomerName(String customerName) {
+    public boolean validateCustomerName(String customerName) {
         try {
             byte[] nameChars = customerName.getBytes(StandardCharsets.UTF_8);
             int spaces = 0;
@@ -33,6 +33,11 @@ public class customerValidationService {
             }
         } catch (Exception e) {
             log.error("error: ", e);
+        }
+        if(customerNameValid){
+            return true;
+        }else{
+            return false;
         }
     }
 
