@@ -22,11 +22,11 @@ public class OwnersCustomersController implements OwnersCustomersControllerInter
         return ownersCustomersService.updateCustomerName(customerUid, newCustomerName);
     }
 
-//    @Override
-//    public ResponseEntity<ResponseMessage> updateCustomerEmail(String customerUid, String newCustomerEmail) {
-//        System.out.println("Owners Customers Controller");
-//        return ownersCustomersService.updateCustomerEmail(customerUid, newCustomerEmail);
-//    }
+    @Override
+    public ResponseEntity<ResponseMessage> updateCustomerEmail(String customerUid, String newCustomerEmail) {
+        System.out.println("Owners Customers Controller");
+        return ownersCustomersService.updateCustomerEmail(customerUid, newCustomerEmail);
+    }
 
 //    @Override
 //    public String updateCustomerPhone(String customerUid, String newCustomerPhone) {
