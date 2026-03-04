@@ -8,5 +8,16 @@ import java.util.List;
 
 public interface OwnersCustomersServiceInterface {
 
-ResponseMessage updateCustomer(String customerUid, String name, String phone, String email);
+// ResponseEntity<> updateCustomerName(String customerUid, String newCustomerName);
+//
+ ResponseEntity<ResponseMessage> updateCustomerName(String customerUid, String newCustomerName);
+
+//
+//    String updateCustomerEmail(String customerUid, String newCustomerEmail);
+//
+//String updateCustomerPhone(String customerUid, String newCustomerPhone);
+//
+//
+//
+//ResponseMessage updateCustomer(String customerUid, String name, String phone, String email);
 }
