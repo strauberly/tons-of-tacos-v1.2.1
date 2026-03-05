@@ -37,21 +37,22 @@ public class customerValidationService {
         return customerNameValid;
     }
 
-//    private void validateCustomerPhone(String customerPhone){
-//        try{
-//            if (customerPhone.matches("[0-9.]*")
-//                    && customerPhone.charAt(3) == (char) 46
-//                    && customerPhone.charAt(7) == (char) 46
-//                    && customerPhone.length()==12){
-//                customerPhoneNumberValid = true;
-//            }
-//            if(!customerPhoneNumberValid) {
-//                throw new IllegalArgumentException("Customer phone number incorrectly formatted. Please consult the documentation.");
-//            }
-//        } catch (Exception e) {
-//            log.error("error: " , e);
-//        }
-//    }
+    public boolean validateCustomerPhone(String customerPhone){
+        try{
+            if (customerPhone.matches("[0-9.]*")
+                    && customerPhone.charAt(3) == (char) 46
+                    && customerPhone.charAt(7) == (char) 46
+                    && customerPhone.length()==12){
+                customerPhoneNumberValid = true;
+            }
+            if(!customerPhoneNumberValid) {
+                throw new IllegalArgumentException("Customer phone number incorrectly formatted. Please consult the documentation.");
+            }
+        } catch (Exception e) {
+            log.error("error: " , e);
+        }
+        return customerPhoneNumberValid;
+    }
 
     public boolean validateCustomerEmail(String customerEmail){
         try{
@@ -64,20 +65,4 @@ public class customerValidationService {
         }
         return customerEmailValid;
     }
-//    public boolean validateCustomerInfo(Customer customer){
-//        try{
-//            validateCustomerName(customer.getName());
-//            validateCustomerPhone(customer.getPhoneNumber());
-//            validateCustomerEmail(customer.getEmail());
-//        } catch (Exception e) {
-//            log.error("error: " , e);
-//        }
-//        if(customerNameValid && customerEmailValid && customerPhoneNumberValid){
-//            System.out.println("Customer info valid.");
-//            return true;
-//        }else{
-//            return false;
-//        }
-//    }
-
 }

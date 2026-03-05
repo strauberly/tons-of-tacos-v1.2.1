@@ -21,6 +21,11 @@ service.
     
 - update customer email endpoint updated to match work on update customer name 
 and is active. Function tested and operating as desired.
+- update customer phone number endpoint updated to match work on update 
+customer name and is active. Function tested and operating as desired.
+
+- This concludes current work on customer update endpoints for now moving on to 
+owners orders endpoints
 
 -- 25 Feb 2026 --
 
