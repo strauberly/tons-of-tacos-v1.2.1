@@ -1,6 +1,5 @@
 package com.adamstraub.tonsoftacos.services.customerValidationService;
 
-import com.adamstraub.tonsoftacos.dto.customerDto.Customer.Customer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +8,12 @@ import java.util.Objects;
 
 @Slf4j
 @Service
-public class customerValidationService {
+public class CustomerValidationService {
 
     private boolean customerNameValid = false;
     private boolean customerPhoneNumberValid = false;
     private boolean customerEmailValid = false;
+    private boolean orderUidValid = false;
     public boolean validateCustomerName(String customerName) {
         try {
             byte[] nameChars = customerName.getBytes(StandardCharsets.UTF_8);
@@ -61,8 +61,22 @@ public class customerValidationService {
                 throw new IllegalArgumentException("Customer e-mail incorrectly formatted. Please consult the documentation.");
             }
         } catch (Exception e) {
+
             log.error("error: " , e);
         }
         return customerEmailValid;
+    }
+
+    public boolean validateOrderUid(String uid){
+        try{
+            if (uid.matches("^[A-Z0-9]{5}$")) customerEmailValid = true;
+            if (!customerEmailValid){
+                throw new IllegalArgumentException("Customer e-mail incorrectly formatted. Please consult the documentation.");
+            }
+        } catch (Exception e) {
+
+            log.error("error: " , e);
+        }
+        return orderUidValid;
     }
 }

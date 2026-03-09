@@ -4,11 +4,14 @@ import com.adamstraub.tonsoftacos.dto.businessDto.DailySales;
 import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.services.ownersService.orders.OwnersOrdersService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+@Slf4j
 @RestController
 public class    OwnersOrdersController implements OwnersOrdersControllerInterface {
 
@@ -16,72 +19,60 @@ public class    OwnersOrdersController implements OwnersOrdersControllerInterfac
     private OwnersOrdersService ownersOrdersService;
 
     @Override
-    public List<OrderReturnedToOwner> getAllOrders() {
-        System.out.println("Owners Orders Controller");
+    public ResponseEntity<List<OrderReturnedToOwner>> getAllOrders() {
         return ownersOrdersService.getAllOrders();
     }
     @Override
-    public List<OrderReturnedToOwner> getOrdersByPhoneNumber(String phone) {
+    public ResponseEntity<List<OrderReturnedToOwner>> getOrdersByPhoneNumber(String phone) {
         return ownersOrdersService.getOrdersByPhoneNumber(phone);
     }
 
-
-
     @Override
-    public OrderReturnedToOwner getOrderByUid(@PathVariable String orderUid) {
-        System.out.println("Owners Orders Controller");
+    public ResponseEntity<OrderReturnedToOwner> getOrderByUid(@PathVariable String orderUid) {
         return ownersOrdersService.getOrderByUid(orderUid);
     }
-
+    //return here
     @Override
-    public List<OrderReturnedToOwner> getOrdersByCustomer(String customer) {
-        System.out.println("Owners Orders Controller");
-//        return ownersOrdersService.getOpenOrderByCustomer(customer);
-        return ownersOrdersService.getOrdersByCustomer(customer);
-    }
-
-
-    @Override
-    public OrderReturnedToOwner orderReady(String orderUid) {
+    public ResponseEntity<OrderReturnedToOwner> orderReady(String orderUid) {
         System.out.println("Owners Orders Controller");
         return ownersOrdersService.orderReady(orderUid);
     }
 
     @Override
-    public OrderReturnedToOwner closeOrder(String orderUid) {
+    public ResponseEntity<OrderReturnedToOwner> closeOrder(String orderUid) {
             System.out.println("Owners Orders Controller");
        return ownersOrdersService.closeOrder(orderUid);
     }
 
 
     @Override
-    public ResponseMessage deleteOrder(String orderUid) {
+    public ResponseEntity<ResponseMessage> deleteOrder(String orderUid) {
         System.out.println("Owners Orders Controller");
         return ownersOrdersService.deleteOrder(orderUid);
     }
 
     @Override
-    public ResponseMessage addToOrder(String orderUid, Integer menuItemId, Integer quantity, String itemSize) {
+    public ResponseEntity<ResponseMessage> addToOrder(String orderUid, Integer menuItemId, Integer quantity, String itemSize) {
         System.out.println("Owners Orders Controller");
 
         return ownersOrdersService.addToOrder(orderUid, menuItemId, quantity, itemSize);
     }
 
     @Override
-    public ResponseMessage removeFromOrder(Integer orderItemId) {
+    public ResponseEntity<ResponseMessage> removeFromOrder(Integer orderItemId) {
         System.out.println("Owners Orders Controller");
 
         return ownersOrdersService.removeFromOrder(orderItemId);
     }
 
     @Override
-    public ResponseMessage updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity, String newSize) {
+    public ResponseEntity<ResponseMessage> updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity, String newSize) {
             System.out.println("Owners Orders Controller");
         return ownersOrdersService.updateOrderItemQuantity(orderUid, orderItemId, newQuantity, newSize);
     }
 
     @Override
-    public DailySales todaysSales() {
+    public ResponseEntity<DailySales> todaysSales() {
         System.out.println("Owners Orders Controller");
         return ownersOrdersService.todaysSales();
     }

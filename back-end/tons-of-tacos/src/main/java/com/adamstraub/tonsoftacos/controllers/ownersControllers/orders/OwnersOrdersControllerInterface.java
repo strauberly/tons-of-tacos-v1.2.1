@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -130,7 +131,7 @@ public interface OwnersOrdersControllerInterface {
     )
     @Transactional
     @GetMapping("/get-orders")
-    List<OrderReturnedToOwner> getAllOrders();
+    ResponseEntity<List<OrderReturnedToOwner>> getAllOrders();
 
 
 //get an order by uid
@@ -194,85 +195,12 @@ public interface OwnersOrdersControllerInterface {
             }
     )
     @Transactional
-    @GetMapping("/get-order-uid/{orderUid}")
-    OrderReturnedToOwner getOrderByUid(@RequestParam String orderUid);
+    @GetMapping("/get-order/{orderUid}")
+    ResponseEntity<OrderReturnedToOwner> getOrderByUid(@RequestParam String orderUid);
 
 
 
-//get an order by customer name
-    @Operation(
-            summary = "Orders returned by customer name.",
-            description = """ 
-                 An array of  orders are returned to an owner by customer name.
-                 For owner use only with proper auth."""
-            + "\n" + "\n" + "Example response: " + "\n" + "\n"
-            + """
-                    [
-                        {
-                            "name": "John Johnson",
-                            "email": "john@johnson.com",
-                            "phone": "555.555.5552",
-                            "orderUid": "654654-4655-555",
-                            "orderItems": [
-                                {
-                                    "orderItemId": 1,
-                                    "itemName": "pound",
-                                    "quantity": 3,
-                                    "total": 3.0
-                                },
-                                {
-                                    "orderItemId": 2,
-                                    "itemName": "golden pound",
-                                    "quantity": 4,
-                                    "total": 4.0
-                                }
-                            ],
-                            "orderTotal": 25.55,
-                            "created": "2023-08-05T23:54:52.000+00:00",
-                            "ready": "no",
-                            "closed": "no"
-                        },
-                        {
-                            "name": "John Johnson",
-                            "email": "john@johnson.com",
-                            "phone": "555.555.5552",
-                            "orderUid": "654654-4657-555",
-                            "orderItems": [
-                                {
-                                    "orderItemId": 4,
-                                    "itemName": "cola",
-                                    "quantity": 3,
-                                    "total": 1.5
-                                }
-                            ],
-                            "orderTotal": 10.0,
-                            "created": "2023-08-05T23:54:52.000+00:00",
-                            "ready": "no",
-                            "closed": "no"
-                        }
-                    ]
-                    """,
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "Open orders for customer returned."),
-                    @ApiResponse(
-                            responseCode = "400",
-                            description = "Request parameters invalid."),
-                    @ApiResponse(
-                            responseCode = "404",
-                            description = "No orders found."),
-                    @ApiResponse(
-                            responseCode = "500",
-                            description = "An unplanned error occured."),
-            }
-    )
-    @Transactional
-    @GetMapping("/get-order-customer/{customer}")
-
-    List <OrderReturnedToOwner> getOrdersByCustomer(@RequestParam String customer);
-
-//    ------------------------------
+//    get order by phone
 @Operation(
         summary = "Orders returned by customer phone number.",
         description = """ 
@@ -342,9 +270,10 @@ public interface OwnersOrdersControllerInterface {
 )
 @Transactional
 @GetMapping("/get-order-customer-phone/{phone}")
-//   List <OrderReturnedToOwner> getOpenOrderByCustomer(@RequestParam String customer);
-List <OrderReturnedToOwner> getOrdersByPhoneNumber(@RequestParam String phone);
 
+    ResponseEntity<List<OrderReturnedToOwner>> getOrdersByPhoneNumber(@RequestParam String phone);
+
+//runtime exceptions
 //mark food ready by uid
     @Operation(
             summary = "Marks an order by its uid as having food ready for pick up.",
@@ -403,7 +332,7 @@ List <OrderReturnedToOwner> getOrdersByPhoneNumber(@RequestParam String phone);
     )
     @Transactional
     @PutMapping("/order-ready/{orderUid}")
-    OrderReturnedToOwner orderReady(@PathVariable String orderUid);
+    ResponseEntity<OrderReturnedToOwner> orderReady(@PathVariable String orderUid);
 
 
 //close order by uid
@@ -465,7 +394,7 @@ List <OrderReturnedToOwner> getOrdersByPhoneNumber(@RequestParam String phone);
     )
     @Transactional
     @PutMapping("/close-order/{orderUid}")
-    OrderReturnedToOwner closeOrder(@PathVariable String orderUid);
+    ResponseEntity<OrderReturnedToOwner> closeOrder(@PathVariable String orderUid);
 
 
     //delete order by uid
@@ -490,7 +419,7 @@ List <OrderReturnedToOwner> getOrdersByPhoneNumber(@RequestParam String phone);
     )
     @Transactional
     @DeleteMapping("/delete-order/{orderUid}")
-    ResponseMessage deleteOrder(@PathVariable String orderUid);
+    ResponseEntity<ResponseMessage> deleteOrder(@PathVariable String orderUid);
 
 //add menu item to order
 
@@ -515,7 +444,7 @@ List <OrderReturnedToOwner> getOrdersByPhoneNumber(@RequestParam String phone);
     )
     @Transactional
     @PutMapping("/add-to-order/{orderUid}/{menuItemId}/{quantity}/{itemSize}")
-    ResponseMessage addToOrder(
+    ResponseEntity<ResponseMessage> addToOrder(
             @PathVariable
             String orderUid,
             @PathVariable
@@ -547,7 +476,7 @@ List <OrderReturnedToOwner> getOrdersByPhoneNumber(@RequestParam String phone);
     )
     @Transactional
     @DeleteMapping("/remove-from-order/{orderItemId}")
-    ResponseMessage removeFromOrder(
+    ResponseEntity<ResponseMessage> removeFromOrder(
             @PathVariable
             Integer orderItemId
         );
@@ -576,7 +505,7 @@ List <OrderReturnedToOwner> getOrdersByPhoneNumber(@RequestParam String phone);
             }
     )
     @PutMapping("/update-order-item/{orderUid}/{orderItemId}/{newQuantity}/{newSize}")
-    ResponseMessage updateOrderItemQuantity(
+    ResponseEntity<ResponseMessage> updateOrderItemQuantity(
     @PathVariable
     String orderUid,
     @PathVariable
@@ -621,6 +550,6 @@ responses = {
 }
 )
 @GetMapping("/sales")
-DailySales todaysSales();
+ResponseEntity<DailySales> todaysSales();
 
 }

@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
     public ResponseEntity<Map<String, Object>> handleEntityNotFoundException(
             EntityNotFoundException e, WebRequest webRequest) {
-        log.debug(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.NOT_FOUND, webRequest).toString());
+        log.debug(createExceptionMessage(e.toString(), HttpStatus.NOT_FOUND, webRequest).toString());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON).body(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.NOT_FOUND, webRequest));
     }
 
@@ -140,6 +140,15 @@ public class GlobalExceptionHandler {
     ){
         log.debug("Investigate: ", e);
         return createExceptionMessage(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST, webRequest);
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    public Map<String, Object> handleNullPointerException(
+            NullPointerException e, WebRequest webRequest
+    ){
+        log.debug("Investigate: ", e);
+        return createExceptionMessage(e.getLocalizedMessage(), HttpStatus.NOT_FOUND, webRequest);
     }
 
 

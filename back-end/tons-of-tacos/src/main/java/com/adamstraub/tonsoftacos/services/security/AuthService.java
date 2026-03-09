@@ -100,8 +100,6 @@ public class AuthService {
             logger.error("Error getting IP address.");
             logger.debug("Investigate:",e);
         }
-
-
         return ipAddress;
     }
 
