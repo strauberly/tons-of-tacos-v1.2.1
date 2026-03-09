@@ -13,11 +13,11 @@ import java.util.List;
 @Repository
 public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 
-Orders findByOrderUid (@RequestParam ("order_uid") String orderUid) throws EntityNotFoundException;
-//    List<Orders> findByCustomerId(@RequestParam("customer_fk") Integer customerId);
-List<Orders> findByCustomerUid(@RequestParam("customer_uid") String customerUid);
+Orders findByOrderUid (@RequestParam ("order_uid") String orderUid);
 
-    default List<Orders> findByClosed(){
+List<Orders> findByCustomerUid(@RequestParam("customer_uid") String customerUid) throws EntityNotFoundException;
+
+default List<Orders> findByClosed(){
         List<Orders> closedOrders = new ArrayList<>();
         List<Orders> orders = findAll();
         System.out.println(orders);
@@ -26,10 +26,8 @@ List<Orders> findByCustomerUid(@RequestParam("customer_uid") String customerUid)
                 closedOrders.add(order);
             }
         }
-        System.out.println("closed: " + closedOrders.toArray().length);
         return closedOrders;
     }
 
     @NotNull Orders getById(@RequestParam("order_pk") @NotNull Integer orderId);
-
 }

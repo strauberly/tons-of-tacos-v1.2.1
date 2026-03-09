@@ -1,6 +1,58 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+-- 8 Mar 2026 --
+- Delete order item now returns a Response Entity containing the response 
+message for confirmation of action. 
+    - Exception handling in place.
+    
+- Made notes for ecxeption handling to log the whole error and not just the 
+localized message which is being returned to the the user.
+
+- Update order item quantity updated to return response entity.
+    - exception handling in place.
+    
+- Updates to daily sales:
+    - Updated logic we were comptodays date with date created returning null 
+values if the order was created on a different date than when closed. This has 
+been rectified to compare date closed with todays date rectifying the issue.
+Took a little work and research to convert the string to the local date to 
+compare.
+- Daily sales is now returning a response entity.
+- Added exception handling in ownerGetOrderDTOConvertor.
+- This should conclude work on owner's orders endpoints for now. Moving on to 
+session endpoints
+---
+-- 7 Mar 2026 --
+- Order ready and closed order now return response entities and have exception 
+handling in place.
+    - Close order now correctly only removes customer information if all of a 
+customers orders have been marked closed.
+
+- Order deleted now Makes use of response entity and has exception handling in 
+place.
+
+- Created Utility service and added method for calculating a menu items total 
+method to be used in multiple places through application.
+
+- Adding menu Item to an order now returns response entity.
+    - Exception handling in place.
+
+---
+
+-- 4 Mar 2026 --
+
+- Starting work on orders enpoints for owner:
+
+    - Updated get all orders to return a response entity and if it cant find 
+orders for some reason to throw runtime exception and log the error.
+    - Get by customer aka by customer name is unused and so removed.
+    - Get order by uid has been updated to return a response entity.
+    - Get orders by phone number has been updated to return a response entity.
+        - Both throw entity not found exception and utilize validation from the 
+customer validation service before searching.
+
+
 
 -- 3 Mar 2026 --
 

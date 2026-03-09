@@ -1,6 +1,7 @@
 package com.adamstraub.tonsoftacos.dao;
 
 import com.adamstraub.tonsoftacos.entities.Customer;
+import jakarta.persistence.EntityNotFoundException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     List<Customer> findByNameContaining(String name);
 
-    List<Customer> findByPhoneNumber(@RequestParam("phone_number") String phone);
+    List<Customer> findByPhoneNumber(@RequestParam("phone_number") String phone)throws EntityNotFoundException;
 
 }

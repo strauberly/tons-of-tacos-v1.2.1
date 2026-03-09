@@ -6,7 +6,7 @@ import com.adamstraub.tonsoftacos.dao.CustomerRepository;
 import com.adamstraub.tonsoftacos.dao.OrdersRepository;
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.entities.Customer;
-import com.adamstraub.tonsoftacos.services.customerValidationService.customerValidationService;
+import com.adamstraub.tonsoftacos.services.customerValidationService.CustomerValidationService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ public class OwnersCustomersService implements OwnersCustomersServiceInterface {
     @Autowired
     private MenuItemRepository menuItemRepository;
     @Autowired
-    private customerValidationService validationService;
+    private CustomerValidationService validationService;
 
 
 

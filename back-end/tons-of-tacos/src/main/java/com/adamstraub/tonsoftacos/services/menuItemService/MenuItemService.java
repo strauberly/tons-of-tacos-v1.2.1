@@ -25,21 +25,19 @@ public class MenuItemService implements MenuItemServiceInterface {
 
 
 
-    @Transactional(readOnly = true)
+
     @Override
     public ResponseEntity<List<MenuItem>> findByCategory(String category) {
         System.out.println(" menu item service");
         System.out.println(category);
-
             List<MenuItem> menuItems = menuItemRepository.findByCategory(category);
-
             if (menuItems.isEmpty()) {
                 throw new EntityNotFoundException("You have chosen a category: " + category + ", that does not exist. Please check your spelling and formatting.");
             }
             return ResponseEntity.ok(menuItems);
     }
 
-    @Transactional(readOnly = true)
+
     @Override
     public ResponseEntity<List<ReturnedCategory>> getCategories() {
         System.out.println("menu item service");
@@ -49,7 +47,6 @@ public class MenuItemService implements MenuItemServiceInterface {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
         return ResponseEntity.ok(categories);
     }
 }
