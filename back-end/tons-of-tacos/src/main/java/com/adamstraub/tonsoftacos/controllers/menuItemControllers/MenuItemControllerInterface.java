@@ -95,10 +95,7 @@ public interface MenuItemControllerInterface {
                             description = "An unplanned error occured."),
             }
     )
-
-//    @Transactional
     @GetMapping ("/categories")
     ResponseEntity<List<ReturnedCategory>> getAvailableCategories();
-
 }
 

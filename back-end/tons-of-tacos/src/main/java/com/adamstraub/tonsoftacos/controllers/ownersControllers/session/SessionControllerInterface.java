@@ -10,11 +10,11 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
 
 @Validated
 @RequestMapping(
@@ -55,7 +55,7 @@ public interface SessionControllerInterface {
 
     @PostMapping("/login")
 
-    JwtResponse ownerLogin(HttpServletRequest request, @RequestBody   OwnerAuth authDto) throws UnsupportedEncodingException;
+    ResponseEntity<JwtResponse> ownerLogin(HttpServletRequest request, @RequestBody   OwnerAuth authDto);
 
 @Operation(
         summary = "Create new access token once original expires.",
@@ -81,7 +81,7 @@ public interface SessionControllerInterface {
 @Transactional
 @PostMapping("/refresh")
 @ResponseBody
-JwtResponse refreshToken(@CookieValue ("token") RefreshToken token);
+ResponseEntity<JwtResponse> refreshToken(@CookieValue ("token") RefreshToken token);
 
 
 
@@ -107,8 +107,7 @@ JwtResponse refreshToken(@CookieValue ("token") RefreshToken token);
     )
     @Transactional
     @DeleteMapping("/logout")
-//    ResponseMessage ownerLogout(@RequestBody String refreshTokenReq);
-    ResponseMessage ownerLogout(HttpServletRequest request);
+    ResponseEntity<ResponseMessage> ownerLogout(HttpServletRequest request, @CookieValue RefreshToken token);
 }
 
 

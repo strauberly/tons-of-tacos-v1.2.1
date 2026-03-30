@@ -21,7 +21,7 @@ private String origin;
                      .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                      .allowedHeaders("*") // Adjust as needed
                      .allowCredentials(true);
-             ;
+
             }
         };
 
