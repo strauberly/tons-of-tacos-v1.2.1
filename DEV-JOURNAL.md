@@ -1,6 +1,28 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+
+-- 30 Mar 2026 --
+
+- Spent time with evaluating session management with frontend team (me ^_^:) 
+and applying any changes needed on backend to assist with their goals. If more 
+than one team, would consider universal solutions.
+
+- Not much has currently changed on our end other than altering endpoints to 
+return response entities containing our established DTOS and updating exception 
+handling as needed. Following changes will be more detailed as we are back from 
+break and returning to schedule for work on project.
+
+- log out endpoint now correctly removes token for a user from database.
+- Login endpoint n ow searches for a token already created for a particular 
+user and if one already exists, removes and creates new token. 
+- Might be wise in the future to log how many  sessions have happened for a 
+user (tokens created) to evaluate for unusual behavior(attacker creating a 
+multitude of tokens in order to evaluate encryption algorithm, DoS/DDoS attack 
+underway or who knows ^_^:).
+
+
+
 -- 8 Mar 2026 --
 - Delete order item now returns a Response Entity containing the response 
 message for confirmation of action. 

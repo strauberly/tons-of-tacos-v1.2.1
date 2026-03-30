@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -26,7 +27,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 
-
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
@@ -49,7 +50,7 @@ private final HandlerExceptionResolver resolver;
 
             String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
             String cookie = request.getHeader(HttpHeaders.COOKIE);
-
+            log.error("cookie received, {}", cookie);
             String token = null;
             String username = null;
 
