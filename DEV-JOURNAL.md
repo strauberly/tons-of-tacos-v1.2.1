@@ -1,6 +1,12 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+-- 4 Apr 2026 --
+- added to convertLogToPdf() removing old pdf for day before creating new log 
+pdf for today.
+
+
+---
 
 -- 3 Apr 2026 --
 

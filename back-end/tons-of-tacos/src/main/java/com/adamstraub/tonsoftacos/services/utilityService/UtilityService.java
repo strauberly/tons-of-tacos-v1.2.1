@@ -3,8 +3,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -16,8 +20,10 @@ public class UtilityService {
 
 
     public void convertLogToPDF(String logFilePath, String pdfFilePath) {
-//        primarily generated with chatGPT and then refined by myself to address unresolved issues dependencies,
-//        and looking for improvements
+/*        primarily generated with chatGPT and then refined by myself to address unresolved issues dependencies,
+        and looking for improvements.
+ */
+
         final float MARGIN = 50;
         final float FONT_SIZE = 10;
         final PDType1Font FONT = new PDType1Font(Standard14Fonts.FontName.HELVETICA);
@@ -104,6 +110,7 @@ public class UtilityService {
             }
             contentStream.endText();
             contentStream.close();
+            Files.deleteIfExists(Path.of(pdfFilePath));
             document.save(pdfFilePath);
         } catch (IOException e) {
             log.debug("Investigate: {}", String.valueOf(e));
