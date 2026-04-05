@@ -1,5 +1,5 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.springTests.menuItemTests;
-import com.adamstraub.tonsoftacos.dao.MenuItemRepository;
+import com.adamstraub.tonsoftacos.respository.MenuItemRepository;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.menuItemTestsSupport.GetMenuItemsTestsSupport;
 import org.junit.jupiter.api.Assertions;
@@ -16,7 +16,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 

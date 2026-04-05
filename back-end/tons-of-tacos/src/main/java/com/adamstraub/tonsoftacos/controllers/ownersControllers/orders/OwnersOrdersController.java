@@ -4,6 +4,7 @@ import com.adamstraub.tonsoftacos.dto.businessDto.DailySales;
 import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.services.ownersService.orders.OwnersOrdersService;
+import com.adamstraub.tonsoftacos.services.utilityService.salesService.SalesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +18,14 @@ public class    OwnersOrdersController implements OwnersOrdersControllerInterfac
 
     @Autowired
     private OwnersOrdersService ownersOrdersService;
+    @Autowired
+    private SalesService salesService;
 
     @Override
     public ResponseEntity<List<OrderReturnedToOwner>> getAllOrders() {
         return ownersOrdersService.getAllOrders();
     }
+
     @Override
     public ResponseEntity<List<OrderReturnedToOwner>> getOrdersByPhoneNumber(String phone) {
         return ownersOrdersService.getOrdersByPhoneNumber(phone);
@@ -31,7 +35,6 @@ public class    OwnersOrdersController implements OwnersOrdersControllerInterfac
     public ResponseEntity<OrderReturnedToOwner> getOrderByUid(@PathVariable String orderUid) {
         return ownersOrdersService.getOrderByUid(orderUid);
     }
-    //return here
     @Override
     public ResponseEntity<OrderReturnedToOwner> orderReady(String orderUid) {
         System.out.println("Owners Orders Controller");
@@ -74,6 +77,6 @@ public class    OwnersOrdersController implements OwnersOrdersControllerInterfac
     @Override
     public ResponseEntity<DailySales> todaysSales() {
         System.out.println("Owners Orders Controller");
-        return ownersOrdersService.todaysSales();
+        return salesService.salesToday();
     }
 }

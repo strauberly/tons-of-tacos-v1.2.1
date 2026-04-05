@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.services.menuItemService;
-import com.adamstraub.tonsoftacos.dao.CategoryRepository;
-import com.adamstraub.tonsoftacos.dao.MenuItemRepository;
+import com.adamstraub.tonsoftacos.respository.CategoryRepository;
+import com.adamstraub.tonsoftacos.respository.MenuItemRepository;
 import com.adamstraub.tonsoftacos.dto.categoryDto.ReturnedCategory;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
 import com.adamstraub.tonsoftacos.exceptionHandler.GlobalExceptionHandler;
@@ -8,10 +8,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

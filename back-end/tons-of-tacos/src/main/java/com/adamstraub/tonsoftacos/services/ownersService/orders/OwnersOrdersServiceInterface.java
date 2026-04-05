@@ -26,7 +26,7 @@ public interface OwnersOrdersServiceInterface {
 
     ResponseEntity<ResponseMessage> updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity, String newSize);
 
-    ResponseEntity<DailySales> todaysSales();
+//    ResponseEntity<DailySales> todaysSales();
 
 
 

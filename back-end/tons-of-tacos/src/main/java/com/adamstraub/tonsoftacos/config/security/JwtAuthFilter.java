@@ -1,5 +1,5 @@
 package com.adamstraub.tonsoftacos.config.security;
-import com.adamstraub.tonsoftacos.dao.OwnerRepository;
+import com.adamstraub.tonsoftacos.respository.OwnerRepository;
 import com.adamstraub.tonsoftacos.services.security.JwtService;
 import com.adamstraub.tonsoftacos.services.security.TokenRefreshService;
 

@@ -13,13 +13,6 @@
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/controllers/ownersControllers/orders/OwnersOrdersControllerInterface.java
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/controllers/ownersControllers/session/SessionController.java
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/controllers/ownersControllers/session/SessionControllerInterface.java
-/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/dao/CategoryRepository.java
-/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/dao/CustomerRepository.java
-/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/dao/MenuItemRepository.java
-/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/dao/OrderItemRepository.java
-/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/dao/OrdersRepository.java
-/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/dao/OwnerRepository.java
-/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/dao/RefreshTokenRepository.java
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/dto/businessDto/CustomerReturnedToOwner.java
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/dto/businessDto/DailySales.java
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/dto/businessDto/NewOrder.java
@@ -45,7 +38,14 @@
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/entities/Owner.java
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/entities/RefreshToken.java
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/exceptionHandler/GlobalExceptionHandler.java
-/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/maintenance/DB.java
+/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/respository/CategoryRepository.java
+/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/respository/CustomerRepository.java
+/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/respository/MenuItemRepository.java
+/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/respository/OrderItemRepository.java
+/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/respository/OrdersRepository.java
+/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/respository/OwnerRepository.java
+/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/respository/RefreshTokenRepository.java
+/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/services/customerValidationService/CustomerValidationService.java
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/services/menuItemService/MenuItemService.java
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/services/menuItemService/MenuItemServiceInterface.java
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/services/ordersService/OrdersService.java
@@ -57,3 +57,6 @@
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/services/security/AuthService.java
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/services/security/JwtService.java
 /media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/services/security/TokenRefreshService.java
+/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/services/utilityService/UtilityService.java
+/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/services/utilityService/emailService/EmailService.java
+/media/brian/biggin/Documents/Tablet Backup/Documents/Courses/Java/personal projects/TonsOfTacosV1.2/back-end/tons-of-tacos/src/main/java/com/adamstraub/tonsoftacos/services/utilityService/salesService/SalesService.java

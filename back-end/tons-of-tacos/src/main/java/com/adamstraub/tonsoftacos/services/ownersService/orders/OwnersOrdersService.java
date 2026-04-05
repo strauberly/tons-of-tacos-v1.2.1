@@ -1,21 +1,21 @@
 package com.adamstraub.tonsoftacos.services.ownersService.orders;
-import com.adamstraub.tonsoftacos.dao.MenuItemRepository;
-import com.adamstraub.tonsoftacos.dao.OrderItemRepository;
+import com.adamstraub.tonsoftacos.respository.MenuItemRepository;
+import com.adamstraub.tonsoftacos.respository.OrderItemRepository;
 import com.adamstraub.tonsoftacos.dto.businessDto.DailySales;
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
 import com.adamstraub.tonsoftacos.entities.OrderItem;
 import com.adamstraub.tonsoftacos.entities.Orders;
-import com.adamstraub.tonsoftacos.dao.CustomerRepository;
-import com.adamstraub.tonsoftacos.dao.OrdersRepository;
+import com.adamstraub.tonsoftacos.respository.CustomerRepository;
+import com.adamstraub.tonsoftacos.respository.OrdersRepository;
 import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
 import com.adamstraub.tonsoftacos.dto.businessDto.OrderItemReturnedToOwner;
 import com.adamstraub.tonsoftacos.entities.Customer;
-import com.adamstraub.tonsoftacos.services.UtilityService;
+import com.adamstraub.tonsoftacos.services.utilityService.UtilityService;
 import com.adamstraub.tonsoftacos.services.customerValidationService.CustomerValidationService;
+import com.adamstraub.tonsoftacos.services.utilityService.salesService.SalesService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -43,7 +43,7 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
     @Autowired
     private CustomerValidationService validationService;
     @Autowired
-    private UtilityService utilityService;
+    private SalesService salesService;
 
     @Override
     public ResponseEntity<List<OrderReturnedToOwner>> getAllOrders() {
@@ -121,7 +121,8 @@ public ResponseEntity<OrderReturnedToOwner> orderReady(String orderUid) {
         }
 
         order = ordersRepository.findByOrderUid(orderUid);
-    String timeReady = new SimpleDateFormat(" MMM-dd-yy HH:mm a").format(Calendar.getInstance().getTime());
+    String timeReady = new SimpleDateFormat(" MMM-dd-yy hh" +
+            ":mm a").format(Calendar.getInstance().getTime());
         order.setReady(timeReady);
         return ResponseEntity.ok(ownersGetOrderDtoConverter(order));
     }
@@ -140,8 +141,7 @@ public ResponseEntity<OrderReturnedToOwner> closeOrder(String orderUid) {
     if (order.getReady().equals("no")) {
         throw new IllegalArgumentException("Order can not be closed if order is not ready.");
     }
-
-    String timeClosed = new SimpleDateFormat("MMM-dd-yy HH:mm a").format(Calendar.getInstance().getTime());
+        String timeClosed = new SimpleDateFormat("dd-MMM-yy hh:mm a").format(Calendar.getInstance().getTime());
     order.setClosed(timeClosed);
 
     Customer customer = customerRepository.findByCustomerUid(order.getCustomerUid());
@@ -204,7 +204,7 @@ public ResponseEntity<ResponseMessage> deleteOrder(String orderUid) {
                     .quantity(quantity)
                     .order(ordersRepository.findByOrderUid(orderUid)).build();
             orderItem.setSize(itemSize);
-            orderItem.setTotal(utilityService.calcPrice(orderItem.getQuantity(),
+            orderItem.setTotal(salesService.calcPrice(orderItem.getQuantity(),
                     String.valueOf(orderItem.getSize()),menuItemRepository.getReferenceById(menuItemId).getUnitPrice()
                     ));
             orderItemRepository.save(orderItem);
@@ -248,13 +248,11 @@ public ResponseEntity<ResponseMessage> deleteOrder(String orderUid) {
 
     @Transactional
     @Override
-
     public ResponseEntity<ResponseMessage> updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity, String newSize) {
         System.out.println("owner orders service");
 
             ResponseMessage message = new ResponseMessage();
 //            validation
-
         try {
             ordersRepository.findByOrderUid(orderUid);
         } catch (Exception e) {
@@ -283,7 +281,7 @@ public ResponseEntity<ResponseMessage> deleteOrder(String orderUid) {
             orderItem.setSize(newSize);
 
             order.setOrderTotal(order.getOrderTotal().subtract(orderItem.getTotal()));
-            orderItem.setTotal(utilityService.calcPrice(orderItem.getQuantity(),
+            orderItem.setTotal(salesService.calcPrice(orderItem.getQuantity(),
                     orderItem.getSize(),
                     menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice()));
 
@@ -293,47 +291,6 @@ public ResponseEntity<ResponseMessage> deleteOrder(String orderUid) {
             message.setMessage( "Order item updated, order updated.");
         }
         return ResponseEntity.ok(message);
-    }
-
-
-    @Transactional
-    @Override
-    public ResponseEntity<DailySales> todaysSales() {
-        System.out.println("service");
-        DailySales salesToday = new DailySales();
-        String formattedSales;
-        LocalDate todaysDate = LocalDate.now();
-        LocalDate dbDate;
-        DateTimeFormatter closedDateFormatter = DateTimeFormatter.ofPattern("MMM-dd-yy hh:mm a");
-        BigDecimal salesTotal = BigDecimal.valueOf(0.00);
-        List<Orders> todaysOrders = new ArrayList<>();
-
-        try {
-            ordersRepository.findByClosed();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-//        find orders by if they closed meaning transaction complete
-        List<Orders> completedOrders = ordersRepository.findByClosed();
-        for (Orders completedOrder: completedOrders){
-            LocalDateTime closedDateTime = LocalDateTime.parse(completedOrder.getClosed(), closedDateFormatter);
-            LocalDate closed = closedDateTime.toLocalDate();
-            dbDate = completedOrder.getCreated().toLocalDateTime().toLocalDate();
-            if(closed.equals(dbDate)){
-                todaysOrders.add(completedOrder);
-            }
-        }
-//                looks for all orders with today's timestamp
-        for (Orders order:todaysOrders){
-            salesTotal = salesTotal.add(new BigDecimal(String.valueOf(order.getOrderTotal())));
-        }
-
-        salesToday.setDate(todaysDate);
-        salesToday.setNumberOfSales(todaysOrders.size());
-        salesToday.setTotal(salesTotal);
-
-        return ResponseEntity.ok(salesToday);
     }
 
 

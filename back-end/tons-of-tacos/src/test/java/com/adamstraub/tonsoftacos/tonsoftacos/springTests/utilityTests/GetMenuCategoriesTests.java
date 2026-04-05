@@ -1,10 +1,9 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.springTests.utilityTests;
 
-import com.adamstraub.tonsoftacos.dao.CategoryRepository;
+import com.adamstraub.tonsoftacos.respository.CategoryRepository;
 import com.adamstraub.tonsoftacos.dto.categoryDto.ReturnedCategory;
 import com.adamstraub.tonsoftacos.entities.Category;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -20,10 +19,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.categoriesTestsSupport.GetMenuCategoriesTestsSupport;
 
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 
 public class GetMenuCategoriesTests {

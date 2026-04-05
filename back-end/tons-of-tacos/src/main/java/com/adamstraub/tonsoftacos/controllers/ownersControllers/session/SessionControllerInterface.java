@@ -54,7 +54,6 @@ public interface SessionControllerInterface {
     )
 
     @PostMapping("/login")
-
     ResponseEntity<JwtResponse> ownerLogin(HttpServletRequest request, @RequestBody   OwnerAuth authDto);
 
 @Operation(
@@ -109,5 +108,6 @@ ResponseEntity<JwtResponse> refreshToken(@CookieValue ("token") RefreshToken tok
     @DeleteMapping("/logout")
     ResponseEntity<ResponseMessage> ownerLogout(HttpServletRequest request, @CookieValue RefreshToken token);
 }
+
 
 

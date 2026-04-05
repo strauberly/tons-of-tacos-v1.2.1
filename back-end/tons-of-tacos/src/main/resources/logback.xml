@@ -6,7 +6,7 @@
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>
-                %n %boldBlue(%d{yyyy-MM-dd HH:mm:ss}) [%thread] %-5level %logger{36} -
+                %n %boldBlue(%d{dd-MM-yyyy HH:mm:ss}) [%thread] %-5level %logger{36} -
                 %msg%n
             </Pattern>
         </encoder>
@@ -20,13 +20,13 @@
         </filter>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>
-                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -
+                %d{dd-MM-yyyy HH:mm:ss} [%thread] %-5level %logger{36} -
                 %msg %ex{1}%n
             </Pattern>
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${DEV_HOME}/archived/login.%d{yyyy-MM-dd}.%i.log.zip
+            <fileNamePattern>${DEV_HOME}/archived/login.%d{dd-MM-yyyy}.%i.log.zip
             </fileNamePattern>
             <maxFileSize>50MB</maxFileSize>
             <maxHistory>30</maxHistory>
@@ -43,13 +43,13 @@
         </filter>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>
-                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -
+                %d{dd-MM-yyyy HH:mm:ss} [%thread] %-5level %logger{36} -
                 %msg %ex{1}%n
             </Pattern>
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${DEV_HOME}/archived/debug.%d{yyyy-MM-dd}.%i.log.zip
+            <fileNamePattern>${DEV_HOME}/archived/debug.%d{dd-MM-yyyy}.%i.log.zip
             </fileNamePattern>
                 <maxFileSize>50MB</maxFileSize>
                 <maxHistory>30</maxHistory>
@@ -71,7 +71,7 @@
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${DEV_HOME}/archived/error.%d{yyyy-MM-dd}.%i.log.zip
+            <fileNamePattern>${DEV_HOME}/archived/error.%d{dd-MM-yyyy}.%i.log.zip
             </fileNamePattern>
                 <maxFileSize>50MB</maxFileSize>
                 <maxHistory>30</maxHistory>
