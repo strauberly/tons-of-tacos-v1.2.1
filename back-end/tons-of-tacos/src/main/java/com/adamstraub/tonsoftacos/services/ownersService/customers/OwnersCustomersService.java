@@ -1,9 +1,9 @@
 package com.adamstraub.tonsoftacos.services.ownersService.customers;
 
-import com.adamstraub.tonsoftacos.dao.MenuItemRepository;
-import com.adamstraub.tonsoftacos.dao.OrderItemRepository;
-import com.adamstraub.tonsoftacos.dao.CustomerRepository;
-import com.adamstraub.tonsoftacos.dao.OrdersRepository;
+import com.adamstraub.tonsoftacos.respository.MenuItemRepository;
+import com.adamstraub.tonsoftacos.respository.OrderItemRepository;
+import com.adamstraub.tonsoftacos.respository.CustomerRepository;
+import com.adamstraub.tonsoftacos.respository.OrdersRepository;
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.entities.Customer;
 import com.adamstraub.tonsoftacos.services.customerValidationService.CustomerValidationService;

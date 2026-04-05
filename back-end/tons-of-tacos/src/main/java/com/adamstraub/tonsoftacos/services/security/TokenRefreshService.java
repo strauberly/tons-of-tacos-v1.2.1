@@ -1,7 +1,7 @@
 package com.adamstraub.tonsoftacos.services.security;
 
-import com.adamstraub.tonsoftacos.dao.OwnerRepository;
-import com.adamstraub.tonsoftacos.dao.RefreshTokenRepository;
+import com.adamstraub.tonsoftacos.respository.OwnerRepository;
+import com.adamstraub.tonsoftacos.respository.RefreshTokenRepository;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponse;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.RefreshToken;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.Subject;

@@ -2,26 +2,132 @@
 
 ---
 
+-- 3 Apr 2026 --
+
+- Utilized chatgpt4o to speed up development process in creating emails sent 
+to devteam and owners at end of day.
+    - Prompts delivered results for creating prototype methods to convert our 
+log files into usable pdf files to be sent as attachments as some mail 
+providers hold back attachments consisting of other file types.
+    - Conversion to pdfs involved utilization of apache pdfbox and fontbox.
+- Verified that emails are being sent to different addresses in one go. Results 
+are mixed depending on mail providers innner workings.
+- spent a limited amount of time formatting emails to be readable including 
+html format for owners.
+
+- Summary:
+    - Eliminated perceived need for end of day end point in session controller, 
+by creating a means for the back end to remove refresh tokens thus logging out 
+all users an invalidating all tokens in play from the back end.
+    - Front end will just need to clean out their own cookies for a clean 
+restart. With the mechanisms in play on the front end even if new token is 
+generated after hours it is invalidated when the first check happens forcing 
+repeated logins that would be picked up in the logs.
+    - Additional functionality in place to email logs to development team at 
+the end of the day as well as summarizing daily sales to owners and emailing 
+those results to them as well.
+        - May possibly throw mailtrap into the mix as well for testing and 
+examples.
+   -  Orders are then cleaned out at end of day so that data bases start fresh 
+for next day. 
+        - We could also create much more in depth reports for weekly and 
+monthly quarterly and yearly sales as well.
+    - Down the road if a customer wants to create an account for convienence of 
+say viewing and resubmitting past orders we save required information instead of 
+a simple purge which preserves their privacy and reduces owner overhead for 
+digital storage.
+    - More work can be done for formatting and making emails pretty but is 
+beyond current scope and anxious to get project moving. Will come back to it 
+later.
+    - Files moved from utility service back to closer related services.(ie 
+salesService, emailService) Utility will most likey be lower level methods 
+moving forward.
+
+- Once these files are all cleaned up we I will be moving on to Repository 
+files and folders for refactor.
+
+- Application properties additions made for email functionality.
+
+-- 2 Apr 2026 --
+
+- Functionality for end of day is getting a lot closer.
+
+    - Began running into issues with service injection cycle issues.
+        - Utility service called into sales service called into email service 
+while utility service is also being called into email service.
+        - Am currently thinking more logical to call dailySales method from 
+sales service instead of owners orders service. It is technically both and it 
+is kind of nice that all services needed for an endpoint are in one location 
+need to play with this more.
+    
+    - Currently the functionality of sending an email at a specified time is 
+working. 
+        - The dev environment for this included setting up a local stmp server 
+on the local machine.
+            - This involved installing and configuring postfix 
+        - Will need to be reconfigured for deployment for what ever 
+email service is utilized. Ideally something like tons of tacos the business 
+has its own and we configure for that and test at that time.
+        - Multipart file is delivering log files as attachments to dev team 
+address and daily sales summary is being delivered to addresses for owner.
+        - Need to ensure both owners are getting email.
+        - More work can also be done in formatting and presenting html email 
+for aesthetics.
+
+- Will begin clean up soon, and try reorganizing.
+
+- Once this is completeed will eliminate need for end of day endpoint and 
+current task list for session controller will be complete.
+
+
+-- 31 Mar 2026 --
+
+
+- EmailService and SalesService have been created in their own respective 
+packages under the utilityService package.
+
+- Email service purpose is for generating emails when needed.
+        - Currently contains email for dev team to send logs at the end of day 
+and sales summary to the owners.
+- New methods in sales service for getting needed values for sales summary
+
+- Created sheduled component in TonsOfTacosApplication.java for executing end 
+of day method from utility service.
+    - Executes at 10:01 pm which is 1 minute after front end application should 
+be logging out all users. Eliminates need and complications for front end team 
+to remove expired tokens from db at end of day.
+
+- removed findByClosed from orders repository and moved functionality to 
+utility service. Keeps repository from handling logic.
+
 -- 30 Mar 2026 --
 
 - Spent time with evaluating session management with frontend team (me ^_^:) 
 and applying any changes needed on backend to assist with their goals. If more 
 than one team, would consider universal solutions.
 
-- Not much has currently changed on our end other than altering endpoints to 
-return response entities containing our established DTOS and updating exception 
-handling as needed. Following changes will be more detailed as we are back from 
-break and returning to schedule for work on project.
+- See below for summary of changes:
 
-- log out endpoint now correctly removes token for a user from database.
-- Login endpoint n ow searches for a token already created for a particular 
+    - Altered session endpoints to return response entities containing our 
+established DTOS and updating exception handling as needed. Following changes 
+will be more detailed as we are back from break and returning to schedule for 
+work on project.
+    - Session strategy updated for both owners to to maintain individual 
+sessions from each other. Will also be taken into future considerations if 
+business expands and needs for multiple staff.
+    - Log out endpoint now correctly removes token for a  specific user from
+    - Login endpoint n ow searches for a token already created for a particular 
 user and if one already exists, removes and creates new token. 
-- Might be wise in the future to log how many  sessions have happened for a 
+    - Might be wise in the future to log how many  sessions have happened for a 
 user (tokens created) to evaluate for unusual behavior(attacker creating a 
 multitude of tokens in order to evaluate encryption algorithm, DoS/DDoS attack 
 underway or who knows ^_^:).
 
+- Implemented an emailService in service package for sending end of day message 
+containing daily logs to dev team and  sale summaries to owners.
+    - May create uilities package and move email service there.
 
+- 
 
 -- 8 Mar 2026 --
 - Delete order item now returns a Response Entity containing the response 

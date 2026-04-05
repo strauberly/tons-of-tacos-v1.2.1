@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.services.security;
-import com.adamstraub.tonsoftacos.dao.OwnerRepository;
-import com.adamstraub.tonsoftacos.dao.RefreshTokenRepository;
+import com.adamstraub.tonsoftacos.respository.OwnerRepository;
+import com.adamstraub.tonsoftacos.respository.RefreshTokenRepository;
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.*;
 import com.adamstraub.tonsoftacos.entities.Owner;
@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
 @Slf4j
@@ -31,6 +32,7 @@ public class AuthService {
     private final OwnerRepository ownerRepository;
     @Autowired
     private final RefreshTokenRepository refreshTokenRepository;
+
 
 
     private final Token token = new Token();
@@ -81,6 +83,16 @@ public ResponseEntity<ResponseMessage> ownerLogout(@NotNull HttpServletRequest r
         return ResponseEntity.ok(message);
     }
 
+//    public void endOfDay() {
+//
+////        date
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//        String today = df.format(new Date());
+//        refreshTokenRepository.deleteAll();
+//        emailService.endOfDayEmailDevTeam("superduper.devteam@manyme.com", "End of day report: " + today);
+//
+//    }
+
 
     private String getIpAddress(HttpServletRequest request) {
         String ipAddress = request.getHeader("X-Forwarded-For");
@@ -100,6 +112,7 @@ public ResponseEntity<ResponseMessage> ownerLogout(@NotNull HttpServletRequest r
         }
         return ipAddress;
     }
+
 
 
 }

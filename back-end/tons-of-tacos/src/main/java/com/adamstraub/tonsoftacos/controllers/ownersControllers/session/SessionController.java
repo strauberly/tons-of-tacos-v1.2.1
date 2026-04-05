@@ -23,6 +23,7 @@ public class SessionController implements SessionControllerInterface {
      private TokenRefreshService tokenRefreshService;
 
 
+
     @Override
     public ResponseEntity<JwtResponse> ownerLogin(HttpServletRequest request, OwnerAuth authDto){
         System.out.println("login controller");
@@ -40,7 +41,6 @@ public class SessionController implements SessionControllerInterface {
         System.out.println(token);
         return authService.ownerLogout(request, token);
     }
-
 
 }
 
