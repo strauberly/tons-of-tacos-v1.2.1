@@ -9,6 +9,11 @@
 was logging the exception message passed to frontend. Lots of different things 
 that can be done here but this is what makes the most sense to me at this time.
 
+- In tasks package CleanUp class added method for resetting DB that is executed 
+in endOfDay method after emails have been sent. tables for refreshtokens, 
+orderitems, orders, and customers are truncated in that order and foreign key 
+check is set back to 1.
+    - Monitor for any issues.
 
 ---
 -- 6 Apr 2026 --

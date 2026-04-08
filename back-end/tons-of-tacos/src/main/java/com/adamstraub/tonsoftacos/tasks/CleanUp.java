@@ -4,6 +4,7 @@ import com.adamstraub.tonsoftacos.repository.RefreshTokenRepository;
 import com.adamstraub.tonsoftacos.services.utilityService.emailService.EmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,13 @@ public class CleanUp {
     RefreshTokenRepository refreshTokenRepository;
 @Autowired
     EmailService emailService;
+@Autowired
+    JdbcTemplate jdbcTemplate;
+
+    @Scheduled(cron = "0 1 22 * * *")
+    public void executeTask(){
+        endOfDay();
+    }
 
     private void endOfDay() {
         String devTeamEmail  = "superduper.devteam@manyme.com";
@@ -31,8 +39,14 @@ public class CleanUp {
         emailService.salesSummaryToOwners(ownerEmails, "Today's Sales");
     }
 
-    @Scheduled(cron = "0 1 22 * * *")
-    public void executeTask(){
-        endOfDay();
+    private void resetDB(){
+        jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 0;");
+        jdbcTemplate.execute("Truncate Table refresh_token");
+        jdbcTemplate.execute("Truncate Table order_item");
+        jdbcTemplate.execute("Truncate Table orders");
+        jdbcTemplate.execute("Truncate Table customer");
+        jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 1;");
     }
+
+
 }
