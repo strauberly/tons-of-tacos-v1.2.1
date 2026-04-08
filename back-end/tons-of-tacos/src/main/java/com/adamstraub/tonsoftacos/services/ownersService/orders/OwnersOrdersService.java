@@ -40,12 +40,11 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
     @Autowired
     private SalesService salesService;
 
+    @Transactional
     @Override
     public ResponseEntity<List<OrderReturnedToOwnerDTO>> getAllOrders() {
-        System.out.println("owner orders service");
         List<OrderReturnedToOwnerDTO> orderItemDtos = new ArrayList<>();
         List<Orders> orders;
-
         try {
             orders = ordersRepository.findAll();
             System.out.println(orders);
@@ -60,41 +59,37 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
         return ResponseEntity.ok(orderItemDtos);
     }
 
-
+    @Transactional
     @Override
     public ResponseEntity<OrderReturnedToOwnerDTO> getOrderByUid(String orderUid) {
-        System.out.println("owner orders service");
         Orders order;
         OrderReturnedToOwnerDTO returnedOrder;
-        validationService.validateOrderUid(orderUid);
-
+        if(validationService.validateOrderUid(orderUid)) {
             try {
                 ordersRepository.findByOrderUid(orderUid);
             } catch (Exception e) {
                 throw new EntityNotFoundException("No order found with that UID. Please verify and try again.");
             }
-
+        }
             order = ordersRepository.findByOrderUid(orderUid);
             returnedOrder = ownersGetOrderDtoConverter(order);
             return ResponseEntity.ok(returnedOrder);
     }
 
+    @Transactional
     @Override
     public ResponseEntity<List<OrderReturnedToOwnerDTO>> getOrdersByPhoneNumber(String phone) {
-        System.out.println("owner orders service");
         List<OrderReturnedToOwnerDTO> convertedOrders = new ArrayList<>();
         List<Orders> customerOrders = new ArrayList<>();
         List<Customer> customers;
-        validationService.validateCustomerPhone(phone);
-
-        try {
-            customerRepository.findByPhoneNumber(phone);
-        } catch (Exception e) {
-            throw new EntityNotFoundException("No orders found by that phone number");
+        if(validationService.validateCustomerPhone(phone)) {
+            try {
+                customerRepository.findByPhoneNumber(phone);
+            } catch (Exception e) {
+                throw new EntityNotFoundException("No orders found by that phone number");
+            }
         }
-
         customers = customerRepository.findByPhoneNumber(phone);
-
             for (Customer customer : customers) {
                 customerOrders = ordersRepository.findByCustomerUid(customer.getCustomerUid());
             }
@@ -104,17 +99,15 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
                 return ResponseEntity.ok(convertedOrders);
     }
 
+    @Transactional
     @Override
-public ResponseEntity<OrderReturnedToOwnerDTO> orderReady(String orderUid) {
-        System.out.println("service");
+    public ResponseEntity<OrderReturnedToOwnerDTO> orderReady(String orderUid) {
         Orders order;
-
         try {
             ordersRepository.findByOrderUid(orderUid);
         } catch (Exception e) {
             throw new EntityNotFoundException("Can not delete order. Verify order exists.", e);
         }
-
         order = ordersRepository.findByOrderUid(orderUid);
     String timeReady = new SimpleDateFormat(" MMM-dd-yy hh" +
             ":mm a").format(Calendar.getInstance().getTime());
@@ -122,16 +115,15 @@ public ResponseEntity<OrderReturnedToOwnerDTO> orderReady(String orderUid) {
         return ResponseEntity.ok(ownersGetOrderDtoConverter(order));
     }
 
+    @Transactional
     @Override
-public ResponseEntity<OrderReturnedToOwnerDTO> closeOrder(String orderUid) {
-        System.out.println("owner orders service");
-    Orders order;
+    public ResponseEntity<OrderReturnedToOwnerDTO> closeOrder(String orderUid) {
+        Orders order;
         try {
             ordersRepository.findByOrderUid(orderUid);
         } catch (Exception e) {
             throw new EntityNotFoundException("Can not delete order. Verify order exists.", e);
         }
-
         order = ordersRepository.findByOrderUid(orderUid);
     if (order.getReady().equals("no")) {
         throw new IllegalArgumentException("Order can not be closed if order is not ready.");
@@ -142,7 +134,6 @@ public ResponseEntity<OrderReturnedToOwnerDTO> closeOrder(String orderUid) {
     Customer customer = customerRepository.findByCustomerUid(order.getCustomerUid());
     List<Orders> customerOrders = ordersRepository.findByCustomerUid(order.getCustomerUid());
     List<Orders> openOrders = new ArrayList<>();
-
     for (Orders customerOrder : customerOrders) {
         if (Objects.equals(customerOrder.getClosed(), "no")) {
             openOrders.add(customerOrder);
@@ -155,18 +146,14 @@ public ResponseEntity<OrderReturnedToOwnerDTO> closeOrder(String orderUid) {
         customerRepository.save(customer);
         return ResponseEntity.ok(ownersGetOrderDtoConverter(order));
     }
-        return ResponseEntity.ok(ownersGetOrderDtoConverter(order));
-
+    return ResponseEntity.ok(ownersGetOrderDtoConverter(order));
 }
 
+    @Transactional
     @Override
-
-public ResponseEntity<ResponseMessageDTO> deleteOrder(String orderUid) {
-    System.out.println("owner orders service");
-
+    public ResponseEntity<ResponseMessageDTO> deleteOrder(String orderUid) {
     Orders order;
     ResponseMessageDTO message = new ResponseMessageDTO();
-
         try {
             ordersRepository.findByOrderUid(orderUid);
         } catch (Exception e) {
@@ -178,9 +165,9 @@ public ResponseEntity<ResponseMessageDTO> deleteOrder(String orderUid) {
     return ResponseEntity.ok(message);
     }
 
+    @Transactional
     @Override
     public ResponseEntity<ResponseMessageDTO> addToOrder(String orderUid, Integer menuItemId, Integer quantity, String itemSize) {
-        System.out.println("owner orders service");
         ResponseMessageDTO message = new ResponseMessageDTO();
         Optional<MenuItem> menuItem;
         try{
@@ -199,7 +186,7 @@ public ResponseEntity<ResponseMessageDTO> deleteOrder(String orderUid) {
                     .quantity(quantity)
                     .order(ordersRepository.findByOrderUid(orderUid)).build();
             orderItem.setSize(itemSize);
-            orderItem.setTotal(salesService.calcPrice(orderItem.getQuantity(),
+            orderItem.setTotal(salesService.calcItemPriceWithSize(orderItem.getQuantity(),
                     String.valueOf(orderItem.getSize()),menuItemRepository.getReferenceById(menuItemId).getUnitPrice()
                     ));
             orderItemRepository.save(orderItem);
@@ -214,21 +201,24 @@ public ResponseEntity<ResponseMessageDTO> deleteOrder(String orderUid) {
         return ResponseEntity.ok(message);
     }
 
+    @Transactional
     @Override
     public ResponseEntity<ResponseMessageDTO> removeFromOrder(Integer orderItemId) {
-        System.out.println("owner orders service");
         OrderItem orderItem;
         BigDecimal oldTotal;
         BigDecimal newTotal;
         ResponseMessageDTO message = new ResponseMessageDTO();
-
         try{
             orderItemRepository.getReferenceById(orderItemId);
         }catch (Exception e){
             throw new EntityNotFoundException("Item does not exist on this order. Please verify order. ", e);
         }
+        try {
+            orderItem = orderItemRepository.getByOrderItemId(orderItemId);
+        } catch (Exception e){
+            throw new EntityNotFoundException("Order item cannot be found by it's id. Please contact us", e);
+        }
 
-        orderItem = orderItemRepository.getByOrderItemId(orderItemId);
 // remove item and update total
         orderItemRepository.deleteById(orderItemId);
         oldTotal = orderItem.getOrder().getOrderTotal();
@@ -247,6 +237,7 @@ public ResponseEntity<ResponseMessageDTO> deleteOrder(String orderUid) {
         System.out.println("owner orders service");
 
             ResponseMessageDTO message = new ResponseMessageDTO();
+
 //            validation
         try {
             ordersRepository.findByOrderUid(orderUid);
@@ -263,20 +254,20 @@ public ResponseEntity<ResponseMessageDTO> deleteOrder(String orderUid) {
                 throw new IllegalArgumentException("We were unable to process your request. " +
                         "Please contact us directly when trying to order more than 10 of any given item.");
             }
-        Orders order = ordersRepository.findByOrderUid(orderUid);
+            Orders order = ordersRepository.findByOrderUid(orderUid);
         OrderItem orderItem = orderItemRepository.getByOrderItemId(orderItemId);
-//          remove item if total 0
+
+        //          remove item if total 0
         if(newQuantity == 0){
                 orderItemRepository.delete(orderItem);
             order.setOrderTotal(order.getOrderTotal().subtract(orderItem.getTotal()));
                 message.setMessage( "Item quantity updated, item removed, order updated.");
             }else{
-
+//            update item
             orderItem.setQuantity(newQuantity);
             orderItem.setSize(newSize);
-
             order.setOrderTotal(order.getOrderTotal().subtract(orderItem.getTotal()));
-            orderItem.setTotal(salesService.calcPrice(orderItem.getQuantity(),
+            orderItem.setTotal(salesService.calcItemPriceWithSize(orderItem.getQuantity(),
                     orderItem.getSize(),
                     menuItemRepository.getReferenceById(orderItem.getItem().getId()).getUnitPrice()));
 
@@ -291,20 +282,19 @@ public ResponseEntity<ResponseMessageDTO> deleteOrder(String orderUid) {
 
     private OrderReturnedToOwnerDTO ownersGetOrderDtoConverter(Orders order) {
         OrderReturnedToOwnerDTO orderReturnedToOwner = new OrderReturnedToOwnerDTO();
-
         try {
          customerRepository.findByCustomerUid(order.getCustomerUid());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        //        set the dto
+
+        //        set the order dto
         orderReturnedToOwner.setName(customerRepository.findByCustomerUid(order.getCustomerUid()).getName());
         orderReturnedToOwner.setEmail(customerRepository.findByCustomerUid(order.getCustomerUid()).getEmail());
         orderReturnedToOwner.setPhone(customerRepository.findByCustomerUid(order.getCustomerUid()).getPhoneNumber());
         orderReturnedToOwner.setOrderUid(order.getOrderUid());
         orderReturnedToOwner.setCustomerUid(order.getCustomerUid());
-
-//        set the get order items dto
+//        set the order items dto included in order
         List<OrderItemReturnedToOwnerDTO> orderItemReturnedToOwners = new ArrayList<>();
         List<OrderItem> orderItems = order.getOrderItems();
         orderItems.forEach(orderItem -> orderItemReturnedToOwners.add(ownersOrderItemDtoConvertor(orderItem)));

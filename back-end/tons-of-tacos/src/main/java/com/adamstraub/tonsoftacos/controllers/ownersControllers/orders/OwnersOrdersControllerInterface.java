@@ -129,7 +129,6 @@ public interface OwnersOrdersControllerInterface {
                             description = "An unplanned error occured."),
             }
     )
-    @Transactional
     @GetMapping("/get-orders")
     ResponseEntity<List<OrderReturnedToOwnerDTO>> getAllOrders();
 
@@ -194,7 +193,6 @@ public interface OwnersOrdersControllerInterface {
                             description = "An unplanned error occured."),
             }
     )
-    @Transactional
     @GetMapping("/get-order/{orderUid}")
     ResponseEntity<OrderReturnedToOwnerDTO> getOrderByUid(@RequestParam String orderUid);
 
@@ -268,9 +266,8 @@ public interface OwnersOrdersControllerInterface {
                         description = "An unplanned error occured."),
         }
 )
-@Transactional
-@GetMapping("/get-order-customer-phone/{phone}")
 
+@GetMapping("/get-order-customer-phone/{phone}")
     ResponseEntity<List<OrderReturnedToOwnerDTO>> getOrdersByPhoneNumber(@RequestParam String phone);
 
 //runtime exceptions
@@ -330,7 +327,6 @@ public interface OwnersOrdersControllerInterface {
 
             }
     )
-    @Transactional
     @PutMapping("/order-ready/{orderUid}")
     ResponseEntity<OrderReturnedToOwnerDTO> orderReady(@PathVariable String orderUid);
 
@@ -392,7 +388,6 @@ public interface OwnersOrdersControllerInterface {
 
             }
     )
-    @Transactional
     @PutMapping("/close-order/{orderUid}")
     ResponseEntity<OrderReturnedToOwnerDTO> closeOrder(@PathVariable String orderUid);
 
@@ -417,7 +412,6 @@ public interface OwnersOrdersControllerInterface {
 
             }
     )
-    @Transactional
     @DeleteMapping("/delete-order/{orderUid}")
     ResponseEntity<ResponseMessageDTO> deleteOrder(@PathVariable String orderUid);
 
@@ -442,7 +436,6 @@ public interface OwnersOrdersControllerInterface {
                             description = "An unplanned error occurred."),
             }
     )
-    @Transactional
     @PutMapping("/add-to-order/{orderUid}/{menuItemId}/{quantity}/{itemSize}")
     ResponseEntity<ResponseMessageDTO> addToOrder(
             @PathVariable
@@ -474,7 +467,6 @@ public interface OwnersOrdersControllerInterface {
                             description = "An unplanned error occurred."),
             }
     )
-    @Transactional
     @DeleteMapping("/remove-from-order/{orderItemId}")
     ResponseEntity<ResponseMessageDTO> removeFromOrder(
             @PathVariable

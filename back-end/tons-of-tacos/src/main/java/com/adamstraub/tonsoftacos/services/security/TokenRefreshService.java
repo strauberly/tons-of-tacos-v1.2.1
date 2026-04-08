@@ -2,9 +2,9 @@ package com.adamstraub.tonsoftacos.services.security;
 
 import com.adamstraub.tonsoftacos.repository.OwnerRepository;
 import com.adamstraub.tonsoftacos.repository.RefreshTokenRepository;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponseDTO;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.ResfreshTokenDTO;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.SubjectDTO;
+import com.adamstraub.tonsoftacos.dto.securityDto.JwtResponseDTO;
+import com.adamstraub.tonsoftacos.dto.securityDto.ResfreshTokenDTO;
+import com.adamstraub.tonsoftacos.dto.securityDto.SubjectDTO;
 import com.adamstraub.tonsoftacos.entities.Owner;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

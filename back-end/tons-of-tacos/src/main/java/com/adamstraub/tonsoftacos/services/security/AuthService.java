@@ -1,8 +1,8 @@
 package com.adamstraub.tonsoftacos.services.security;
+import com.adamstraub.tonsoftacos.dto.securityDto.*;
 import com.adamstraub.tonsoftacos.repository.OwnerRepository;
 import com.adamstraub.tonsoftacos.repository.RefreshTokenRepository;
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.*;
 import com.adamstraub.tonsoftacos.entities.Owner;
 import com.adamstraub.tonsoftacos.entities.RefreshToken;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,8 +36,6 @@ public class AuthService {
 
 
     private final TokenDTO tokenDTO = new TokenDTO();
-
-
     private String owner;
 
 

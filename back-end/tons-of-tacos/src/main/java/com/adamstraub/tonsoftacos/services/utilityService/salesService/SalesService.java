@@ -107,7 +107,7 @@ public class SalesService {
         return closedOrders;
     }
 
-    public BigDecimal calcPrice(Integer quantity, String size, BigDecimal unitPrice){
+    public BigDecimal calcItemPriceWithSize(Integer quantity, String size, BigDecimal unitPrice){
         BigDecimal sizeSurcharge = BigDecimal.ZERO;
         BigDecimal adjPrice;
         if (size.equalsIgnoreCase("M")) {
