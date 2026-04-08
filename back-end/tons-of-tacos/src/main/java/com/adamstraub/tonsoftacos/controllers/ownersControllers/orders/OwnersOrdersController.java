@@ -1,8 +1,8 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.orders;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.DailySales;
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
-import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
+import com.adamstraub.tonsoftacos.dto.businessDto.DailySalesDTO;
+import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwnerDTO;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
 import com.adamstraub.tonsoftacos.services.ownersService.orders.OwnersOrdersService;
 import com.adamstraub.tonsoftacos.services.utilityService.salesService.SalesService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,60 +22,60 @@ public class    OwnersOrdersController implements OwnersOrdersControllerInterfac
     private SalesService salesService;
 
     @Override
-    public ResponseEntity<List<OrderReturnedToOwner>> getAllOrders() {
+    public ResponseEntity<List<OrderReturnedToOwnerDTO>> getAllOrders() {
         return ownersOrdersService.getAllOrders();
     }
 
     @Override
-    public ResponseEntity<List<OrderReturnedToOwner>> getOrdersByPhoneNumber(String phone) {
+    public ResponseEntity<List<OrderReturnedToOwnerDTO>> getOrdersByPhoneNumber(String phone) {
         return ownersOrdersService.getOrdersByPhoneNumber(phone);
     }
 
     @Override
-    public ResponseEntity<OrderReturnedToOwner> getOrderByUid(@PathVariable String orderUid) {
+    public ResponseEntity<OrderReturnedToOwnerDTO> getOrderByUid(@PathVariable String orderUid) {
         return ownersOrdersService.getOrderByUid(orderUid);
     }
     @Override
-    public ResponseEntity<OrderReturnedToOwner> orderReady(String orderUid) {
+    public ResponseEntity<OrderReturnedToOwnerDTO> orderReady(String orderUid) {
         System.out.println("Owners Orders Controller");
         return ownersOrdersService.orderReady(orderUid);
     }
 
     @Override
-    public ResponseEntity<OrderReturnedToOwner> closeOrder(String orderUid) {
+    public ResponseEntity<OrderReturnedToOwnerDTO> closeOrder(String orderUid) {
             System.out.println("Owners Orders Controller");
        return ownersOrdersService.closeOrder(orderUid);
     }
 
 
     @Override
-    public ResponseEntity<ResponseMessage> deleteOrder(String orderUid) {
+    public ResponseEntity<ResponseMessageDTO> deleteOrder(String orderUid) {
         System.out.println("Owners Orders Controller");
         return ownersOrdersService.deleteOrder(orderUid);
     }
 
     @Override
-    public ResponseEntity<ResponseMessage> addToOrder(String orderUid, Integer menuItemId, Integer quantity, String itemSize) {
+    public ResponseEntity<ResponseMessageDTO> addToOrder(String orderUid, Integer menuItemId, Integer quantity, String itemSize) {
         System.out.println("Owners Orders Controller");
 
         return ownersOrdersService.addToOrder(orderUid, menuItemId, quantity, itemSize);
     }
 
     @Override
-    public ResponseEntity<ResponseMessage> removeFromOrder(Integer orderItemId) {
+    public ResponseEntity<ResponseMessageDTO> removeFromOrder(Integer orderItemId) {
         System.out.println("Owners Orders Controller");
 
         return ownersOrdersService.removeFromOrder(orderItemId);
     }
 
     @Override
-    public ResponseEntity<ResponseMessage> updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity, String newSize) {
+    public ResponseEntity<ResponseMessageDTO> updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity, String newSize) {
             System.out.println("Owners Orders Controller");
         return ownersOrdersService.updateOrderItemQuantity(orderUid, orderItemId, newQuantity, newSize);
     }
 
     @Override
-    public ResponseEntity<DailySales> todaysSales() {
+    public ResponseEntity<DailySalesDTO> todaysSales() {
         System.out.println("Owners Orders Controller");
         return salesService.salesToday();
     }

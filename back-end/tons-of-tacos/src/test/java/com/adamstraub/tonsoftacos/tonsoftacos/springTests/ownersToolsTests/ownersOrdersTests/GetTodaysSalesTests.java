@@ -1,8 +1,8 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.springTests.ownersToolsTests.ownersOrdersTests;
 
-import com.adamstraub.tonsoftacos.respository.OrdersRepository;
-import com.adamstraub.tonsoftacos.dto.businessDto.DailySales;
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
+import com.adamstraub.tonsoftacos.repository.OrdersRepository;
+import com.adamstraub.tonsoftacos.dto.businessDto.DailySalesDTO;
+import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwnerDTO;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.ownersToolsSupport.OwnersToolsTestsSupport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
@@ -59,7 +59,7 @@ public class GetTodaysSalesTests {
                     String.format("%s/%s", getBaseUriForOrderReady(), orderIdOne);
             System.out.println(orderOneReadyUri);
 
-            ResponseEntity<OrderReturnedToOwner> orderOneReadyResponse =
+            ResponseEntity<OrderReturnedToOwnerDTO> orderOneReadyResponse =
                     getRestTemplate().exchange(orderOneReadyUri, HttpMethod.PUT, headerEntity, new ParameterizedTypeReference<>() {
                     });
 
@@ -72,7 +72,7 @@ public class GetTodaysSalesTests {
                     String.format("%s/%s", getBaseUriForCloseOrder(), orderIdOne);
             System.out.println(closeOrderOneUri);
 
-            ResponseEntity<OrderReturnedToOwner> orderOneClosedResponse =
+            ResponseEntity<OrderReturnedToOwnerDTO> orderOneClosedResponse =
                     getRestTemplate().exchange(closeOrderOneUri, HttpMethod.PUT, headerEntity, new ParameterizedTypeReference<>() {
                     });
             System.out.println(orderOneClosedResponse.getStatusCode());
@@ -84,7 +84,7 @@ public class GetTodaysSalesTests {
                     String.format("%s/%s", getBaseUriForOrderReady(), orderIdTwo);
             System.out.println(orderOneReadyUri);
 
-            ResponseEntity<OrderReturnedToOwner> orderTwoReadyResponse =
+            ResponseEntity<OrderReturnedToOwnerDTO> orderTwoReadyResponse =
                     getRestTemplate().exchange(orderTwoReadyUri, HttpMethod.PUT, headerEntity, new ParameterizedTypeReference<>() {
                     });
 
@@ -97,7 +97,7 @@ public class GetTodaysSalesTests {
                     String.format("%s/%s", getBaseUriForCloseOrder(), orderIdTwo);
             System.out.println(closeOrderTwoUri);
 
-            ResponseEntity<OrderReturnedToOwner> orderTwoClosedResponse =
+            ResponseEntity<OrderReturnedToOwnerDTO> orderTwoClosedResponse =
                     getRestTemplate().exchange(closeOrderTwoUri, HttpMethod.PUT, headerEntity, new ParameterizedTypeReference<>() {
                     });
             System.out.println(orderTwoClosedResponse.getStatusCode());
@@ -109,7 +109,7 @@ public class GetTodaysSalesTests {
             String salesUri =
                     String.format("%s", getBaseUriForSales());
             System.out.println(salesUri);
-            ResponseEntity<DailySales> response =
+            ResponseEntity<DailySalesDTO> response =
                     getRestTemplate().exchange(salesUri, HttpMethod.GET, headerEntity, new ParameterizedTypeReference<>() {
                     });
 //            Then:  response code will be 200

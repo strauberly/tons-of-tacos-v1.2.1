@@ -1,50 +1,58 @@
 package com.adamstraub.tonsoftacos.services.menuItemService;
-import com.adamstraub.tonsoftacos.respository.CategoryRepository;
-import com.adamstraub.tonsoftacos.respository.MenuItemRepository;
-import com.adamstraub.tonsoftacos.dto.categoryDto.ReturnedCategory;
+
+import com.adamstraub.tonsoftacos.dto.categoryDto.DTO;
+import com.adamstraub.tonsoftacos.entities.Category;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
-import com.adamstraub.tonsoftacos.exceptionHandler.GlobalExceptionHandler;
+import com.adamstraub.tonsoftacos.repository.CategoryRepository;
+import com.adamstraub.tonsoftacos.repository.MenuItemRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
+@Slf4j
 @Service
-public class MenuItemService implements MenuItemServiceInterface {
-    Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-    @Autowired
-    private CategoryRepository categoryRepository;
+public class MenuItemService implements MenuItemServiceInterface{
     @Autowired
     private MenuItemRepository menuItemRepository;
-
-
-
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
-    public ResponseEntity<List<MenuItem>> findByCategory(String category) {
-        System.out.println(" menu item service");
-        System.out.println(category);
-            List<MenuItem> menuItems = menuItemRepository.findByCategory(category);
-            if (menuItems.isEmpty()) {
-                throw new EntityNotFoundException("You have chosen a category: " + category + ", that does not exist. Please check your spelling and formatting.");
-            }
-            return ResponseEntity.ok(menuItems);
+    public ResponseEntity<List<MenuItem>> findByCategory(String category){
+    List<MenuItem> menuItems = menuItemRepository.findByCategory(category);
+    if(menuItems.isEmpty()){
+        throw new EntityNotFoundException("You have chosen a category: " + category + "," +
+                " that does not exist. Please check your spelling and formatting.");
+    }
+    return ResponseEntity.ok(menuItems);
     }
 
-
     @Override
-    public ResponseEntity<List<ReturnedCategory>> getCategories() {
-        System.out.println("menu item service");
-        List<ReturnedCategory> categories;
+    public ResponseEntity<List<DTO>>getCategories(){
+        List<DTO> categories;
         try{
-             categories = categoryRepository.getByAvailable();
-        } catch (Exception e) {
+            categories = getByAvailable();
+        }catch (Exception e){
             throw new RuntimeException(e);
         }
         return ResponseEntity.ok(categories);
     }
+
+    private List<DTO> getByAvailable(){
+        Iterable<Category> iterable = categoryRepository.findByAvailableLike('y');
+        return StreamSupport.stream(iterable.spliterator(),false).map(category -> {
+            DTO dto = new DTO();
+            BeanUtils.copyProperties(category,dto);
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+
 }

@@ -1,12 +1,12 @@
 package com.adamstraub.tonsoftacos.services.ordersService;
-import com.adamstraub.tonsoftacos.respository.MenuItemRepository;
-import com.adamstraub.tonsoftacos.dto.customerDto.orderItemDto.OrderItemReturnedToCustomer;
+import com.adamstraub.tonsoftacos.repository.MenuItemRepository;
+import com.adamstraub.tonsoftacos.dto.customerDto.orderItemDto.OrderItemReturnedToCustomerDTO;
 import com.adamstraub.tonsoftacos.dto.customerDto.orderItemDto.OrderItemDTO;
-import com.adamstraub.tonsoftacos.dto.customerDto.ordersDto.OrderReturnedToCustomer;
-import com.adamstraub.tonsoftacos.dto.customerDto.ordersDto.SubmittedOrder;
+import com.adamstraub.tonsoftacos.dto.customerDto.ordersDto.OrderReturnedToCustomerDTO;
+import com.adamstraub.tonsoftacos.dto.customerDto.ordersDto.SubmittedOrderDTO;
 import com.adamstraub.tonsoftacos.entities.Customer;
-import com.adamstraub.tonsoftacos.respository.CustomerRepository;
-import com.adamstraub.tonsoftacos.respository.OrdersRepository;
+import com.adamstraub.tonsoftacos.repository.CustomerRepository;
+import com.adamstraub.tonsoftacos.repository.OrdersRepository;
 import com.adamstraub.tonsoftacos.entities.OrderItem;
 import com.adamstraub.tonsoftacos.entities.Orders;
 import lombok.extern.slf4j.Slf4j;
@@ -42,14 +42,14 @@ public class OrdersService implements OrdersServiceInterface {
     private boolean customerPhoneNumberValid = false;
     private boolean customerEmailValid = false;
     private boolean newCustomerFlag = false;
-    private final OrderReturnedToCustomer customerCopyDto = new OrderReturnedToCustomer();
+    private final OrderReturnedToCustomerDTO customerCopyDto = new OrderReturnedToCustomerDTO();
     private Customer existingCustomer = new Customer();
 
     @Override
     @Transactional
 
 
-    public ResponseEntity<OrderReturnedToCustomer> createOrder(@RequestBody @NotNull SubmittedOrder order)
+    public ResponseEntity<OrderReturnedToCustomerDTO> createOrder(@RequestBody @NotNull SubmittedOrderDTO order)
     {
         System.out.println("orders service");
         Orders newOrder = new Orders();
@@ -92,14 +92,14 @@ public class OrdersService implements OrdersServiceInterface {
         customerCopyDto.setCustomerPhone(newCustomer.getPhoneNumber());
         customerCopyDto.setOrderUid(newOrder.getOrderUid());
         customerCopyDto.setOrderTotal(newOrder.getOrderTotal());
-        List<OrderItemReturnedToCustomer> customerItems = getOrderItemReturnedToCustomers(orderConfirmation);
+        List<OrderItemReturnedToCustomerDTO> customerItems = getOrderItemReturnedToCustomers(orderConfirmation);
         customerCopyDto.setOrderItems(customerItems);
         } catch (Exception e) {
             log.error("error: ", e);
         }
     }
 // customer validation and preparation
-    private void validateCustomerInfo(SubmittedOrder submittedOrder){
+    private void validateCustomerInfo(SubmittedOrderDTO submittedOrder){
         try{
 
         validateCustomerName(submittedOrder.getCustomer().getName());
@@ -228,11 +228,11 @@ public class OrdersService implements OrdersServiceInterface {
 
     }
 
-    private static @NotNull List<OrderItemReturnedToCustomer> getOrderItemReturnedToCustomers(Orders orderConfirmation) {
-        List<OrderItemReturnedToCustomer> customerItems = new ArrayList<>();
+    private static @NotNull List<OrderItemReturnedToCustomerDTO> getOrderItemReturnedToCustomers(Orders orderConfirmation) {
+        List<OrderItemReturnedToCustomerDTO> customerItems = new ArrayList<>();
         try{
         for (OrderItem orderItem : orderConfirmation.getOrderItems()) {
-            OrderItemReturnedToCustomer orderItemReturnedToCustomer = new OrderItemReturnedToCustomer();
+            OrderItemReturnedToCustomerDTO orderItemReturnedToCustomer = new OrderItemReturnedToCustomerDTO();
             orderItemReturnedToCustomer.setItemName(orderItem.getItem().getItemName());
             orderItemReturnedToCustomer.setUnitPrice(orderItem.getItem().getUnitPrice());
             orderItemReturnedToCustomer.setQuantity(orderItem.getQuantity());

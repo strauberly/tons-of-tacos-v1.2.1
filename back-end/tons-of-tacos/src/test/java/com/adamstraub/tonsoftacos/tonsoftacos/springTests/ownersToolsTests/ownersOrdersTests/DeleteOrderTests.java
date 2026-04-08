@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.springTests.ownersToolsTests.ownersOrdersTests;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
+import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwnerDTO;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.ownersToolsSupport.OwnersToolsTestsSupport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
@@ -66,7 +66,7 @@ public class DeleteOrderTests {
             String getOrderUri =
                     String.format("%s?%s=%s", getBaseUriForGetOrderByUid(), parameter, orderUid);
             System.out.println(getOrderUri);
-            ResponseEntity<OrderReturnedToOwner> getOrderResponse =
+            ResponseEntity<OrderReturnedToOwnerDTO> getOrderResponse =
                     getRestTemplate().exchange(getOrderUri, HttpMethod.GET, headerEntity, new ParameterizedTypeReference<>() {
                     });
             System.out.println("Response code is " + getOrderResponse.getStatusCode() + ".");

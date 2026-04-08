@@ -1,10 +1,10 @@
 package com.adamstraub.tonsoftacos.services.ownersService.customers;
 
-import com.adamstraub.tonsoftacos.respository.MenuItemRepository;
-import com.adamstraub.tonsoftacos.respository.OrderItemRepository;
-import com.adamstraub.tonsoftacos.respository.CustomerRepository;
-import com.adamstraub.tonsoftacos.respository.OrdersRepository;
-import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
+import com.adamstraub.tonsoftacos.repository.MenuItemRepository;
+import com.adamstraub.tonsoftacos.repository.OrderItemRepository;
+import com.adamstraub.tonsoftacos.repository.CustomerRepository;
+import com.adamstraub.tonsoftacos.repository.OrdersRepository;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
 import com.adamstraub.tonsoftacos.entities.Customer;
 import com.adamstraub.tonsoftacos.services.customerValidationService.CustomerValidationService;
 import jakarta.persistence.EntityNotFoundException;
@@ -35,10 +35,10 @@ public class OwnersCustomersService implements OwnersCustomersServiceInterface {
 
 
     @Override
-    public ResponseEntity<ResponseMessage> updateCustomerName(String customerUid, String newCustomerName) {
+    public ResponseEntity<ResponseMessageDTO> updateCustomerName(String customerUid, String newCustomerName) {
 
         System.out.println("update customer service");
-        ResponseMessage message = new ResponseMessage();
+        ResponseMessageDTO message = new ResponseMessageDTO();
         Customer customer;
         try {
             customer = customerRepository.findByCustomerUid(customerUid);
@@ -59,10 +59,10 @@ public class OwnersCustomersService implements OwnersCustomersServiceInterface {
     }
 
     @Override
-    public ResponseEntity<ResponseMessage> updateCustomerEmail(String customerUid, String newCustomerEmail) {
+    public ResponseEntity<ResponseMessageDTO> updateCustomerEmail(String customerUid, String newCustomerEmail) {
         System.out.println("update customer service");
         Customer customer;
-        ResponseMessage message = new ResponseMessage();
+        ResponseMessageDTO message = new ResponseMessageDTO();
         try {
             customer = customerRepository.findByCustomerUid(customerUid);
         } catch (Exception e) {
@@ -82,10 +82,10 @@ public class OwnersCustomersService implements OwnersCustomersServiceInterface {
     }
 //
     @Override
-    public ResponseEntity<ResponseMessage> updateCustomerPhone(String customerUid, String newCustomerPhone) {
+    public ResponseEntity<ResponseMessageDTO> updateCustomerPhone(String customerUid, String newCustomerPhone) {
         System.out.println("update customer service");
         Customer customer;
-        ResponseMessage message = new ResponseMessage();
+        ResponseMessageDTO message = new ResponseMessageDTO();
 
         try {
             customer = customerRepository.findByCustomerUid(customerUid);

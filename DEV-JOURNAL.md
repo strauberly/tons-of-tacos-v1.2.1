@@ -1,6 +1,46 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+-- 7 Apr 2026 --
+
+- Altered logback file to capture more lines of stack trace if available.
+- Altered execptions in global error handler.
+    - changed exception handlers to logging the exeception vs what was in place 
+was logging the exception message passed to frontend. Lots of different things 
+that can be done here but this is what makes the most sense to me at this time.
+
+
+---
+-- 6 Apr 2026 --
+
+- entities appear to be in good shape until further notice.
+
+
+---
+
+-- 5 Apr 2026 -- 
+
+- Moved get available out of the category repository into the menu item service 
+where method was previously being utilized as there is not other need for a 
+gategory service at that time.
+    - This is to stay inline with the rest off the application design where 
+repositories are solely for crud operations and any logic that needs to be 
+performed on data happens in the service.
+- Removed find by name in customer repository as it was not being used.
+- Removed order in OrderItemRespository as unutilized.
+- Added throw EntitiyNotFoundException to all in all repositories.
+- Removed find all overrride in ownerRespository as redundant.
+- Did similar in refresh token Repository.
+- Removed maintenance package that was unused.
+- Moving on to DTOs.
+
+- All DTOs renamed with DTO suffix and any created later are to follow 
+naming convention to try cut down on confusion.
+- Moving on to entities.
+
+
+--- 
+
 -- 4 Apr 2026 --
 - added to convertLogToPdf() removing old pdf for day before creating new log 
 pdf for today.

@@ -1,15 +1,13 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.springTests.ownersToolsTests.ownersCustomersTests;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.CustomerReturnedToOwner;
+import com.adamstraub.tonsoftacos.dto.businessDto.CustomerReturnedToOwnerDTO;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.ownersToolsSupport.OwnersToolsTestsSupport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -49,7 +47,7 @@ public class GetCustomerByUidTest {
             String uri =
                     String.format("%s?%s=%s", getBaseUriForGetCustomerByUid(), parameter, customerUid);
             System.out.println(uri);
-            ResponseEntity<CustomerReturnedToOwner> response =
+            ResponseEntity<CustomerReturnedToOwnerDTO> response =
                     getRestTemplate().exchange(uri, HttpMethod.GET, headersEntity, new ParameterizedTypeReference<>() {
                     });
 //            Then: a customer is retrieved with a matching uid

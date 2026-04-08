@@ -5,7 +5,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
 
 import java.util.Collection;
 import java.util.List;
@@ -39,7 +39,7 @@ public class Owner implements UserDetails {
     @Column(name = "contact")
     private String contact;
 
-// will become seperate classes and tables once the actual need for roles is there(ie. customer accounts, employee accounts)
+// will become seperate classes and tables once the actual need for roles is there(i.e. customer accounts, employee accounts)
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -54,26 +54,6 @@ public class Owner implements UserDetails {
     @Override
     public String getPassword() {
         return psswrd;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 
 

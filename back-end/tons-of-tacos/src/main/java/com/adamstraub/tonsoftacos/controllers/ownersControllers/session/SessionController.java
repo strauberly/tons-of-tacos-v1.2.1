@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.session;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.*;
 import com.adamstraub.tonsoftacos.services.security.AuthService;
 import com.adamstraub.tonsoftacos.services.security.TokenRefreshService;
@@ -25,19 +25,19 @@ public class SessionController implements SessionControllerInterface {
 
 
     @Override
-    public ResponseEntity<JwtResponse> ownerLogin(HttpServletRequest request, OwnerAuth authDto){
+    public ResponseEntity<JwtResponseDTO> ownerLogin(HttpServletRequest request, OwnerAuthDTO authDto){
         System.out.println("login controller");
         return authService.ownerLogin(request, authDto);
     }
 
     @Override
-    public ResponseEntity<JwtResponse> refreshToken(@CookieValue RefreshToken token) {
+    public ResponseEntity<JwtResponseDTO> refreshToken(@CookieValue ResfreshTokenDTO token) {
         System.out.println("refresh controller: " + token);
         return tokenRefreshService.refreshToken(token);
     }
 
     @Override
-    public ResponseEntity<ResponseMessage> ownerLogout(HttpServletRequest request, @CookieValue RefreshToken token) {
+    public ResponseEntity<ResponseMessageDTO> ownerLogout(HttpServletRequest request, @CookieValue ResfreshTokenDTO token) {
         System.out.println(token);
         return authService.ownerLogout(request, token);
     }

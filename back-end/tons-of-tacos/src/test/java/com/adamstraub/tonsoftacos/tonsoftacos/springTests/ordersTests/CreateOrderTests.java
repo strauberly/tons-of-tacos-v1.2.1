@@ -1,8 +1,7 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.springTests.ordersTests;
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderItemReturnedToOwner;
-import com.adamstraub.tonsoftacos.dto.customerDto.ordersDto.OrderReturnedToCustomer;
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
-import com.adamstraub.tonsoftacos.entities.OrderItem;
+import com.adamstraub.tonsoftacos.dto.businessDto.OrderItemReturnedToOwnerDTO;
+import com.adamstraub.tonsoftacos.dto.customerDto.ordersDto.OrderReturnedToCustomerDTO;
+import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwnerDTO;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.ordersTestsSupport.OrdersTestsSupport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
@@ -64,8 +63,8 @@ class CreateOrderTests {
             headers.setContentType(MediaType.APPLICATION_JSON);
 
             HttpEntity<String> bodyEntity = new HttpEntity<>(body, headers);
-            ResponseEntity<OrderReturnedToCustomer> response = restTemplate.getRestTemplate().exchange(uri, HttpMethod.POST, bodyEntity,
-                    OrderReturnedToCustomer.class);
+            ResponseEntity<OrderReturnedToCustomerDTO> response = restTemplate.getRestTemplate().exchange(uri, HttpMethod.POST, bodyEntity,
+                    OrderReturnedToCustomerDTO.class);
 
 //            Then: an order is successfully stored with a 201 response
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
@@ -78,7 +77,7 @@ class CreateOrderTests {
             String getOrderUri =
                     String.format("%s?%s=%s", getBaseUriForGetOrderByUid(), parameter, testOrderUid);
             System.out.println(getOrderUri);
-            ResponseEntity<OrderReturnedToOwner> orderUidResponse =
+            ResponseEntity<OrderReturnedToOwnerDTO> orderUidResponse =
                     getRestTemplate().exchange(getOrderUri, HttpMethod.GET, headerEntity, new ParameterizedTypeReference<>() {
                     });
 
@@ -88,9 +87,9 @@ class CreateOrderTests {
             System.out.println("Newly created order was found which verifies proper functionality.");
 
             BigDecimal orderItemsTotal = BigDecimal.valueOf(0.00);
-            List<OrderItemReturnedToOwner> orderItems = new ArrayList<>(orderUidResponse.getBody().getOrderItems());
+            List<OrderItemReturnedToOwnerDTO> orderItems = new ArrayList<>(orderUidResponse.getBody().getOrderItems());
 
-            for (OrderItemReturnedToOwner orderItem : orderItems){
+            for (OrderItemReturnedToOwnerDTO orderItem : orderItems){
             orderItemsTotal = orderItemsTotal.add(orderItem.getTotal());
             }
             Assertions.assertEquals(orderUidResponse.getBody().getOrderTotal(), orderItemsTotal);

@@ -1,7 +1,7 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.customers;
 
 
-import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
@@ -51,7 +51,7 @@ public interface OwnersCustomersControllerInterface {
     )
     @Transactional
     @PutMapping("/edit-customer-name/{customerUid}/{newCustomerName}")
-    ResponseEntity<ResponseMessage> updateCustomerName(
+    ResponseEntity<ResponseMessageDTO> updateCustomerName(
             @PathVariable
             String customerUid,
             @PathVariable
@@ -86,7 +86,7 @@ public interface OwnersCustomersControllerInterface {
     )
     @Transactional
     @PutMapping("/edit-customer-email/{customerUid}/{newCustomerEmail}")
-    ResponseEntity<ResponseMessage> updateCustomerEmail(
+    ResponseEntity<ResponseMessageDTO> updateCustomerEmail(
             @PathVariable
             String customerUid,
             @PathVariable
@@ -121,7 +121,7 @@ public interface OwnersCustomersControllerInterface {
     )
     @Transactional
     @PutMapping("/edit-customer-phone/{customerUid}/{newCustomerPhone}")
-    ResponseEntity<ResponseMessage> updateCustomerPhone(
+    ResponseEntity<ResponseMessageDTO> updateCustomerPhone(
             @PathVariable
             String customerUid,
             @PathVariable

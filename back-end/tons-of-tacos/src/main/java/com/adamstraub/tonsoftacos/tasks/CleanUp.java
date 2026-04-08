@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.tasks;
 
-import com.adamstraub.tonsoftacos.respository.RefreshTokenRepository;
+import com.adamstraub.tonsoftacos.repository.RefreshTokenRepository;
 import com.adamstraub.tonsoftacos.services.utilityService.emailService.EmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

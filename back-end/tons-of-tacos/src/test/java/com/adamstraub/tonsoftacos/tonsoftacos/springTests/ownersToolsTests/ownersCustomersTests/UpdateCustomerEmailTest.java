@@ -1,22 +1,18 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.springTests.ownersToolsTests.ownersCustomersTests;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.CustomerReturnedToOwner;
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
+import com.adamstraub.tonsoftacos.dto.businessDto.CustomerReturnedToOwnerDTO;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.ownersToolsSupport.OwnersToolsTestsSupport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 
 import java.util.Map;
-import java.util.Objects;
 
 public class UpdateCustomerEmailTest {
 
@@ -54,7 +50,7 @@ public class UpdateCustomerEmailTest {
 
             System.out.println(getCustomerUri);
 
-            ResponseEntity<CustomerReturnedToOwner> getCustomerResponse =
+            ResponseEntity<CustomerReturnedToOwnerDTO> getCustomerResponse =
                     getRestTemplate().exchange(getCustomerUri, HttpMethod.GET, headersEntity, new ParameterizedTypeReference<>() {
                     });
             System.out.println("Customer before email change: " + getCustomerResponse.getBody());
@@ -79,7 +75,7 @@ public class UpdateCustomerEmailTest {
 
             System.out.println(getCustomerUri2);
 
-            ResponseEntity<CustomerReturnedToOwner> getCustomerResponse2 =
+            ResponseEntity<CustomerReturnedToOwnerDTO> getCustomerResponse2 =
                     getRestTemplate().exchange(getCustomerUri2, HttpMethod.GET, headersEntity,
                             new ParameterizedTypeReference<>() {
                             });

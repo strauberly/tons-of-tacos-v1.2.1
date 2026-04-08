@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.springTests.ownersToolsTests.ownersCustomersTests;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.CustomerReturnedToOwner;
+import com.adamstraub.tonsoftacos.dto.businessDto.CustomerReturnedToOwnerDTO;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.ownersToolsSupport.OwnersToolsTestsSupport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
@@ -51,7 +51,7 @@ public class GetCustomerByNameTest {
             String uri=
                     String.format("%s?%s=%s", getBaseUriForGetCustomerByName(), parameter, customerName );
             System.out.println(uri);
-            ResponseEntity<CustomerReturnedToOwner> response =
+            ResponseEntity<CustomerReturnedToOwnerDTO> response =
                     getRestTemplate().exchange(uri, HttpMethod.GET, headersEntity, new ParameterizedTypeReference<>() {
                     });
             System.out.println("Customer returned from db: " + Objects.requireNonNull(response.getBody()).getName());

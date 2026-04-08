@@ -1,13 +1,11 @@
 package com.adamstraub.tonsoftacos.controllers.ordersControllers;
-import com.adamstraub.tonsoftacos.dto.businessDto.NewOrder;
-import com.adamstraub.tonsoftacos.dto.customerDto.ordersDto.OrderReturnedToCustomer;
-import com.adamstraub.tonsoftacos.dto.customerDto.ordersDto.SubmittedOrder;
+import com.adamstraub.tonsoftacos.dto.customerDto.ordersDto.OrderReturnedToCustomerDTO;
+import com.adamstraub.tonsoftacos.dto.customerDto.ordersDto.SubmittedOrderDTO;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -112,5 +110,5 @@ public interface OrdersControllerInterface {
 
 
     @PostMapping("/checkout")
-   ResponseEntity<OrderReturnedToCustomer> createOrder(@RequestBody SubmittedOrder order);
+   ResponseEntity<OrderReturnedToCustomerDTO> createOrder(@RequestBody SubmittedOrderDTO order);
 }

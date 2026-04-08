@@ -1,10 +1,10 @@
 package com.adamstraub.tonsoftacos.services.utilityService.salesService;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.DailySales;
+import com.adamstraub.tonsoftacos.dto.businessDto.DailySalesDTO;
 
 import com.adamstraub.tonsoftacos.entities.OrderItem;
 import com.adamstraub.tonsoftacos.entities.Orders;
-import com.adamstraub.tonsoftacos.respository.OrdersRepository;
+import com.adamstraub.tonsoftacos.repository.OrdersRepository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
@@ -120,9 +120,9 @@ public class SalesService {
     }
 
         @Transactional
-    public ResponseEntity<DailySales> salesToday() {
+    public ResponseEntity<DailySalesDTO> salesToday() {
         System.out.println("service");
-        DailySales salesToday = new DailySales();
+        DailySalesDTO salesToday = new DailySalesDTO();
         String formattedSales;
         LocalDate todaysDate = LocalDate.now();
         LocalDate dbDate;

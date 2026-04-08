@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.springTests.ownersToolsTests.ownersOrdersTests;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
+import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwnerDTO;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.ownersToolsSupport.OwnersToolsTestsSupport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
@@ -15,7 +15,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 
 import java.util.Map;
-import java.util.Objects;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -60,7 +59,7 @@ public class EditOrderItemQuantityTest {
             System.out.println(getOrderUri);
 
 //            call order item before alteration
-            ResponseEntity<OrderReturnedToOwner> getOrderResponse =
+            ResponseEntity<OrderReturnedToOwnerDTO> getOrderResponse =
                     getRestTemplate().exchange(getOrderUri, HttpMethod.GET, headerEntity, new ParameterizedTypeReference<>() {
                     });
             System.out.println("unchanged order: " + getOrderResponse.getBody());
@@ -85,7 +84,7 @@ public class EditOrderItemQuantityTest {
                     String.format("%s?%s=%s", getBaseUriForGetOrderByUid(), parameter, orderUid);
             System.out.println(getOrderUri2);
 
-            ResponseEntity<OrderReturnedToOwner> getOrderResponse2 =
+            ResponseEntity<OrderReturnedToOwnerDTO> getOrderResponse2 =
                     getRestTemplate().exchange(getOrderUri, HttpMethod.GET, headerEntity, new ParameterizedTypeReference<>() {
                     });
 

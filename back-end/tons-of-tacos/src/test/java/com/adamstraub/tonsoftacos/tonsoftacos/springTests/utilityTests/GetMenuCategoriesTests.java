@@ -1,7 +1,7 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.springTests.utilityTests;
 
-import com.adamstraub.tonsoftacos.respository.CategoryRepository;
-import com.adamstraub.tonsoftacos.dto.categoryDto.ReturnedCategory;
+import com.adamstraub.tonsoftacos.repository.CategoryRepository;
+import com.adamstraub.tonsoftacos.dto.categoryDto.DTO;
 import com.adamstraub.tonsoftacos.entities.Category;
 import org.json.JSONException;
 import org.junit.jupiter.api.Assertions;
@@ -74,7 +74,7 @@ public class GetMenuCategoriesTests {
             //            Given: the correct uri
             String uri = getBaseUriForReturnAvailableCategories();
 //             When: a successful coneection is made
-            ResponseEntity<List<ReturnedCategory>> response =
+            ResponseEntity<List<DTO>> response =
                     getRestTemplate().exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<>() {
                     });
 

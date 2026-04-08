@@ -1,17 +1,15 @@
 package com.adamstraub.tonsoftacos.services.ownersService.orders;
-import com.adamstraub.tonsoftacos.respository.MenuItemRepository;
-import com.adamstraub.tonsoftacos.respository.OrderItemRepository;
-import com.adamstraub.tonsoftacos.dto.businessDto.DailySales;
-import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
+import com.adamstraub.tonsoftacos.repository.MenuItemRepository;
+import com.adamstraub.tonsoftacos.repository.OrderItemRepository;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
 import com.adamstraub.tonsoftacos.entities.OrderItem;
 import com.adamstraub.tonsoftacos.entities.Orders;
-import com.adamstraub.tonsoftacos.respository.CustomerRepository;
-import com.adamstraub.tonsoftacos.respository.OrdersRepository;
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderItemReturnedToOwner;
+import com.adamstraub.tonsoftacos.repository.CustomerRepository;
+import com.adamstraub.tonsoftacos.repository.OrdersRepository;
+import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwnerDTO;
+import com.adamstraub.tonsoftacos.dto.businessDto.OrderItemReturnedToOwnerDTO;
 import com.adamstraub.tonsoftacos.entities.Customer;
-import com.adamstraub.tonsoftacos.services.utilityService.UtilityService;
 import com.adamstraub.tonsoftacos.services.customerValidationService.CustomerValidationService;
 import com.adamstraub.tonsoftacos.services.utilityService.salesService.SalesService;
 import jakarta.persistence.EntityNotFoundException;
@@ -21,13 +19,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 @Slf4j
 @Service
@@ -46,9 +41,9 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
     private SalesService salesService;
 
     @Override
-    public ResponseEntity<List<OrderReturnedToOwner>> getAllOrders() {
+    public ResponseEntity<List<OrderReturnedToOwnerDTO>> getAllOrders() {
         System.out.println("owner orders service");
-        List<OrderReturnedToOwner> orderItemDtos = new ArrayList<>();
+        List<OrderReturnedToOwnerDTO> orderItemDtos = new ArrayList<>();
         List<Orders> orders;
 
         try {
@@ -67,10 +62,10 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
 
 
     @Override
-    public ResponseEntity<OrderReturnedToOwner> getOrderByUid(String orderUid) {
+    public ResponseEntity<OrderReturnedToOwnerDTO> getOrderByUid(String orderUid) {
         System.out.println("owner orders service");
         Orders order;
-        OrderReturnedToOwner returnedOrder;
+        OrderReturnedToOwnerDTO returnedOrder;
         validationService.validateOrderUid(orderUid);
 
             try {
@@ -85,9 +80,9 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
     }
 
     @Override
-    public ResponseEntity<List<OrderReturnedToOwner>> getOrdersByPhoneNumber(String phone) {
+    public ResponseEntity<List<OrderReturnedToOwnerDTO>> getOrdersByPhoneNumber(String phone) {
         System.out.println("owner orders service");
-        List<OrderReturnedToOwner> convertedOrders = new ArrayList<>();
+        List<OrderReturnedToOwnerDTO> convertedOrders = new ArrayList<>();
         List<Orders> customerOrders = new ArrayList<>();
         List<Customer> customers;
         validationService.validateCustomerPhone(phone);
@@ -110,7 +105,7 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
     }
 
     @Override
-public ResponseEntity<OrderReturnedToOwner> orderReady(String orderUid) {
+public ResponseEntity<OrderReturnedToOwnerDTO> orderReady(String orderUid) {
         System.out.println("service");
         Orders order;
 
@@ -128,7 +123,7 @@ public ResponseEntity<OrderReturnedToOwner> orderReady(String orderUid) {
     }
 
     @Override
-public ResponseEntity<OrderReturnedToOwner> closeOrder(String orderUid) {
+public ResponseEntity<OrderReturnedToOwnerDTO> closeOrder(String orderUid) {
         System.out.println("owner orders service");
     Orders order;
         try {
@@ -166,11 +161,11 @@ public ResponseEntity<OrderReturnedToOwner> closeOrder(String orderUid) {
 
     @Override
 
-public ResponseEntity<ResponseMessage> deleteOrder(String orderUid) {
+public ResponseEntity<ResponseMessageDTO> deleteOrder(String orderUid) {
     System.out.println("owner orders service");
 
     Orders order;
-    ResponseMessage message = new ResponseMessage();
+    ResponseMessageDTO message = new ResponseMessageDTO();
 
         try {
             ordersRepository.findByOrderUid(orderUid);
@@ -184,9 +179,9 @@ public ResponseEntity<ResponseMessage> deleteOrder(String orderUid) {
     }
 
     @Override
-    public ResponseEntity<ResponseMessage> addToOrder(String orderUid, Integer menuItemId, Integer quantity, String itemSize) {
+    public ResponseEntity<ResponseMessageDTO> addToOrder(String orderUid, Integer menuItemId, Integer quantity, String itemSize) {
         System.out.println("owner orders service");
-        ResponseMessage message = new ResponseMessage();
+        ResponseMessageDTO message = new ResponseMessageDTO();
         Optional<MenuItem> menuItem;
         try{
             menuItemRepository.getReferenceById(menuItemId);
@@ -220,12 +215,12 @@ public ResponseEntity<ResponseMessage> deleteOrder(String orderUid) {
     }
 
     @Override
-    public ResponseEntity<ResponseMessage> removeFromOrder(Integer orderItemId) {
+    public ResponseEntity<ResponseMessageDTO> removeFromOrder(Integer orderItemId) {
         System.out.println("owner orders service");
         OrderItem orderItem;
         BigDecimal oldTotal;
         BigDecimal newTotal;
-        ResponseMessage message = new ResponseMessage();
+        ResponseMessageDTO message = new ResponseMessageDTO();
 
         try{
             orderItemRepository.getReferenceById(orderItemId);
@@ -248,10 +243,10 @@ public ResponseEntity<ResponseMessage> deleteOrder(String orderUid) {
 
     @Transactional
     @Override
-    public ResponseEntity<ResponseMessage> updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity, String newSize) {
+    public ResponseEntity<ResponseMessageDTO> updateOrderItemQuantity(String orderUid, Integer orderItemId, Integer newQuantity, String newSize) {
         System.out.println("owner orders service");
 
-            ResponseMessage message = new ResponseMessage();
+            ResponseMessageDTO message = new ResponseMessageDTO();
 //            validation
         try {
             ordersRepository.findByOrderUid(orderUid);
@@ -294,8 +289,8 @@ public ResponseEntity<ResponseMessage> deleteOrder(String orderUid) {
     }
 
 
-    private OrderReturnedToOwner ownersGetOrderDtoConverter(Orders order) {
-        OrderReturnedToOwner orderReturnedToOwner = new OrderReturnedToOwner();
+    private OrderReturnedToOwnerDTO ownersGetOrderDtoConverter(Orders order) {
+        OrderReturnedToOwnerDTO orderReturnedToOwner = new OrderReturnedToOwnerDTO();
 
         try {
          customerRepository.findByCustomerUid(order.getCustomerUid());
@@ -310,7 +305,7 @@ public ResponseEntity<ResponseMessage> deleteOrder(String orderUid) {
         orderReturnedToOwner.setCustomerUid(order.getCustomerUid());
 
 //        set the get order items dto
-        List<OrderItemReturnedToOwner> orderItemReturnedToOwners = new ArrayList<>();
+        List<OrderItemReturnedToOwnerDTO> orderItemReturnedToOwners = new ArrayList<>();
         List<OrderItem> orderItems = order.getOrderItems();
         orderItems.forEach(orderItem -> orderItemReturnedToOwners.add(ownersOrderItemDtoConvertor(orderItem)));
         orderReturnedToOwner.setOrderItems(orderItemReturnedToOwners);
@@ -321,8 +316,8 @@ public ResponseEntity<ResponseMessage> deleteOrder(String orderUid) {
         return orderReturnedToOwner;
     }
 
-    private OrderItemReturnedToOwner ownersOrderItemDtoConvertor(OrderItem orderItem){
-        OrderItemReturnedToOwner orderItemReturnedToOwner = new OrderItemReturnedToOwner();
+    private OrderItemReturnedToOwnerDTO ownersOrderItemDtoConvertor(OrderItem orderItem){
+        OrderItemReturnedToOwnerDTO orderItemReturnedToOwner = new OrderItemReturnedToOwnerDTO();
 
         orderItemReturnedToOwner.setOrderItemId(orderItem.getOrderItemId());
         orderItemReturnedToOwner.setItemName(orderItem.getItem().getItemName());

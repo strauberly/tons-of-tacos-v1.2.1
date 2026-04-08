@@ -1,7 +1,7 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.mockTests.DbTests;
 
-import com.adamstraub.tonsoftacos.respository.CustomerRepository;
-import com.adamstraub.tonsoftacos.respository.OrdersRepository;
+import com.adamstraub.tonsoftacos.repository.CustomerRepository;
+import com.adamstraub.tonsoftacos.repository.OrdersRepository;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.ownersToolsSupport.OwnersToolsTestsSupport;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

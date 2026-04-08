@@ -1,0 +1,16 @@
+package com.adamstraub.tonsoftacos.dto.businessDto;
+
+import lombok.Data;
+
+import java.math.BigDecimal;
+
+@Data
+public class OrderItemReturnedToOwnerDTO {
+    private Integer orderItemId;
+    private String itemName;
+    private Integer quantity;
+    private String size;
+    private BigDecimal total;
+
+
+}

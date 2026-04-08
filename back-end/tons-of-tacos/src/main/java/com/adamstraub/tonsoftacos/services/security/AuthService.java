@@ -1,7 +1,7 @@
 package com.adamstraub.tonsoftacos.services.security;
-import com.adamstraub.tonsoftacos.respository.OwnerRepository;
-import com.adamstraub.tonsoftacos.respository.RefreshTokenRepository;
-import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
+import com.adamstraub.tonsoftacos.repository.OwnerRepository;
+import com.adamstraub.tonsoftacos.repository.RefreshTokenRepository;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
 import com.adamstraub.tonsoftacos.dto.businessDto.security.*;
 import com.adamstraub.tonsoftacos.entities.Owner;
 import com.adamstraub.tonsoftacos.entities.RefreshToken;
@@ -35,17 +35,17 @@ public class AuthService {
 
 
 
-    private final Token token = new Token();
+    private final TokenDTO tokenDTO = new TokenDTO();
 
 
     private String owner;
 
 
-    public ResponseEntity<JwtResponse> ownerLogin(@NotNull HttpServletRequest request, OwnerAuth ownerAuth) {
+    public ResponseEntity<JwtResponseDTO> ownerLogin(@NotNull HttpServletRequest request, OwnerAuthDTO ownerAuth) {
         System.out.println("auth service");
         owner = jwtService.decrypt(ownerAuth.getUsername());
         String name;
-        Subject subject;
+        SubjectDTO subject;
         try{
            authenticationManager
                   .authenticate(new UsernamePasswordAuthenticationToken(jwtService.decrypt(ownerAuth.getUsername()),
@@ -58,19 +58,19 @@ public class AuthService {
 //seperate try catch with runtime exception/system failure database down
         Optional<Owner> owner = ownerRepository.findByUsername(jwtService.decrypt(ownerAuth.getUsername()));
               name = owner.orElseThrow().getName();
-              subject = new Subject(ownerAuth.getUsername(), jwtService.encrypt(name.substring(0, name.indexOf(' '))));
-              token.setToken(jwtService.generateToken(subject));
+              subject = new SubjectDTO(ownerAuth.getUsername(), jwtService.encrypt(name.substring(0, name.indexOf(' '))));
+              tokenDTO.setToken(jwtService.generateToken(subject));
               log.info("Successful Login: \n user: {}, location:{}", jwtService.decrypt(ownerAuth.getUsername()), getIpAddress(request) );
         RefreshToken refreshToken = tokenRefreshService.createRefreshToken(subject.getUsername());
-        return ResponseEntity.ok(JwtResponse.builder()
+        return ResponseEntity.ok(JwtResponseDTO.builder()
                 .accessToken(jwtService.generateToken(subject))
                 .refreshToken(refreshToken.getToken()).build());
     }
 
 
-public ResponseEntity<ResponseMessage> ownerLogout(@NotNull HttpServletRequest request, com.adamstraub.tonsoftacos.dto.businessDto.security.RefreshToken token) {
+public ResponseEntity<ResponseMessageDTO> ownerLogout(@NotNull HttpServletRequest request, ResfreshTokenDTO token) {
         System.out.println("auth service");
-        ResponseMessage message = new ResponseMessage();
+        ResponseMessageDTO message = new ResponseMessageDTO();
         RefreshToken rftoken = refreshTokenRepository.findByToken(token.getRefreshToken());
         try {
         refreshTokenRepository.delete(rftoken);
