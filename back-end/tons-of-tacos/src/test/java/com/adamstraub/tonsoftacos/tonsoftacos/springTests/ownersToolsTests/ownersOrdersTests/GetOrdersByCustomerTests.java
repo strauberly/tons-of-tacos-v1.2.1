@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.springTests.ownersToolsTests.ownersOrdersTests;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
+import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwnerDTO;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.ownersToolsSupport.OwnersToolsTestsSupport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
@@ -52,7 +52,7 @@ public class GetOrdersByCustomerTests {
             String uri =
                     String.format("%s?%s=%s", getBaseUriForGetOrderByCustomer(), parameter, customer );
             System.out.println(uri);
-            ResponseEntity<List<OrderReturnedToOwner>> response =
+            ResponseEntity<List<OrderReturnedToOwnerDTO>> response =
                     getRestTemplate().exchange(uri, HttpMethod.GET, headerEntity, new ParameterizedTypeReference<>() {
                     });
 //            Then: all  open orders will be returned belonging to customer matching provided name with a response

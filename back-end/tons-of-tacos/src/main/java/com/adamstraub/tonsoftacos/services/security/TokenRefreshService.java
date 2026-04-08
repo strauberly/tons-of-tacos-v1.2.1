@@ -1,10 +1,10 @@
 package com.adamstraub.tonsoftacos.services.security;
 
-import com.adamstraub.tonsoftacos.respository.OwnerRepository;
-import com.adamstraub.tonsoftacos.respository.RefreshTokenRepository;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponse;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.RefreshToken;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.Subject;
+import com.adamstraub.tonsoftacos.repository.OwnerRepository;
+import com.adamstraub.tonsoftacos.repository.RefreshTokenRepository;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponseDTO;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.ResfreshTokenDTO;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.SubjectDTO;
 import com.adamstraub.tonsoftacos.entities.Owner;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,10 +63,10 @@ public  class TokenRefreshService {
     }
 
 
-    public ResponseEntity<JwtResponse> refreshToken(RefreshToken token) {
+    public ResponseEntity<JwtResponseDTO> refreshToken(ResfreshTokenDTO token) {
         com.adamstraub.tonsoftacos.entities.RefreshToken oldToken = verifyExp(findByToken(token.getRefreshToken()));
         String name = oldToken.getOwnerInfo().getName();
-        Subject subject = new Subject();
+        SubjectDTO subject = new SubjectDTO();
         String uuid = UUID.randomUUID().toString();
 
         subject.setOwnername(name.substring(0, name.indexOf(' ')));
@@ -88,7 +88,7 @@ public  class TokenRefreshService {
         refreshTokenRepository.save(oldToken);
 
 
-        return ResponseEntity.ok(JwtResponse.builder()
+        return ResponseEntity.ok(JwtResponseDTO.builder()
                 .accessToken(accessToken)
                 .refreshToken(uuid)
                 .build());

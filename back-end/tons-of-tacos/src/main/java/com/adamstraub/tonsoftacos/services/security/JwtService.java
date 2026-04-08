@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.services.security;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.security.Subject;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.SubjectDTO;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -63,7 +63,7 @@ public class JwtService {
     }
 
 
-private String buildToken(Subject subject){
+private String buildToken(SubjectDTO subject){
 //        maybe log this instead
     StringJoiner joiner = new StringJoiner(", ");
     joiner.add("{\"username\": " + '"' + subject.getUsername() + '"');
@@ -85,7 +85,7 @@ private String buildToken(Subject subject){
     return token;
 }
 
-    public String generateToken(Subject subject){
+    public String generateToken(SubjectDTO subject){
         return buildToken(subject);
     }
 

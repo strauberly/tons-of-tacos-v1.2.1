@@ -1,7 +1,7 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.orders;
-import com.adamstraub.tonsoftacos.dto.businessDto.DailySales;
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
-import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
+import com.adamstraub.tonsoftacos.dto.businessDto.DailySalesDTO;
+import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwnerDTO;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
 import com.adamstraub.tonsoftacos.entities.OrderItem;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
@@ -131,7 +131,7 @@ public interface OwnersOrdersControllerInterface {
     )
     @Transactional
     @GetMapping("/get-orders")
-    ResponseEntity<List<OrderReturnedToOwner>> getAllOrders();
+    ResponseEntity<List<OrderReturnedToOwnerDTO>> getAllOrders();
 
 
 //get an order by uid
@@ -196,7 +196,7 @@ public interface OwnersOrdersControllerInterface {
     )
     @Transactional
     @GetMapping("/get-order/{orderUid}")
-    ResponseEntity<OrderReturnedToOwner> getOrderByUid(@RequestParam String orderUid);
+    ResponseEntity<OrderReturnedToOwnerDTO> getOrderByUid(@RequestParam String orderUid);
 
 
 
@@ -271,7 +271,7 @@ public interface OwnersOrdersControllerInterface {
 @Transactional
 @GetMapping("/get-order-customer-phone/{phone}")
 
-    ResponseEntity<List<OrderReturnedToOwner>> getOrdersByPhoneNumber(@RequestParam String phone);
+    ResponseEntity<List<OrderReturnedToOwnerDTO>> getOrdersByPhoneNumber(@RequestParam String phone);
 
 //runtime exceptions
 //mark food ready by uid
@@ -332,7 +332,7 @@ public interface OwnersOrdersControllerInterface {
     )
     @Transactional
     @PutMapping("/order-ready/{orderUid}")
-    ResponseEntity<OrderReturnedToOwner> orderReady(@PathVariable String orderUid);
+    ResponseEntity<OrderReturnedToOwnerDTO> orderReady(@PathVariable String orderUid);
 
 
 //close order by uid
@@ -394,7 +394,7 @@ public interface OwnersOrdersControllerInterface {
     )
     @Transactional
     @PutMapping("/close-order/{orderUid}")
-    ResponseEntity<OrderReturnedToOwner> closeOrder(@PathVariable String orderUid);
+    ResponseEntity<OrderReturnedToOwnerDTO> closeOrder(@PathVariable String orderUid);
 
 
     //delete order by uid
@@ -419,7 +419,7 @@ public interface OwnersOrdersControllerInterface {
     )
     @Transactional
     @DeleteMapping("/delete-order/{orderUid}")
-    ResponseEntity<ResponseMessage> deleteOrder(@PathVariable String orderUid);
+    ResponseEntity<ResponseMessageDTO> deleteOrder(@PathVariable String orderUid);
 
 //add menu item to order
 
@@ -444,7 +444,7 @@ public interface OwnersOrdersControllerInterface {
     )
     @Transactional
     @PutMapping("/add-to-order/{orderUid}/{menuItemId}/{quantity}/{itemSize}")
-    ResponseEntity<ResponseMessage> addToOrder(
+    ResponseEntity<ResponseMessageDTO> addToOrder(
             @PathVariable
             String orderUid,
             @PathVariable
@@ -476,7 +476,7 @@ public interface OwnersOrdersControllerInterface {
     )
     @Transactional
     @DeleteMapping("/remove-from-order/{orderItemId}")
-    ResponseEntity<ResponseMessage> removeFromOrder(
+    ResponseEntity<ResponseMessageDTO> removeFromOrder(
             @PathVariable
             Integer orderItemId
         );
@@ -505,7 +505,7 @@ public interface OwnersOrdersControllerInterface {
             }
     )
     @PutMapping("/update-order-item/{orderUid}/{orderItemId}/{newQuantity}/{newSize}")
-    ResponseEntity<ResponseMessage> updateOrderItemQuantity(
+    ResponseEntity<ResponseMessageDTO> updateOrderItemQuantity(
     @PathVariable
     String orderUid,
     @PathVariable
@@ -550,6 +550,6 @@ responses = {
 }
 )
 @GetMapping("/sales")
-ResponseEntity<DailySales> todaysSales();
+ResponseEntity<DailySalesDTO> todaysSales();
 
 }

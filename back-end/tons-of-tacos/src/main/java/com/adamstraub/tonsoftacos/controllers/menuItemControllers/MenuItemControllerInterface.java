@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.controllers.menuItemControllers;
 
-import com.adamstraub.tonsoftacos.dto.categoryDto.ReturnedCategory;
+import com.adamstraub.tonsoftacos.dto.categoryDto.DTO;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
@@ -96,6 +96,6 @@ public interface MenuItemControllerInterface {
             }
     )
     @GetMapping ("/categories")
-    ResponseEntity<List<ReturnedCategory>> getAvailableCategories();
+    ResponseEntity<List<DTO>> getAvailableCategories();
 }
 

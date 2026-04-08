@@ -1,9 +1,9 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.session;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessage;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponse;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.OwnerAuth;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.RefreshToken;
+import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponseDTO;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.OwnerAuthDTO;
+import com.adamstraub.tonsoftacos.dto.businessDto.security.ResfreshTokenDTO;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
@@ -54,7 +54,7 @@ public interface SessionControllerInterface {
     )
 
     @PostMapping("/login")
-    ResponseEntity<JwtResponse> ownerLogin(HttpServletRequest request, @RequestBody   OwnerAuth authDto);
+    ResponseEntity<JwtResponseDTO> ownerLogin(HttpServletRequest request, @RequestBody OwnerAuthDTO authDto);
 
 @Operation(
         summary = "Create new access token once original expires.",
@@ -80,7 +80,7 @@ public interface SessionControllerInterface {
 @Transactional
 @PostMapping("/refresh")
 @ResponseBody
-ResponseEntity<JwtResponse> refreshToken(@CookieValue ("token") RefreshToken token);
+ResponseEntity<JwtResponseDTO> refreshToken(@CookieValue ("token") ResfreshTokenDTO token);
 
 
 
@@ -106,7 +106,7 @@ ResponseEntity<JwtResponse> refreshToken(@CookieValue ("token") RefreshToken tok
     )
     @Transactional
     @DeleteMapping("/logout")
-    ResponseEntity<ResponseMessage> ownerLogout(HttpServletRequest request, @CookieValue RefreshToken token);
+    ResponseEntity<ResponseMessageDTO> ownerLogout(HttpServletRequest request, @CookieValue ResfreshTokenDTO token);
 }
 
 

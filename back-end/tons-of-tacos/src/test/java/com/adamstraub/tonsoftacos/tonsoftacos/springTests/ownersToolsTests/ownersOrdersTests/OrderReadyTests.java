@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.springTests.ownersToolsTests.ownersOrdersTests;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
+import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwnerDTO;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.ownersToolsSupport.OwnersToolsTestsSupport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
@@ -53,7 +53,7 @@ public class OrderReadyTests {
                     String.format("%s/%s", getBaseUriForOrderReady(), orderUid);
             System.out.println(uri);
 
-            ResponseEntity<OrderReturnedToOwner> response =
+            ResponseEntity<OrderReturnedToOwnerDTO> response =
                     getRestTemplate().exchange(uri, HttpMethod.PUT, headerEntity, new ParameterizedTypeReference<>() {
                     });
 //            Then: order is marked ready and response code is 200
@@ -65,7 +65,7 @@ public class OrderReadyTests {
             String getOrderUri =
                     String.format("%s?%s=%s", getBaseUriForGetOrderByUid(), parameter, orderUid);
             System.out.println(getOrderUri);
-            ResponseEntity<OrderReturnedToOwner> getOrderResponse =
+            ResponseEntity<OrderReturnedToOwnerDTO> getOrderResponse =
                     getRestTemplate().exchange(getOrderUri, HttpMethod.GET, headerEntity, new ParameterizedTypeReference<>() {
                     });
             Assertions.assertNotEquals("no", Objects.requireNonNull(getOrderResponse.getBody()).getReady());

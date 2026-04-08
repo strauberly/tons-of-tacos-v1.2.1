@@ -1,7 +1,6 @@
 package com.adamstraub.tonsoftacos.services.utilityService.emailService;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.DailySales;
-import com.adamstraub.tonsoftacos.services.ownersService.orders.OwnersOrdersService;
+import com.adamstraub.tonsoftacos.dto.businessDto.DailySalesDTO;
 import com.adamstraub.tonsoftacos.services.utilityService.UtilityService;
 import com.adamstraub.tonsoftacos.services.utilityService.salesService.SalesService;
 import jakarta.mail.internet.*;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.MessageFormat;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
@@ -85,7 +83,7 @@ public class EmailService {
     public void salesSummaryToOwners(String[] recipients, String subject) {
         String largestSale = salesService.largestSale();
         String orderStats = salesService.ordersStats();
-        DailySales salesToday = salesService.salesToday().getBody();
+        DailySalesDTO salesToday = salesService.salesToday().getBody();
 
         assert salesToday != null;
         String body = buildBody(salesToday, largestSale, orderStats);
@@ -108,7 +106,7 @@ public class EmailService {
         log.info("email sent: {}", Arrays.toString(recipients));
     }
 
-    private static @NotNull String buildBody(DailySales salesToday, String largestSale, String orderStats) {
+    private static @NotNull String buildBody(DailySalesDTO salesToday, String largestSale, String orderStats) {
         assert salesToday != null;
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MMM-yy");
         String date = salesToday.getDate().format(dateFormatter);

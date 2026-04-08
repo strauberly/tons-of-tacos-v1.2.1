@@ -1,6 +1,5 @@
 package com.adamstraub.tonsoftacos.exceptionHandler;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.security.OwnerAuth;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -8,7 +7,6 @@ import io.jsonwebtoken.security.SignatureException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.BadRequestException;
 import org.apache.tomcat.websocket.AuthenticationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,14 +19,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,20 +35,19 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     private String message;
-    Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(NumberFormatException.class)
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public Map <String, Object> handleNumberFormatException(
             NumberFormatException e, WebRequest webRequest){
-        log.debug(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST, webRequest).toString());
+        log.debug("Investigate: ", e);
         return createExceptionMessage(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST, webRequest);
     }
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
     public ResponseEntity<Map<String, Object>> handleEntityNotFoundException(
             EntityNotFoundException e, WebRequest webRequest) {
-        log.debug(createExceptionMessage(e.toString(), HttpStatus.NOT_FOUND, webRequest).toString());
+        log.debug("Investigate: ", e);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON).body(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.NOT_FOUND, webRequest));
     }
 
@@ -61,7 +56,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public Map <String, Object> handleIllegalArgumentException(
             IllegalArgumentException e, WebRequest webRequest){
-        log.debug(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST, webRequest).toString());
+        log.debug("Investigate: ", e);
         return createExceptionMessage(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST, webRequest);
     }
 
@@ -69,7 +64,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     public Map<String, Object> handleUsernameNotFoundException(
             UsernameNotFoundException e, WebRequest webRequest){
-        log.debug(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.UNAUTHORIZED, webRequest).toString());
+        log.debug("Investigate: ", e);
         return  createExceptionMessage(e.getLocalizedMessage(), HttpStatus.UNAUTHORIZED, webRequest);
     }
 
@@ -77,7 +72,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(code = HttpStatus.FORBIDDEN)
     public Map<String, Object> handleSignatureException(
             SignatureException e, WebRequest webRequest){
-        log.debug(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest).toString());
+      log.debug("Investigate: ", e);
         return  createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest);
     }
 
@@ -85,7 +80,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(code = HttpStatus.FORBIDDEN)
     public Map<String, Object> handleAuthenticationException(
             AuthenticationException e, WebRequest webRequest){
-        log.debug(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest).toString());
+      log.debug("Investigate: ", e);
         return  createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest);
     }
 
@@ -93,7 +88,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(code = HttpStatus.FORBIDDEN)
     public Map<String, Object> handleJwtException(
             JwtException e, WebRequest webRequest){
-        log.debug(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest).toString());
+      log.debug("Investigate: ", e);
         return  createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest);
     }
 
@@ -101,7 +96,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(code = HttpStatus.FORBIDDEN)
     public Map<String, Object> handleMalformedJwtException(
             MalformedJwtException e, WebRequest webRequest){
-        log.debug(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.UNAUTHORIZED, webRequest).toString());
+         log.debug("Investigate: ", e);
         return  createExceptionMessage(e.getLocalizedMessage(), HttpStatus.UNAUTHORIZED, webRequest);
     }
 
@@ -109,7 +104,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(code = HttpStatus.FORBIDDEN)
     public Map<String, Object> handleExpiredJwtException(
             ExpiredJwtException e, WebRequest webRequest){
-        log.debug(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest).toString());
+      log.debug("Investigate: ", e);
         return  createExceptionMessage(e.getMessage(), HttpStatus.FORBIDDEN, webRequest);
     }
 
@@ -118,7 +113,7 @@ public class GlobalExceptionHandler {
     public Map<String, Object> handleBadCredentialsException(
             BadCredentialsException e, WebRequest webRequest
     ){
-        logger.error(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest).toString());
+        log.debug("Investigate: ", e);
         return createExceptionMessage(e.getLocalizedMessage(), HttpStatus.FORBIDDEN, webRequest);
     }
 
@@ -152,12 +147,11 @@ public class GlobalExceptionHandler {
     }
 
 
-
     @ExceptionHandler(InternalAuthenticationServiceException.class)
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     public Map<String, Object> handleInternalAuthenticationServiceException(
             InternalAuthenticationServiceException e, WebRequest webRequest){
-        log.debug(createExceptionMessage(e.getLocalizedMessage(), HttpStatus.UNAUTHORIZED, webRequest).toString());
+        log.debug("Investigate: ", e);
         return createExceptionMessage(e.getLocalizedMessage(), HttpStatus.UNAUTHORIZED, webRequest);
     }
 
@@ -174,22 +168,4 @@ public class GlobalExceptionHandler {
     error.put("timestamp", timestamp);
     return error;
     }
-
-//    String ipAddress = getClientIpAddress(request);
-
-    private String getClientIpAddress(WebRequest request) {
-        String ipAddress = request.getHeader("X-Forwarded-For");
-
-        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
-            ipAddress = request.getHeader("Proxy-Client-IP");
-        }
-        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
-            ipAddress = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
-            ipAddress = request.toString();
-        }
-        return ipAddress;
-    }
-
 }

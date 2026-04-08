@@ -1,6 +1,5 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.springTests.ownersToolsTests.ownersCustomersTests;
-import com.adamstraub.tonsoftacos.dto.businessDto.CustomerReturnedToOwner;
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwner;
+import com.adamstraub.tonsoftacos.dto.businessDto.CustomerReturnedToOwnerDTO;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.ownersToolsSupport.OwnersToolsTestsSupport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
@@ -15,8 +14,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 
 import java.util.Map;
-import java.util.Objects;
-
 
 
 public class UpdateCustomerNameTest {
@@ -57,7 +54,7 @@ public class UpdateCustomerNameTest {
                     String.format("%s?%s=%s", getBaseUriForGetCustomerByUid(),parameter, customerUid);
             System.out.println(getCustomerUri);
 //            call customer before alteration
-            ResponseEntity<CustomerReturnedToOwner> getCustomerResponse =
+            ResponseEntity<CustomerReturnedToOwnerDTO> getCustomerResponse =
                     getRestTemplate().exchange(getCustomerUri, HttpMethod.GET, headersEntity, new ParameterizedTypeReference<>() {
                     });
             System.out.println("Customer before alteration: " + getCustomerResponse.getBody());
@@ -83,7 +80,7 @@ public class UpdateCustomerNameTest {
                     String.format("%s?%s=%s", getBaseUriForGetCustomerByUid(), parameter, customerUid);
             System.out.println(getCustomerUri2);
 
-            ResponseEntity<CustomerReturnedToOwner> getCustomerResponse2 =
+            ResponseEntity<CustomerReturnedToOwnerDTO> getCustomerResponse2 =
                     getRestTemplate().exchange(getCustomerUri2, HttpMethod.GET, headersEntity,
                             new ParameterizedTypeReference<>() {
                             });
