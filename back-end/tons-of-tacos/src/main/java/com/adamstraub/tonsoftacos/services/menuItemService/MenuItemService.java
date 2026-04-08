@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.services.menuItemService;
 
-import com.adamstraub.tonsoftacos.dto.categoryDto.DTO;
+import com.adamstraub.tonsoftacos.dto.categoryDto.CategoryDTO;
 import com.adamstraub.tonsoftacos.entities.Category;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
 import com.adamstraub.tonsoftacos.repository.CategoryRepository;
@@ -11,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,7 @@ public class MenuItemService implements MenuItemServiceInterface{
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Transactional
     @Override
     public ResponseEntity<List<MenuItem>> findByCategory(String category){
     List<MenuItem> menuItems = menuItemRepository.findByCategory(category);
@@ -34,9 +36,10 @@ public class MenuItemService implements MenuItemServiceInterface{
     return ResponseEntity.ok(menuItems);
     }
 
+    @Transactional
     @Override
-    public ResponseEntity<List<DTO>>getCategories(){
-        List<DTO> categories;
+    public ResponseEntity<List<CategoryDTO>>getCategories(){
+        List<CategoryDTO> categories;
         try{
             categories = getByAvailable();
         }catch (Exception e){
@@ -45,14 +48,12 @@ public class MenuItemService implements MenuItemServiceInterface{
         return ResponseEntity.ok(categories);
     }
 
-    private List<DTO> getByAvailable(){
+    private List<CategoryDTO> getByAvailable(){
         Iterable<Category> iterable = categoryRepository.findByAvailableLike('y');
         return StreamSupport.stream(iterable.spliterator(),false).map(category -> {
-            DTO dto = new DTO();
+            CategoryDTO dto = new CategoryDTO();
             BeanUtils.copyProperties(category,dto);
             return dto;
         }).collect(Collectors.toList());
     }
-
-
 }

@@ -49,7 +49,6 @@ public interface OwnersCustomersControllerInterface {
                             description = "An unplanned error occured."),
             }
     )
-    @Transactional
     @PutMapping("/edit-customer-name/{customerUid}/{newCustomerName}")
     ResponseEntity<ResponseMessageDTO> updateCustomerName(
             @PathVariable
@@ -84,7 +83,6 @@ public interface OwnersCustomersControllerInterface {
                             description = "An unplanned error occured."),
             }
     )
-    @Transactional
     @PutMapping("/edit-customer-email/{customerUid}/{newCustomerEmail}")
     ResponseEntity<ResponseMessageDTO> updateCustomerEmail(
             @PathVariable
@@ -119,7 +117,6 @@ public interface OwnersCustomersControllerInterface {
                             description = "An unplanned error occured."),
             }
     )
-    @Transactional
     @PutMapping("/edit-customer-phone/{customerUid}/{newCustomerPhone}")
     ResponseEntity<ResponseMessageDTO> updateCustomerPhone(
             @PathVariable

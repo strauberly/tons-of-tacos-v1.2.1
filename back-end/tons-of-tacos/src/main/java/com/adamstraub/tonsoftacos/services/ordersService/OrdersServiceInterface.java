@@ -5,6 +5,5 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
 public interface OrdersServiceInterface {
-
     ResponseEntity<OrderReturnedToCustomerDTO> createOrder(@RequestBody SubmittedOrderDTO order) throws Exception;
 }

@@ -69,7 +69,7 @@ public class CustomerValidationService {
 
     public boolean validateOrderUid(String uid){
         try{
-            if (uid.matches("^[A-Z0-9]{5}$")) customerEmailValid = true;
+            if (uid.matches("^[A-Z0-9]{5}$")) orderUidValid = true;
             if (!customerEmailValid){
                 throw new IllegalArgumentException("Customer e-mail incorrectly formatted. Please consult the documentation.");
             }

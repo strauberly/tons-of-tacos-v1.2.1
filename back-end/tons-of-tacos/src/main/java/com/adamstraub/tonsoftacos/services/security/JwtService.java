@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.services.security;
 
-import com.adamstraub.tonsoftacos.dto.businessDto.security.SubjectDTO;
+import com.adamstraub.tonsoftacos.dto.securityDto.SubjectDTO;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

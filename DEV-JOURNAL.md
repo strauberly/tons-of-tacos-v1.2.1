@@ -15,6 +15,26 @@ orderitems, orders, and customers are truncated in that order and foreign key
 check is set back to 1.
     - Monitor for any issues.
 
+- Added general template file in supporting-files/ai-assist. Goal is to provide 
+example for any ai usage during development.
+
+- Moving on to services.
+
+- Updated Customer Validation service to more accurately make use of order uid 
+validation.
+
+- Updated Owners Orders Service with transactional annotaion as well as 
+removing what should be unnecessary print outs and attempted to improve 
+formatting. Also added try catch blocks for calls to repositories.
+
+- Updated Menu Item Service with transactional annotation as well as quick scan 
+for anything that seemed out of place.
+
+- Updated Orders Service to make use of Sales service calcItemPriceWithSize and 
+Validation Service where appropriate reducing need to create new code in the 
+Orders Service class and keeping logic consistent where appropriate.
+    - Reformatting scub for unnecessary print lines and comments.
+
 ---
 -- 6 Apr 2026 --
 

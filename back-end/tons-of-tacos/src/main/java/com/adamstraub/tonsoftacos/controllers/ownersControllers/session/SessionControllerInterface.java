@@ -1,9 +1,9 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.session;
 
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.JwtResponseDTO;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.OwnerAuthDTO;
-import com.adamstraub.tonsoftacos.dto.businessDto.security.ResfreshTokenDTO;
+import com.adamstraub.tonsoftacos.dto.securityDto.JwtResponseDTO;
+import com.adamstraub.tonsoftacos.dto.securityDto.OwnerAuthDTO;
+import com.adamstraub.tonsoftacos.dto.securityDto.ResfreshTokenDTO;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,8 +75,6 @@ public interface SessionControllerInterface {
                         description = "An unplanned error occured."),
         }
 )
-
-@Transactional
 @PostMapping("/refresh")
 @ResponseBody
 ResponseEntity<JwtResponseDTO> refreshToken(@CookieValue ("token") ResfreshTokenDTO token);
@@ -104,7 +101,6 @@ ResponseEntity<JwtResponseDTO> refreshToken(@CookieValue ("token") ResfreshToken
                             description = "An unplanned error occured."),
             }
     )
-    @Transactional
     @DeleteMapping("/logout")
     ResponseEntity<ResponseMessageDTO> ownerLogout(HttpServletRequest request, @CookieValue ResfreshTokenDTO token);
 }

@@ -1,13 +1,12 @@
 package com.adamstraub.tonsoftacos.services.menuItemService;
 
-import com.adamstraub.tonsoftacos.dto.categoryDto.DTO;
+import com.adamstraub.tonsoftacos.dto.categoryDto.CategoryDTO;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface MenuItemServiceInterface {
-
     ResponseEntity<List<MenuItem>> findByCategory(String category);
-    ResponseEntity<List<DTO>> getCategories();
+    ResponseEntity<List<CategoryDTO>> getCategories();
 }

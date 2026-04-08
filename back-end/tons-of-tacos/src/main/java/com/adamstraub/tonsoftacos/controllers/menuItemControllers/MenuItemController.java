@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.controllers.menuItemControllers;
 
-import com.adamstraub.tonsoftacos.dto.categoryDto.DTO;
+import com.adamstraub.tonsoftacos.dto.categoryDto.CategoryDTO;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
 import com.adamstraub.tonsoftacos.services.menuItemService.MenuItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class MenuItemController implements MenuItemControllerInterface {
     }
 
     @Override
-    public ResponseEntity<List<DTO>> getAvailableCategories() {
+    public ResponseEntity<List<CategoryDTO>> getAvailableCategories() {
         return menuItemService.getCategories();
     }
 }
