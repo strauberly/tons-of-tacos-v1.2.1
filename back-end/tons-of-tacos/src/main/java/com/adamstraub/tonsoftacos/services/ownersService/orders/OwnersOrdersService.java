@@ -1,17 +1,19 @@
 package com.adamstraub.tonsoftacos.services.ownersService.orders;
-import com.adamstraub.tonsoftacos.repository.MenuItemRepository;
-import com.adamstraub.tonsoftacos.repository.OrderItemRepository;
+
+import com.adamstraub.tonsoftacos.dto.businessDto.OrderItemReturnedToOwnerDTO;
+import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwnerDTO;
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
+import com.adamstraub.tonsoftacos.entities.Customer;
 import com.adamstraub.tonsoftacos.entities.MenuItem;
 import com.adamstraub.tonsoftacos.entities.OrderItem;
 import com.adamstraub.tonsoftacos.entities.Orders;
 import com.adamstraub.tonsoftacos.repository.CustomerRepository;
+import com.adamstraub.tonsoftacos.repository.MenuItemRepository;
+import com.adamstraub.tonsoftacos.repository.OrderItemRepository;
 import com.adamstraub.tonsoftacos.repository.OrdersRepository;
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwnerDTO;
-import com.adamstraub.tonsoftacos.dto.businessDto.OrderItemReturnedToOwnerDTO;
-import com.adamstraub.tonsoftacos.entities.Customer;
 import com.adamstraub.tonsoftacos.services.customerValidationService.CustomerValidationService;
-import com.adamstraub.tonsoftacos.services.utilityService.salesService.SalesService;
+import com.adamstraub.tonsoftacos.services.utilityService.salesService.ISalesService;
+
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +21,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 @Slf4j
 @Service
-public class OwnersOrdersService implements OwnersOrdersServiceInterface {
+public class OwnersOrdersService implements IOwnersOrdersService {
     @Autowired
     private OrdersRepository ordersRepository;
     @Autowired
@@ -38,7 +39,7 @@ public class OwnersOrdersService implements OwnersOrdersServiceInterface {
     @Autowired
     private CustomerValidationService validationService;
     @Autowired
-    private SalesService salesService;
+    private ISalesService salesService;
 
     @Transactional
     @Override

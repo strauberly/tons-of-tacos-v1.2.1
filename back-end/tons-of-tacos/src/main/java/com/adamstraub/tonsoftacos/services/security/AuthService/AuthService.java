@@ -1,10 +1,13 @@
-package com.adamstraub.tonsoftacos.services.security;
+package com.adamstraub.tonsoftacos.services.security.AuthService;
 import com.adamstraub.tonsoftacos.dto.securityDto.*;
 import com.adamstraub.tonsoftacos.repository.OwnerRepository;
 import com.adamstraub.tonsoftacos.repository.RefreshTokenRepository;
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
 import com.adamstraub.tonsoftacos.entities.Owner;
 import com.adamstraub.tonsoftacos.entities.RefreshToken;
+import com.adamstraub.tonsoftacos.services.security.EncryptionService.IEncryptionService;
+import com.adamstraub.tonsoftacos.services.security.JwtService.IJwtService;
+import com.adamstraub.tonsoftacos.services.security.TokenRefreshService.ITokenRefreshService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,11 +25,13 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class AuthService implements IAuthService{
     @Autowired
-    private final JwtService jwtService;
+    private final IJwtService jwtService;
     @Autowired
-    private final TokenRefreshService tokenRefreshService;
+    private IEncryptionService encryptionService;
+    @Autowired
+    private final ITokenRefreshService tokenRefreshService;
     @Autowired
     private final AuthenticationManager authenticationManager;
     @Autowired
@@ -40,34 +46,41 @@ public class AuthService {
 
 
     public ResponseEntity<JwtResponseDTO> ownerLogin(@NotNull HttpServletRequest request, OwnerAuthDTO ownerAuth) {
-        System.out.println("auth service");
-        owner = jwtService.decrypt(ownerAuth.getUsername());
-        String name;
+        owner = encryptionService.decrypt(ownerAuth.getUsername());
+        String name = "";
         SubjectDTO subject;
+        Authentication auth;
         try{
-           authenticationManager
-                  .authenticate(new UsernamePasswordAuthenticationToken(jwtService.decrypt(ownerAuth.getUsername()),
-                          jwtService.decrypt(ownerAuth.getPsswrd())));
+
+           auth = authenticationManager
+                  .authenticate(new UsernamePasswordAuthenticationToken(encryptionService.decrypt(ownerAuth.getUsername()),
+                          encryptionService.decrypt(ownerAuth.getPsswrd())));
           } catch (Exception e) {
-            log.error("Credentials submitted:\n user: {}, password: {}\n from address: {}", jwtService.decrypt(ownerAuth.getUsername()), jwtService.decrypt(ownerAuth.getPsswrd()), getIpAddress(request));
+            log.error("Credentials submitted:\n user: {}, password: {}\n from address: {}",
+                    encryptionService.decrypt(ownerAuth.getUsername()),
+                    encryptionService.decrypt(ownerAuth.getPsswrd()),
+                    getIpAddress(request));
             log.debug("Investigate:",e);
               throw new BadCredentialsException("Bad credentials.", e);
           }
-//seperate try catch with runtime exception/system failure database down
-        Optional<Owner> owner = ownerRepository.findByUsername(jwtService.decrypt(ownerAuth.getUsername()));
-              name = owner.orElseThrow().getName();
-              subject = new SubjectDTO(ownerAuth.getUsername(), jwtService.encrypt(name.substring(0, name.indexOf(' '))));
+        try {
+            if(auth.isAuthenticated()){
+                Optional<Owner> owner = ownerRepository.findByUsername(encryptionService.decrypt(ownerAuth.getUsername()));
+                name = owner.orElseThrow().getName();
+            }
+        } catch (RuntimeException e) {
+            throw new RuntimeException( e);
+        }
+        subject = new SubjectDTO(ownerAuth.getUsername(), encryptionService.encrypt(name.substring(0, name.indexOf(' '))));
               tokenDTO.setToken(jwtService.generateToken(subject));
-              log.info("Successful Login: \n user: {}, location:{}", jwtService.decrypt(ownerAuth.getUsername()), getIpAddress(request) );
+              log.info("Successful Login: \n user: {}, location:{}", encryptionService.decrypt(ownerAuth.getUsername()), getIpAddress(request) );
         RefreshToken refreshToken = tokenRefreshService.createRefreshToken(subject.getUsername());
         return ResponseEntity.ok(JwtResponseDTO.builder()
                 .accessToken(jwtService.generateToken(subject))
                 .refreshToken(refreshToken.getToken()).build());
     }
 
-
-public ResponseEntity<ResponseMessageDTO> ownerLogout(@NotNull HttpServletRequest request, ResfreshTokenDTO token) {
-        System.out.println("auth service");
+public ResponseEntity<ResponseMessageDTO> ownerLogout(@NotNull HttpServletRequest request, RefreshTokenDTO token) {
         ResponseMessageDTO message = new ResponseMessageDTO();
         RefreshToken rftoken = refreshTokenRepository.findByToken(token.getRefreshToken());
         try {
@@ -80,17 +93,6 @@ public ResponseEntity<ResponseMessageDTO> ownerLogout(@NotNull HttpServletReques
         }
         return ResponseEntity.ok(message);
     }
-
-//    public void endOfDay() {
-//
-////        date
-//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//        String today = df.format(new Date());
-//        refreshTokenRepository.deleteAll();
-//        emailService.endOfDayEmailDevTeam("superduper.devteam@manyme.com", "End of day report: " + today);
-//
-//    }
-
 
     private String getIpAddress(HttpServletRequest request) {
         String ipAddress = request.getHeader("X-Forwarded-For");

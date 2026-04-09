@@ -19,7 +19,7 @@ import java.util.stream.StreamSupport;
 
 @Slf4j
 @Service
-public class MenuItemService implements MenuItemServiceInterface{
+public class MenuItemService implements IMenuItemService {
     @Autowired
     private MenuItemRepository menuItemRepository;
     @Autowired

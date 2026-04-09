@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("api/menu")
 @OpenAPIDefinition(info = @Info(title = "End point documentation for the Tons of Tacos food truck application."),
         servers = {@Server(url="http://localhost:8080/", description = "Local server")})
-public interface MenuItemControllerInterface {
+public interface IMenuItemController {
     @Operation(
             summary = "Return menu items by category.",
             description = """

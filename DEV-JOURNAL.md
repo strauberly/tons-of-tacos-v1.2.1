@@ -1,6 +1,32 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+-- 9 Apr 2026 --
+- Updated Customer Service by adding @Transactional annotation to all, removed 
+unneeded print lines, added try catch blocks with error handling while trying 
+to save updated customer info.
+
+- Updated AuthService with try catch for if owner can not be found in database 
+after being authenticated.
+
+- Updated JwtService to hold signature algorithm in application.properties as 
+enum for convenience.
+    - Extracted encrypt and decrypt to their own service and interface inside 
+of services security package.
+        - Repaired damaged files as a result.
+ - Interfaces created for any Services not associated with one. Interfaces 
+implemented in controllers for increased encapsulation.
+
+- All DTO's marked with DTO suffix to cut down on confusion and overlap with 
+entities.
+
+- All interfaces to move forward with naming convention of 'I' prefix 
+shorthand. Too long writing out interface.
+
+- Moving on to look at places for try catches in token refresh service and then 
+continuing on refactor to do list.
+
+---
 -- 7 Apr 2026 --
 
 - Altered logback file to capture more lines of stack trace if available.

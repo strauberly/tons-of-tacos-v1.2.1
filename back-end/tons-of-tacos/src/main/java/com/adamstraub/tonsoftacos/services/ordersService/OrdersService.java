@@ -10,7 +10,7 @@ import com.adamstraub.tonsoftacos.repository.OrdersRepository;
 import com.adamstraub.tonsoftacos.entities.OrderItem;
 import com.adamstraub.tonsoftacos.entities.Orders;
 import com.adamstraub.tonsoftacos.services.customerValidationService.CustomerValidationService;
-import com.adamstraub.tonsoftacos.services.utilityService.salesService.SalesService;
+import com.adamstraub.tonsoftacos.services.utilityService.salesService.ISalesService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +29,7 @@ import java.util.Objects;
 
 @Slf4j
 @Service
-public class OrdersService implements OrdersServiceInterface {
+public class OrdersService implements IOrdersService {
     @Autowired
     private OrdersRepository ordersRepository;
     @Autowired
@@ -40,7 +39,7 @@ public class OrdersService implements OrdersServiceInterface {
     @Autowired
    private CustomerValidationService customerValidationService;
     @Autowired
-    private SalesService salesService;
+    private ISalesService salesService;
 
     private boolean newCustomerFlag = false;
     private final OrderReturnedToCustomerDTO customerCopyDto = new OrderReturnedToCustomerDTO();

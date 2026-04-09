@@ -3,8 +3,8 @@ package com.adamstraub.tonsoftacos.controllers.ownersControllers.orders;
 import com.adamstraub.tonsoftacos.dto.businessDto.DailySalesDTO;
 import com.adamstraub.tonsoftacos.dto.businessDto.OrderReturnedToOwnerDTO;
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
-import com.adamstraub.tonsoftacos.services.ownersService.orders.OwnersOrdersService;
-import com.adamstraub.tonsoftacos.services.utilityService.salesService.SalesService;
+import com.adamstraub.tonsoftacos.services.ownersService.orders.IOwnersOrdersService;
+import com.adamstraub.tonsoftacos.services.utilityService.salesService.ISalesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +17,9 @@ import java.util.List;
 public class    OwnersOrdersController implements OwnersOrdersControllerInterface {
 
     @Autowired
-    private OwnersOrdersService ownersOrdersService;
+    private IOwnersOrdersService ownersOrdersService;
     @Autowired
-    private SalesService salesService;
+    private ISalesService salesService;
 
     @Override
     public ResponseEntity<List<OrderReturnedToOwnerDTO>> getAllOrders() {

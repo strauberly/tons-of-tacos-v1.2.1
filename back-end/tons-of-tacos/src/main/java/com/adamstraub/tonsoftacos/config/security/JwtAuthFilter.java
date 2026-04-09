@@ -1,7 +1,8 @@
 package com.adamstraub.tonsoftacos.config.security;
 import com.adamstraub.tonsoftacos.repository.OwnerRepository;
-import com.adamstraub.tonsoftacos.services.security.JwtService;
-import com.adamstraub.tonsoftacos.services.security.TokenRefreshService;
+import com.adamstraub.tonsoftacos.services.security.EncryptionService.IEncryptionService;
+import com.adamstraub.tonsoftacos.services.security.JwtService.JwtService;
+import com.adamstraub.tonsoftacos.services.security.TokenRefreshService.ITokenRefreshService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,9 +33,14 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
+    @Autowired
     private final JwtService jwtService;
+    @Autowired
     private final OwnerRepository ownerRepository;
-    private final TokenRefreshService tokenRefreshService;
+    @Autowired
+    private final ITokenRefreshService tokenRefreshService;
+    @Autowired
+    private IEncryptionService encryptionService;
 
 @Autowired
 @Qualifier("handlerExceptionResolver")
@@ -69,7 +75,7 @@ private final HandlerExceptionResolver resolver;
                 if(cookie!=null) {
                     userDetails = userDetailsService().loadUserByUsername(username);
                 }else{
-                    userDetails = userDetailsService().loadUserByUsername(jwtService.decrypt(username));
+                    userDetails = userDetailsService().loadUserByUsername(encryptionService.decrypt(username));
                 }
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null
                         , userDetails.getAuthorities());

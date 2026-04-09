@@ -1,5 +1,6 @@
 package com.adamstraub.tonsoftacos.controllers.ownersControllers.customers;
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
+import com.adamstraub.tonsoftacos.services.ownersService.customers.IOwnersCustomersService;
 import com.adamstraub.tonsoftacos.services.ownersService.customers.OwnersCustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OwnersCustomersController implements OwnersCustomersControllerInterface {
 
     @Autowired
-    private OwnersCustomersService ownersCustomersService;
+    private IOwnersCustomersService ownersCustomersService;
 
 
     @Override

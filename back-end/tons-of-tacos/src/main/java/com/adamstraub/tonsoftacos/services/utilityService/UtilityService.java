@@ -16,9 +16,9 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 @Slf4j
 @Service
-public class UtilityService {
+public class UtilityService implements IUtilityService{
 
-
+    @Override
     public void convertLogToPDF(String logFilePath, String pdfFilePath) {
 /*        primarily generated with chatGPT and then refined by myself to address unresolved issues dependencies,
         and looking for improvements.

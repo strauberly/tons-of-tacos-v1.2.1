@@ -26,11 +26,11 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class SalesService {
+public class SalesService implements ISalesService{
     @Autowired
     private OrdersRepository ordersRepository;
 
-
+    @Override
     public String largestSale(){
         Orders order = ordersRepository.findTopByOrderByOrderTotalDesc();
         String orderId = order.getOrderUid();
@@ -66,6 +66,7 @@ public class SalesService {
         return orderItemList;
     }
 
+    @Override
     public String ordersStats(){
         List<Orders> orders = ordersRepository.findAll();
         List<Orders> openOrders = new ArrayList<>();
@@ -95,6 +96,7 @@ public class SalesService {
 
 
     @Transactional
+    @Override
     public List<Orders> findClosedOrders(){
         List<Orders> closedOrders = new ArrayList<>();
         List<Orders> orders = ordersRepository.findAll();
@@ -107,6 +109,7 @@ public class SalesService {
         return closedOrders;
     }
 
+    @Override
     public BigDecimal calcItemPriceWithSize(Integer quantity, String size, BigDecimal unitPrice){
         BigDecimal sizeSurcharge = BigDecimal.ZERO;
         BigDecimal adjPrice;
@@ -120,6 +123,7 @@ public class SalesService {
     }
 
         @Transactional
+        @Override
     public ResponseEntity<DailySalesDTO> salesToday() {
         System.out.println("service");
         DailySalesDTO salesToday = new DailySalesDTO();
