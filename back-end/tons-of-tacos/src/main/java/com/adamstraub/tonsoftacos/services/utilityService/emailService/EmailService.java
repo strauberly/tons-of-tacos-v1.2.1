@@ -1,19 +1,17 @@
 package com.adamstraub.tonsoftacos.services.utilityService.emailService;
 
 import com.adamstraub.tonsoftacos.dto.businessDto.DailySalesDTO;
-import com.adamstraub.tonsoftacos.services.utilityService.UtilityService;
-import com.adamstraub.tonsoftacos.services.utilityService.salesService.SalesService;
+import com.adamstraub.tonsoftacos.services.utilityService.IUtilityService;
+import com.adamstraub.tonsoftacos.services.utilityService.salesService.ISalesService;
 import jakarta.mail.internet.*;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
-//import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.MessageFormat;
@@ -22,14 +20,15 @@ import java.util.Arrays;
 
 @Slf4j
 @Service
-public class EmailService {
+public class EmailService implements IEmailService{
     @Autowired
     private JavaMailSender mailSender;
     @Autowired
-    SalesService salesService;
+    private ISalesService salesService;
     @Autowired
-    UtilityService utilityService;
+    private IUtilityService utilityService;
 
+    @Override
     public void logsToDevTeam(String to, String subject){
 
         String body = """
@@ -80,6 +79,7 @@ public class EmailService {
         }
     }
 
+    @Override
     public void salesSummaryToOwners(String[] recipients, String subject) {
         String largestSale = salesService.largestSale();
         String orderStats = salesService.ordersStats();

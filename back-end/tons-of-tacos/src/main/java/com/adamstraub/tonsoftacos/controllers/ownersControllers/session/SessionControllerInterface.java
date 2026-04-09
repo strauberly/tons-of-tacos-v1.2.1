@@ -3,7 +3,7 @@ package com.adamstraub.tonsoftacos.controllers.ownersControllers.session;
 import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
 import com.adamstraub.tonsoftacos.dto.securityDto.JwtResponseDTO;
 import com.adamstraub.tonsoftacos.dto.securityDto.OwnerAuthDTO;
-import com.adamstraub.tonsoftacos.dto.securityDto.ResfreshTokenDTO;
+import com.adamstraub.tonsoftacos.dto.securityDto.RefreshTokenDTO;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
@@ -77,7 +77,7 @@ public interface SessionControllerInterface {
 )
 @PostMapping("/refresh")
 @ResponseBody
-ResponseEntity<JwtResponseDTO> refreshToken(@CookieValue ("token") ResfreshTokenDTO token);
+ResponseEntity<JwtResponseDTO> refreshToken(@CookieValue ("token") RefreshTokenDTO token);
 
 
 
@@ -102,7 +102,7 @@ ResponseEntity<JwtResponseDTO> refreshToken(@CookieValue ("token") ResfreshToken
             }
     )
     @DeleteMapping("/logout")
-    ResponseEntity<ResponseMessageDTO> ownerLogout(HttpServletRequest request, @CookieValue ResfreshTokenDTO token);
+    ResponseEntity<ResponseMessageDTO> ownerLogout(HttpServletRequest request, @CookieValue RefreshTokenDTO token);
 }
 
 

@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface MenuItemServiceInterface {
+public interface IMenuItemService {
     ResponseEntity<List<MenuItem>> findByCategory(String category);
     ResponseEntity<List<CategoryDTO>> getCategories();
 }

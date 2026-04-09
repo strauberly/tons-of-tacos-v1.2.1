@@ -1,6 +1,6 @@
 package com.adamstraub.tonsoftacos.tonsoftacos.testSupport.ownersToolsSupport;
 
-import com.adamstraub.tonsoftacos.services.security.JwtService;
+import com.adamstraub.tonsoftacos.services.security.EncryptionService.IEncryptionService;
 import com.adamstraub.tonsoftacos.tonsoftacos.testSupport.TestUris;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,7 +20,7 @@ public class OwnersToolsTestsSupport extends TestUris {
     private String SECRET;
 
     @Autowired
-    private JwtService jwtService = new JwtService();
+    private IEncryptionService encryptionService;
 
     protected String validCredentials(){
 
@@ -41,7 +41,7 @@ public class OwnersToolsTestsSupport extends TestUris {
 
 
     protected String badUsername(){
-        String badUsername = jwtService.encrypt("tony");
+        String badUsername = encryptionService.encrypt("tony");
         return
                 "{ \"username\": " + '"' + badUsername + "\"," +  "\n" +
                 "\"psswrd\" : \"?aNwlfCd7glf(E&r)lLr}W?fT\" " +
@@ -49,7 +49,7 @@ public class OwnersToolsTestsSupport extends TestUris {
     }
 
     protected String badPassword(){
-        String badPassword = jwtService.encrypt("bigTony22");
+        String badPassword = encryptionService.encrypt("bigTony22");
         return "{ \"username\" :  \"m)Km7y{f0~nd$,hvNLOw0.F5FlP5u?5\"," + "\n" +
                 "\"psswrd\" : " + '"' + badPassword + '"' +
                 "}";
@@ -106,7 +106,7 @@ public class OwnersToolsTestsSupport extends TestUris {
     private String buildBadToken(){
 //        set time variable instead of creating new
         String token = Jwts.builder()
-                .setSubject(jwtService.encrypt("jerry"))
+                .setSubject(encryptionService.encrypt("jerry"))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
 //                testing what happens if expired time is before issued time
                 .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60)))

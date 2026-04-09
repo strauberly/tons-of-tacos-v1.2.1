@@ -110,5 +110,5 @@ public interface OrdersControllerInterface {
 
 
     @PostMapping("/checkout")
-   ResponseEntity<OrderReturnedToCustomerDTO> createOrder(@RequestBody SubmittedOrderDTO order);
+   ResponseEntity<OrderReturnedToCustomerDTO> createOrder(@RequestBody SubmittedOrderDTO order) throws Exception;
 }

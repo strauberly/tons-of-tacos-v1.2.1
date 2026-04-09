@@ -19,7 +19,7 @@ import java.util.*;
 @Data
 @Service
 @Slf4j
-public class OwnersCustomersService implements OwnersCustomersServiceInterface {
+public class OwnersCustomersService implements IOwnersCustomersService {
 
     @Autowired
     private OrdersRepository ordersRepository;
