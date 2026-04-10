@@ -1,6 +1,14 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+-- 10 Apr 2026 --
+
+- Added try catch blocks to Token Refresh Service.
+- Removed unnecessary comments and code.
+- Testing will resume on front end. before moving further.
+
+
+---
 -- 9 Apr 2026 --
 - Updated Customer Service by adding @Transactional annotation to all, removed 
 unneeded print lines, added try catch blocks with error handling while trying 

@@ -38,7 +38,7 @@ public class JwtService implements IJwtService{
 private String buildToken(SubjectDTO subject){
 /*            5 min for access token, 4hrs for refresh token, front end is checking every minute since it needs to update the clock
             .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 ) * 5))
-             application is set for 2 min for testing restore when done to above
+             application is set for 2 min for testing restore when done to above ie 5 min
              */
     return Jwts.builder()
             .setSubject(subject.getUsername())
@@ -51,7 +51,6 @@ private String buildToken(SubjectDTO subject){
     public String generateToken(SubjectDTO subject){
         return buildToken(subject);
     }
-
 
 
 //    validate token
