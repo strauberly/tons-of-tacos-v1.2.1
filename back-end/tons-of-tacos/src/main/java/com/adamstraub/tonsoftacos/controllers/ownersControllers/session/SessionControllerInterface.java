@@ -4,15 +4,18 @@ import com.adamstraub.tonsoftacos.dto.businessDto.ResponseMessageDTO;
 import com.adamstraub.tonsoftacos.dto.securityDto.JwtResponseDTO;
 import com.adamstraub.tonsoftacos.dto.securityDto.OwnerAuthDTO;
 import com.adamstraub.tonsoftacos.dto.securityDto.RefreshTokenDTO;
+import com.adamstraub.tonsoftacos.services.security.EncryptionService.EncryptionService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 
 
 @Validated
@@ -53,7 +56,7 @@ public interface SessionControllerInterface {
     )
 
     @PostMapping("/login")
-    ResponseEntity<JwtResponseDTO> ownerLogin(HttpServletRequest request, @RequestBody OwnerAuthDTO authDto);
+    ResponseEntity<JwtResponseDTO> ownerLogin(HttpServletResponse response, HttpServletRequest request, @RequestBody OwnerAuthDTO authDto);
 
 @Operation(
         summary = "Create new access token once original expires.",
@@ -77,7 +80,9 @@ public interface SessionControllerInterface {
 )
 @PostMapping("/refresh")
 @ResponseBody
+// this might need to replicate the login?
 ResponseEntity<JwtResponseDTO> refreshToken(@CookieValue ("token") RefreshTokenDTO token);
+//ResponseEntity<JwtResponseDTO> refreshToken(HttpServletRequest request);
 
 
 

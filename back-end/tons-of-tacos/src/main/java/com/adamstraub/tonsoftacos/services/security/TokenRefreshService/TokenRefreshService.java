@@ -1,11 +1,12 @@
 package com.adamstraub.tonsoftacos.services.security.TokenRefreshService;
 
+import com.adamstraub.tonsoftacos.dto.securityDto.SubjectDTO;
 import com.adamstraub.tonsoftacos.entities.RefreshToken;
 import com.adamstraub.tonsoftacos.repository.OwnerRepository;
 import com.adamstraub.tonsoftacos.repository.RefreshTokenRepository;
 import com.adamstraub.tonsoftacos.dto.securityDto.JwtResponseDTO;
 import com.adamstraub.tonsoftacos.dto.securityDto.RefreshTokenDTO;
-import com.adamstraub.tonsoftacos.dto.securityDto.SubjectDTO;
+//import com.adamstraub.tonsoftacos.dto.securityDto.SubjectDTO;
 import com.adamstraub.tonsoftacos.entities.Owner;
 import com.adamstraub.tonsoftacos.services.security.EncryptionService.IEncryptionService;
 import com.adamstraub.tonsoftacos.services.security.JwtService.IJwtService;
@@ -37,15 +38,16 @@ public  class TokenRefreshService implements ITokenRefreshService{
 
     @Override
     public RefreshToken createRefreshToken(String userName){
+        int id = 0;
         Owner owner = ownerRepository.findByUsername(encryptionService.decrypt(userName))
                 .orElseThrow(()-> new EntityNotFoundException("No owner found for user name: " + userName));
         int ownerID = owner.getOwnerId();
         try {
             List<com.adamstraub.tonsoftacos.entities.RefreshToken> oldTokenlist = refreshTokenRepository.findAll();
-            for(com.adamstraub.tonsoftacos.entities.RefreshToken oldToken : oldTokenlist) {
+            for(RefreshToken oldToken : oldTokenlist) {
                 if (oldToken.getOwnerInfo().getOwnerId() == ownerID) {
-                    log.info("token for user found and deleted: {}", oldToken);
-                    refreshTokenRepository.deleteById(oldToken.getId());
+                    id = oldToken.getId();
+                    log.info("Previous token for user found during refresh: {}", oldToken);
                 }
             }
         } catch (RuntimeException e) {
@@ -54,12 +56,15 @@ public  class TokenRefreshService implements ITokenRefreshService{
 
         try {
             RefreshToken refreshToken = RefreshToken.builder()
+                    .id(id)
                     .ownerInfo(ownerRepository.findByUsername(encryptionService.decrypt(userName))
                             .orElseThrow(()-> new EntityNotFoundException("No owner found for user name: " + userName)))
                     .token(UUID.randomUUID().toString())
                     .exp(Date.from(Instant.now().plusMillis((1000*60) * 4)))
                     .build();
-            return refreshTokenRepository.save(refreshToken);
+            log.info("refreshToken to be returned: {}", refreshToken);
+            refreshTokenRepository.save(refreshToken);
+            return refreshToken;
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }
@@ -78,7 +83,6 @@ public  class TokenRefreshService implements ITokenRefreshService{
 
     @Transactional
     public RefreshToken verifyExpiration(RefreshToken refreshToken){
-
         if (refreshToken.getExp().compareTo(new Date(System.currentTimeMillis()))<0){
             refreshTokenRepository.delete(refreshToken);
             throw new RuntimeException(refreshToken.getToken() + "Refresh expired try again");
@@ -89,23 +93,27 @@ public  class TokenRefreshService implements ITokenRefreshService{
     @Transactional
     @Override
     public ResponseEntity<JwtResponseDTO> refreshToken(RefreshTokenDTO token) {
-        RefreshToken oldToken = verifyExpiration(findByToken(token.getRefreshToken()));
-        String name = oldToken.getOwnerInfo().getName();
-        SubjectDTO subject = new SubjectDTO();
-        String uuid = UUID.randomUUID().toString();
-
-        subject.setOwnername(name.substring(0, name.indexOf(' ')));
-        subject.setUsername(encryptionService.encrypt(oldToken.getOwnerInfo().getUsername()));
-        String accessToken = jwtService.generateToken(subject);
-
-        oldToken.setToken(uuid);
-        oldToken.setExp(new Date((System.currentTimeMillis() + (1000 * 60) * 4)));
+        log.info("Refreshing refresh token:  {}", token);
+//        RefreshToken oldToken = verifyExpiration(findByToken(token.getRefreshToken()));
+        RefreshToken oldToken = verifyExpiration(findByToken(jwtService.extractRefreshToken(token.getRefreshToken())));
+        String ownerName = oldToken.getOwnerInfo().getName();
+        String userName = oldToken.getOwnerInfo().getUsername();
+        SubjectDTO subject;
+//        subject = new SubjectDTO(encryptionService.encrypt(userName),
+//                encryptionService.encrypt(ownerName.substring(0, ownerName.indexOf(' '))));
+        RefreshToken newRefreshToken = createRefreshToken(encryptionService.encrypt(userName));
+//        double check if encryption needed or what is going on
+        subject = new SubjectDTO(encryptionService.encrypt(userName),
+                encryptionService.encrypt(ownerName.substring(0, ownerName.indexOf(' '))),
+                newRefreshToken.getToken());
+//        RefreshToken newRefreshToken = createRefreshToken(subject.getUsername());
+        log.info("new refresh token:  {}", newRefreshToken.getToken());
+//        jwt response to be reworked or eliminated.
+        JwtResponseDTO response = JwtResponseDTO.builder()
+                .accessToken(jwtService.generateToken(subject))
+                .refreshToken(newRefreshToken.getToken()).build();
                 try {
-                    refreshTokenRepository.save(oldToken);
-                    return ResponseEntity.ok(JwtResponseDTO.builder()
-                            .accessToken(accessToken)
-                            .refreshToken(uuid)
-                            .build());
+                    return ResponseEntity.ok(response);
                 } catch (RuntimeException e) {
                     throw new RuntimeException(e);
                 }

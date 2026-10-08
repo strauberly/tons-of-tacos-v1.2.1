@@ -4,4 +4,5 @@ import com.adamstraub.tonsoftacos.dto.securityDto.SubjectDTO;
 
 public interface IJwtService {
     String generateToken(SubjectDTO subject);
+    String extractRefreshToken(String token);
 }

@@ -7,6 +7,8 @@ import com.adamstraub.tonsoftacos.dto.securityDto.RefreshTokenDTO;
 import com.adamstraub.tonsoftacos.services.security.AuthService.IAuthService;
 import com.adamstraub.tonsoftacos.services.security.TokenRefreshService.ITokenRefreshService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 
-
+@Slf4j
 @RestController
 public class SessionController implements SessionControllerInterface {
 
@@ -27,15 +29,21 @@ public class SessionController implements SessionControllerInterface {
 
 
     @Override
-    public ResponseEntity<JwtResponseDTO> ownerLogin(HttpServletRequest request, OwnerAuthDTO authDto){
+    public ResponseEntity<JwtResponseDTO> ownerLogin(HttpServletResponse response, HttpServletRequest request, OwnerAuthDTO authDto){
         System.out.println("login controller");
-        return authService.ownerLogin(request, authDto);
+        return authService.ownerLogin(response, request, authDto);
     }
 
     @Override
     public ResponseEntity<JwtResponseDTO> refreshToken(@CookieValue RefreshTokenDTO token) {
+//    public ResponseEntity<JwtResponseDTO> refreshToken(HttpServletRequest request) {
         System.out.println("refresh controller: " + token);
+        log.info("refresh controller, {}", token);
+
+//        System.out.println("refresh controller: " + request);
+
         return tokenRefreshService.refreshToken(token);
+//        return tokenRefreshService.refreshToken(token);
     }
 
     @Override

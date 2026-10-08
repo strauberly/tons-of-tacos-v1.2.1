@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface OwnerRepository extends JpaRepository<Owner, Integer> {
     Optional<Owner> findByUsername(String username)throws EntityNotFoundException;
+
 }
