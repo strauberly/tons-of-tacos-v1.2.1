@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class SubjectDTO {
     private String username;
     private String ownername;
+    private String refreshToken;
 }

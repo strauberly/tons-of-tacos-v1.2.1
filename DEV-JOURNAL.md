@@ -1,14 +1,90 @@
 ## This Journal tracks development progress, ideas and thoughts as proof I (Adam Straub) am the developer.
 
 ---
+
+-- 6 Oct 2026 --
+
+- Whoo! What a summer, finally back to it! 
+-  Readdressing goal of utilizing cookies to send encrypted credentials for 
+owner login generating an encrypted jwt token to be utilized by front end for 
+subsequent requests automatically
+- Main issue was that cookie containing jwt was not being sent for owner after 
+login
+   - Research indicated https requests needed to achieve objective, which is ok 
+because that was part of the planned specs any how.
+   - Lots of time spent researching generating certs compatible between 
+springboot and next.js    
+      - utilized claude haiku 4.5 during this time to speed up research and 
+generate examples.
+      - Example implemented examples by handtyping, testing and refinining 
+until desired results achieved. No copy and and paste of generated AI code. 
+
+    - Unknown aspects of code researched.
+
+    - Prompts and conversations saved for reference. May contain vulger 
+language. I'm human but working on it.
+
+- Utilized bash commands in springboot project folder src/main/resources to 
+generate .pem and pkcs files
+- certificate placed in root directory
+- updated routes for public function of getting menu item categories. Tested 
+with success.
+
+- Still need to update all API route addresses for HTTPS and retry to see if 
+desired functionality:
+
+  - Owner logs in, is issued a jwt specific to them, stored as cookie and then 
+sent on subsequent secured requests only available to the owners.
+  - Owner's session maintained when another user logs in utilizing same browser 
+and different tab.
+
+  Wish me luck, getting there but still lots to do!
+  
+  -- 24 May 2026 --
+
+- Much study about methodology for industry standard handling logins, access 
+tokens and means for sending credentials due to desire for application security.
+  - Lead to refactor of code base to utilize http only cookies in order to 
+transmit access token in jwt form with claims for necessary information 
+including refresh tokens. Lots of refactoring on both front and backend 
+applications in use. Will go into more detail later.
+
+---
+
+-- 8 May 2026 --
+
+- Continuing to evaluate our implementation of jwts, cookies and sessions 
+versus desired UX and UI while following common best practices and making plans 
+for adjustments to current codebase and structure.
+
+
+-- 25 Apr 2026 --
+
+- Updated encryption service randomChar() to refine logic for generating an 
+appropriate random char with do while statement.
+    - Updated application.properties with additional chars to be excluded as 
+they where causing issues for implementation for front end application.
+
+- Current expiration a token is two minutes. Reason behind is that since we are 
+updating the clock every minute as well as sales info, we might as well 
+refresh the token at same time to make sure call for sales will execute with a 
+valid token.
+
+- Refinements made in Token Refresh Service implementing methods already in 
+place aiding in readability and eliminating uneccessary code. Also made 
+refinements to logic improving readability and decreasing errors.
+    - Additional note: refresh tokens current expiration is 4 minutes for 
+development purposes. To be refined before launch.
+
+---
+
 -- 10 Apr 2026 --
 
 - Added try catch blocks to Token Refresh Service.
 - Removed unnecessary comments and code.
 - Testing will resume on front end. before moving further.
-
-
 ---
+
 -- 9 Apr 2026 --
 - Updated Customer Service by adding @Transactional annotation to all, removed 
 unneeded print lines, added try catch blocks with error handling while trying 
@@ -19,11 +95,13 @@ after being authenticated.
 
 - Updated JwtService to hold signature algorithm in application.properties as 
 enum for convenience.
-    - Extracted encrypt and decrypt to their own service and interface inside 
+
+- Extracted encrypt and decrypt to their own service and interface inside 
 of services security package.
         - Repaired damaged files as a result.
- - Interfaces created for any Services not associated with one. Interfaces 
-implemented in controllers for increased encapsulation.
+
+- Interfaces created for any Services not associated with one. 
+Interfaces implemented in controllers for increased encapsulation.
 
 - All DTO's marked with DTO suffix to cut down on confusion and overlap with 
 entities.

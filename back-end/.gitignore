@@ -1,5 +1,7 @@
 #IGNORE THE FOLLOWING FILES
 
+keystore.p12
+
 node_modules
 
 .next

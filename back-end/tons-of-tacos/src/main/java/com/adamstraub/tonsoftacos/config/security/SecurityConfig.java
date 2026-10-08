@@ -44,7 +44,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/owners-tools/**")
                         .authenticated())
                         .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
                         return
                         http.build();
