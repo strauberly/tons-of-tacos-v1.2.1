@@ -2,6 +2,30 @@
 
 ---
 
+-- 20 Oct 2026 --
+
+- Orders Controller Interface updating for utilizing https. Calls from front 
+end to submit a customer order appears to be successful.
+
+---
+
+-- 14 Oct 2026 --
+
+- address for origin in application.properties updated to https. requests from 
+front end requesting menu items utilizing https appear successful.
+
+
+---
+
+-- 13 Oct 2026 --
+
+- added base url for https and Open API Config file in config package in order 
+to reduce lines of code and create reusable base url in controller interfaces. 
+- application.properties holds values. 
+
+
+---
+
 -- 6 Oct 2026 --
 
 - Whoo! What a summer, finally back to it! 
